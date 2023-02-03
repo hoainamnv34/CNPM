@@ -23,9 +23,7 @@ public class NhanKhauModel {
     private Date ngayTao;
     private int idNguoiTao;
 
-    public int getID() {
-        return ID;
-    }
+  
 
     public void setID(int ID) {
         this.ID = ID;
@@ -176,6 +174,10 @@ public class NhanKhauModel {
 
     public void setIdNguoiTao(int idNguoiTao) {
         this.idNguoiTao = idNguoiTao;
+    }
+
+    public int getID() {
+        return ID;
     }
 
 
