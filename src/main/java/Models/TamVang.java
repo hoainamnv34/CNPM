@@ -2,23 +2,23 @@ package Models;
 
 import java.util.Date;
 
-public class TamTru {
-   private String matamtru;
-   private NhanKhau nguoitamtru;
+public class TamVang {
+   private String matamvang;
+   private NhanKhau nguoitamvang;
    private Date tungay;
    private Date denngay;
    private String lydo;
-   public String getMatamtru() {
-      return matamtru;
+   public String getMatamvang() {
+      return matamvang;
    }
-   public void setMatamtru(String matamtru) {
-      this.matamtru = matamtru;
+   public void setMatamvang(String matamvang) {
+      this.matamvang = matamvang;
    }
-   public NhanKhau getNguoitamtru() {
-      return nguoitamtru;
+   public NhanKhau getNguoitamvang() {
+      return nguoitamvang;
    }
-   public void setNguoitamtru(NhanKhau nguoitamtru) {
-      this.nguoitamtru = nguoitamtru;
+   public void setNguoitamvang(NhanKhau nguoitamvang) {
+      this.nguoitamvang = nguoitamvang;
    }
    public Date getTungay() {
       return tungay;
@@ -37,6 +37,7 @@ public class TamTru {
    }
    public void setLydo(String lydo) {
       this.lydo = lydo;
-   }
+   } 
+
    
 }
