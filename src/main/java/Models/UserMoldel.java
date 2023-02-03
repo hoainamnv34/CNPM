@@ -6,6 +6,14 @@ public class UserMoldel {
     private String userName;
     private String password;
 
+    
+
+    public UserMoldel(int iD, String i, String j) {
+        ID = iD;
+        this.userName = i;
+        this.password = j;
+    }
+
     public int getID() {
         return ID;
     }
