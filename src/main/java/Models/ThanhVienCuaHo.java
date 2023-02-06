@@ -4,6 +4,7 @@ public class ThanhVienCuaHo {
     private String idNhanKhau;
     private String idHoKhau;
     private String quanHeVoiChuHo;
+    private String noithuongtrutruoc;
 
     public ThanhVienCuaHo() {
     }

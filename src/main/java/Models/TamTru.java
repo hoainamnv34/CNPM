@@ -1,23 +1,30 @@
 package Models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class TamTru {
-   private String matamtru;
+   private String idTamTru;
    private NhanKhau nguoitamtru;
-   private String noitamtru;
-   private Date tungay;
-   private Date denngay;
-   private String lydo;
-
+   private String noiTamTru;
+   private LocalDate tuNgay;
+   private LocalDate denNgay;
+   private String lyDo;
 
    
 
-   public String getMatamtru() {
-      return matamtru;
+   public TamTru(String idTamTru, NhanKhau nguoitamtru, String noiTamTru, LocalDate tuNgay, LocalDate denNgay, String lyDo) {
+      this.idTamTru = idTamTru;
+      this.nguoitamtru = nguoitamtru;
+      this.noiTamTru = noiTamTru;
+      this.tuNgay = tuNgay;
+      this.denNgay = denNgay;
+      this.lyDo = lyDo;
    }
-   public void setMatamtru(String matamtru) {
-      this.matamtru = matamtru;
+   public String getIdTamTru() {
+      return idTamTru;
+   }
+   public void setIdTamTru(String idTamTru) {
+      this.idTamTru = idTamTru;
    }
    public NhanKhau getNguoitamtru() {
       return nguoitamtru;
@@ -25,29 +32,31 @@ public class TamTru {
    public void setNguoitamtru(NhanKhau nguoitamtru) {
       this.nguoitamtru = nguoitamtru;
    }
-   public Date getTungay() {
-      return tungay;
+   public String getNoiTamTru() {
+      return noiTamTru;
    }
-   public void setTungay(Date tungay) {
-      this.tungay = tungay;
+   public void setNoiTamTru(String noiTamTru) {
+      this.noiTamTru = noiTamTru;
    }
-   public Date getDenngay() {
-      return denngay;
+   public LocalDate getTuNgay() {
+      return tuNgay;
    }
-   public void setDenngay(Date denngay) {
-      this.denngay = denngay;
+   public void setTuNgay(LocalDate tuNgay) {
+      this.tuNgay = tuNgay;
    }
-   public String getLydo() {
-      return lydo;
+   public LocalDate getDenNgay() {
+      return denNgay;
    }
-   public void setLydo(String lydo) {
-      this.lydo = lydo;
+   public void setDenNgay(LocalDate denNgay) {
+      this.denNgay = denNgay;
    }
-   public String getNoitamtru() {
-      return noitamtru;
+   public String getLyDo() {
+      return lyDo;
    }
-   public void setNoitamtru(String noitamtru) {
-      this.noitamtru = noitamtru;
+   public void setLyDo(String lyDo) {
+      this.lyDo = lyDo;
    }
+
+   
    
 }

@@ -18,6 +18,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
+
 public class ThemHoKhauController implements Initializable  {
 
     @FXML
@@ -33,19 +34,13 @@ public class ThemHoKhauController implements Initializable  {
     TextField queQuanField;
 
     @FXML
-    TextField noiSinhField;
-
-    @FXML
-    TextField diaChField;
+    TextField thuongTruField;
 
     @FXML
     ChoiceBox gioiTinBox;
 
     @FXML
     ChoiceBox danTocBox; 
-
-    @FXML
-    ChoiceBox tonGiaoBox;
 
     @FXML
     TextField ngheNghiepField;
@@ -60,7 +55,7 @@ public class ThemHoKhauController implements Initializable  {
     public void initialize(URL location, ResourceBundle resources) {
         ngaySinhDatePicker.setValue(LocalDate.now());
 
-        BooleanBinding ismaHoKhauFieldEmpty =diaChField.textProperty().isEmpty();
+        BooleanBinding ismaHoKhauFieldEmpty =thuongTruField.textProperty().isEmpty();
         BooleanBinding ishohoTenFieldEmpty =hoTenField.textProperty().isEmpty();
         BooleanBinding iscMNFieldEmpty = cMNField.textProperty().isEmpty();
         BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
@@ -73,7 +68,7 @@ public class ThemHoKhauController implements Initializable  {
     protected void Submit(ActionEvent e) {
 
         String maHoKhau = createMaHoKhau();
-        newNhanKhau = new NhanKhau(0, hoTenField.getText(), cMNField.getText(), noiSinhField.getText(), queQuanField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), 1);
+        newNhanKhau = new NhanKhau(0, hoTenField.getText(), cMNField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), 1);
         String maNhanKhau = "xl";
         newtThanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, maHoKhau, "Chủ Hộ");
         Alert infoAlert = new Alert(AlertType.INFORMATION);

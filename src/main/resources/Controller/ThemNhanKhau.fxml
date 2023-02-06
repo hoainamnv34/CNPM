@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1236.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThemNhanKhauController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1236.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThemNhanKhauController">
    <children>
       <TableView layoutX="49.0" layoutY="79.0" prefHeight="460.0" prefWidth="466.0">
         <columns>
@@ -36,18 +36,18 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <TextField fx:id="hoTenField" layoutX="713.0" layoutY="110.0" prefHeight="31.0" prefWidth="242.0" promptText="Nguyễn Văn A" />
+      <TextField fx:id="hoTenField" layoutX="713.0" layoutY="111.0" prefHeight="31.0" prefWidth="242.0" promptText="Nguyễn Văn A" />
       <Label layoutX="577.0" layoutY="137.0" text="Ngày sinh">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="580.0" layoutY="176.0" text="CMND">
+      <Label layoutX="580.0" layoutY="176.0" text="CCCD">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <TextField fx:id="cMNField" layoutX="713.0" layoutY="183.0" prefHeight="30.0" prefWidth="242.0" promptText="0123456789" />
+      <TextField fx:id="cccdField" layoutX="713.0" layoutY="183.0" prefHeight="30.0" prefWidth="242.0" promptText="0123456789" />
       <TextField fx:id="maHoKhauField" layoutX="708.0" layoutY="64.0" prefHeight="31.0" prefWidth="149.0" promptText="Mã hộ khẩu. Ex: MHK-1" />
       <Label layoutX="577.0" layoutY="66.0" text="Mã hộ khẩu">
          <font>
@@ -64,35 +64,17 @@
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="581.0" layoutY="370.0" text="Dân tộc">
+      <Label layoutX="586.0" layoutY="355.0" text="Dân tộc">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <Label layoutX="838.0" layoutY="369.0" text="Tôn giáo">
+      <Label layoutX="574.0" layoutY="403.0" text="Nghề nghiệp">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="tonGiaoBox" layoutX="943.0" layoutY="371.0" prefHeight="26.0" prefWidth="149.0" value="Không">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Không" />
-                    <String fx:value="Phật Giáo" />
-                    <String fx:value="Hồi Giáo" />
-                    <String fx:value="Công giáo" />
-                    <String fx:value="Tin Lành" />
-                    <String fx:value="Khác" />
-
-                </FXCollections>
-            </items>
-        </ChoiceBox>
-      <Label layoutX="576.0" layoutY="416.0" text="Nghề nghiệp">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Label>
-      <TextField fx:id="ngheNghiepField" layoutX="708.0" layoutY="418.0" promptText="Công nhân" />
+      <TextField fx:id="ngheNghiepField" layoutX="709.0" layoutY="405.0" promptText="Công nhân" />
       <ChoiceBox fx:id="danTocBox" layoutX="701.0" layoutY="357.0" prefHeight="26.0" prefWidth="65.0" value="Kinh">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -180,11 +162,11 @@
             </items>
       </ChoiceBox>
       <TextField fx:id="queQuanField" layoutX="708.0" layoutY="221.0" />
-      <Label layoutX="583.0" layoutY="258.0" text="Nơi Sinh">
+      <Label layoutX="580.0" layoutY="259.0" text="Thường trú">
          <font>
             <Font size="19.0" />
          </font>
       </Label>
-      <TextField fx:id="noiSinhField" layoutX="708.0" layoutY="260.0" />
+      <TextField fx:id="thuongTruField" layoutX="708.0" layoutY="260.0" />
    </children>
 </AnchorPane>

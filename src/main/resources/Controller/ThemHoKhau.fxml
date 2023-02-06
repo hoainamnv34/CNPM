@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThemHoKhauController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThemHoKhauController">
    <children>
       <Label layoutX="323.0" layoutY="14.0" text="Thêm Hộ Khẩu">
          <font>
@@ -44,17 +44,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="174.0" text="Ngày sinh">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="ngaySinhDatePicker" prefHeight="25.0" prefWidth="208.0" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="28.0" prefWidth="175.0" text="CMND">
+                  <Label prefHeight="28.0" prefWidth="175.0" text="CCCD">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -64,32 +54,12 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="173.0" text="Quê Quán">
+                  <Label prefHeight="28.0" prefWidth="174.0" text="Ngày sinh">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="queQuanField" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="28.0" prefWidth="171.0" text="Nơi Sinh">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="noiSinhField" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="28.0" prefWidth="171.0" text="Nơi Thường Trú">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="diaChField" />
+                  <DatePicker fx:id="ngaySinhDatePicker" prefHeight="25.0" prefWidth="208.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -108,6 +78,26 @@
                             </FXCollections>
                         </items>
                   </ChoiceBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="173.0" text="Quê Quán">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="queQuanField" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label prefHeight="28.0" prefWidth="171.0" text="Thường Trú">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="thuongTruField" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -188,28 +178,6 @@
                      </font>
                   </Label>
                   <TextField fx:id="ngheNghiepField" promptText="Công nhân" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label prefHeight="28.0" prefWidth="167.0" text="Tôn giáo">
-                     <font>
-                        <Font size="19.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="tonGiaoBox" prefHeight="26.0" prefWidth="149.0" value="Không">
-                        <items>
-                            <FXCollections fx:factory="observableArrayList">
-                                <String fx:value="Không" />
-                                <String fx:value="Phật Giáo" />
-                                <String fx:value="Hồi Giáo" />
-                                <String fx:value="Công giáo" />
-                                <String fx:value="Tin Lành" />
-                                <String fx:value="Khác" />
-            
-                            </FXCollections>
-                        </items>
-                    </ChoiceBox>
                </children>
             </HBox>
          </children>

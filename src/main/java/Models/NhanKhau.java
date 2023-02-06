@@ -4,61 +4,45 @@ import java.time.LocalDate;
 
 public class NhanKhau {
    private int id;
-   private String hoten;
+   private String hoTen;
    private String cccd;
-   private String noisinh;
-   private String nguyenquan;
-   private String dantoc;
-   private String nghenghiep;
-   private LocalDate ngaysinh;
+   private LocalDate ngaySinh;
    private String gioiTinh;
-   private int idtronghokhau;
+   private String queQuan;
+   private String thuongTru;
+   private String danToc;
+   private String ngheNghiep;
+   private int idTrongHoKhau;
 
+   
 
-
-
-   public NhanKhau(int id, String hoten, String cccd, String noisinh, String nguyenquan, String dantoc,
-         String nghenghiep, LocalDate ngaysinh, String gioiTinh, int idtronghokhau) {
+   public NhanKhau(String hoTen) {
+      this.hoTen = hoTen;
+   }
+   public NhanKhau(int id, String hoTen, String cccd, LocalDate ngaySinh, String gioiTinh, String queQuan,
+         String thuongTru, String danToc, String ngheNghiep, int idTrongHoKhau) {
       this.id = id;
-      this.hoten = hoten;
+      this.hoTen = hoTen;
       this.cccd = cccd;
-      this.noisinh = noisinh;
-      this.nguyenquan = nguyenquan;
-      this.dantoc = dantoc;
-      this.nghenghiep = nghenghiep;
-      this.ngaysinh = ngaysinh;
+      this.ngaySinh = ngaySinh;
       this.gioiTinh = gioiTinh;
-      this.idtronghokhau = idtronghokhau;
+      this.queQuan = queQuan;
+      this.thuongTru = thuongTru;
+      this.danToc = danToc;
+      this.ngheNghiep = ngheNghiep;
+      this.idTrongHoKhau = idTrongHoKhau;
    }
-   public String getNoisinh() {
-      return noisinh;
+   public int getId() {
+      return id;
    }
-   public void setNoisinh(String noisinh) {
-      this.noisinh = noisinh;
+   public void setId(int id) {
+      this.id = id;
    }
-   public String getNguyenquan() {
-      return nguyenquan;
+   public String getHoTen() {
+      return hoTen;
    }
-   public void setNguyenquan(String nguyenquan) {
-      this.nguyenquan = nguyenquan;
-   }
-   public String getDantoc() {
-      return dantoc;
-   }
-   public void setDantoc(String dantoc) {
-      this.dantoc = dantoc;
-   }
-   public String getNghenghiep() {
-      return nghenghiep;
-   }
-   public void setNghenghiep(String nghenghiep) {
-      this.nghenghiep = nghenghiep;
-   }
-   public LocalDate getNgaysinh() {
-      return ngaysinh;
-   }
-   public void setNgaysinh(LocalDate ngaysinh) {
-      this.ngaysinh = ngaysinh;
+   public void setHoTen(String hoTen) {
+      this.hoTen = hoTen;
    }
    public String getCccd() {
       return cccd;
@@ -66,39 +50,50 @@ public class NhanKhau {
    public void setCccd(String cccd) {
       this.cccd = cccd;
    }
-  
-   public String getHoten() {
-      return hoten;
+   public LocalDate getNgaySinh() {
+      return ngaySinh;
    }
-   public void setHoten(String hoten) {
-      this.hoten = hoten;
+   public void setNgaySinh(LocalDate ngaySinh) {
+      this.ngaySinh = ngaySinh;
    }
-
-
    public String getGioiTinh() {
       return gioiTinh;
    }
-
-
    public void setGioiTinh(String gioiTinh) {
       this.gioiTinh = gioiTinh;
    }
-
-
-   public int getId() {
-      return id;
+   public String getQueQuan() {
+      return queQuan;
+   }
+   public void setQueQuan(String queQuan) {
+      this.queQuan = queQuan;
+   }
+   public String getThuongTru() {
+      return thuongTru;
+   }
+   public void setThuongTru(String thuongTru) {
+      this.thuongTru = thuongTru;
+   }
+   public String getDanToc() {
+      return danToc;
+   }
+   public void setDanToc(String danToc) {
+      this.danToc = danToc;
+   }
+   public String getNgheNghiep() {
+      return ngheNghiep;
+   }
+   public void setNgheNghiep(String ngheNghiep) {
+      this.ngheNghiep = ngheNghiep;
+   }
+   public int getIdTrongHoKhau() {
+      return idTrongHoKhau;
+   }
+   public void setIdTrongHoKhau(int idTrongHoKhau) {
+      this.idTrongHoKhau = idTrongHoKhau;
    }
 
-
-   public void setId(int id) {
-      this.id = id;
-   }
-   public int getIdtronghokhau() {
-      return idtronghokhau;
-   }
-   public void setIdtronghokhau(int idtronghokhau) {
-      this.idtronghokhau = idtronghokhau;
-   }
    
+
 }
  

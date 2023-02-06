@@ -1,68 +1,44 @@
 package Models;
 
 public class HoKhau {
-   private String mahokhau;
-   private String hotenchuho;
-   private String cccdchuho;
-   private String diachiho;
-   
+   private String idHoKhau;
+   private String hoTenChuHo;
+   private String cccdChHo;
+   private String diaChiHo;
 
-   public HoKhau(String mahokhau, String hotenchuho, String cccdchuho, String diachiho) {
-      this.mahokhau = mahokhau;
-      this.hotenchuho = hotenchuho;
-      this.cccdchuho = cccdchuho;
-      this.diachiho = diachiho;
+
+
+   public HoKhau(String idHoKhau, String hoTenChuHo, String cCCDChuHo, String diaChiHo) {
+      this.idHoKhau = idHoKhau;
+      this.hoTenChuHo = hoTenChuHo;
+      this.cccdChHo = cCCDChuHo;
+      this.diaChiHo = diaChiHo;
+   }
+   public String getIdHoKhau() {
+      return idHoKhau;
+   }
+   public void setIdHoKhau(String idHoKhau) {
+      this.idHoKhau = idHoKhau;
+   }
+   public String getHoTenChuHo() {
+      return hoTenChuHo;
+   }
+   public void setHoTenChuHo(String hoTenChuHo) {
+      this.hoTenChuHo = hoTenChuHo;
+   }
+   public String getDiaChiHo() {
+      return diaChiHo;
+   }
+   public void setDiaChiHo(String diaChiHo) {
+      this.diaChiHo = diaChiHo;
+   }
+   public String getCccdChHo() {
+      return cccdChHo;
+   }
+   public void setCccdChHo(String cccdChHo) {
+      this.cccdChHo = cccdChHo;
    }
 
-
-   public HoKhau(String mahokhau, String cccdchuho, String diachiho) {
-      this.mahokhau = mahokhau;
-      this.cccdchuho = cccdchuho;
-      this.diachiho = diachiho;
-
-
-   }
-
-
-
-
-   public String getCccdchuho() {
-      return cccdchuho;
-   }
-
-   public void setCccdchuho(String cccdchuho) {
-      this.cccdchuho = cccdchuho;
-   }
-
-   public String getMahokhau() {
-      return mahokhau;
-   }
-   public void setMahokhau(String mahokhau) {
-      this.mahokhau = mahokhau;
-   }
-   
-   public String getDiachiho() {
-      return diachiho;
-   }
-   public void setDiachiho(String diachiho) {
-      this.diachiho = diachiho;
-   }
-   public String getcccdchuho() {
-      return cccdchuho;
-   }
-   public void setcccdchuho(String cccdchuho) {
-      this.cccdchuho = cccdchuho;
-   }
-
-
-   public String getHotenchuho() {
-      return hotenchuho;
-   }
-
-
-   public void setHotenchuho(String hotenchuho) {
-      this.hotenchuho = hotenchuho;
-   }
    
    
 }

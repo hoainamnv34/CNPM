@@ -8,19 +8,20 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TamTruController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TamTruController">
 
    <center>
       <VBox prefHeight="503.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView prefHeight="447.0" prefWidth="1103.0">
+            <TableView fx:id="table" prefHeight="447.0" prefWidth="1103.0">
               <columns>
-                <TableColumn prefWidth="82.0" text="Mã tạm trú" />
-                <TableColumn prefWidth="200.0" text="Họ và Tên" />
-                  <TableColumn prefWidth="205.0" text="Nơi tạm trú" />
-                  <TableColumn prefWidth="173.0" text="Số điện thoại" />
-                  <TableColumn prefWidth="194.0" text="Thời hạn" />
-                  <TableColumn prefWidth="143.0" text="Lý do" />
+                  <TableColumn fx:id="sTT" prefWidth="56.0" text="STT" />
+                <TableColumn fx:id="idTamTru" prefWidth="95.0" text="Mã tạm trú" />
+                <TableColumn fx:id="hoTen" prefWidth="190.0" text="Họ và Tên" />
+                  <TableColumn fx:id="noiTamTru" prefWidth="240.0" text="Nơi tạm trú" />
+                  <TableColumn fx:id="tuNgay" prefWidth="195.0" text="Từ Ngày" />
+                  <TableColumn fx:id="denNgay" prefWidth="117.0" text="Đến Ngày" />
+                  <TableColumn fx:id="lyDo" prefWidth="92.0" text="Lý do" />
               </columns>
             </TableView>
          </children>
@@ -33,9 +34,9 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="44.0" prefWidth="982.0">
                      <children>
-                        <Button fx:id="qLNhanKhauBtn" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
-                        <Button fx:id="qLHoKhauBtn" mnemonicParsing="false" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
-                        <Button graphicTextGap="6.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
+                        <Button mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
+                        <Button mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
+                        <Button graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
                      </children>
                   </HBox>
                </children>

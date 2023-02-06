@@ -3,43 +3,59 @@ package Models;
 import java.util.Date;
 
 public class TamVang {
-   private String matamvang;
-   private NhanKhau nguoitamvang;
-   private String noitamtru;
-   private Date tungay; 
-   private Date denngay;
-   private String lydo;
+   private String idTamVang;
+   private NhanKhau nguoiTamVang;
+   private String noiTamTru;
+   private Date tuNgay; 
+   private Date denNgay;
+   private String lyDo;
 
-   public String getMatamvang() {
-      return matamvang;
+
+   
+   public TamVang(String idTamVang, NhanKhau nguoiTamVang, String noiTamTru, Date tuNgay, Date denNgay, String lyDo) {
+      this.idTamVang = idTamVang;
+      this.nguoiTamVang = nguoiTamVang;
+      this.noiTamTru = noiTamTru;
+      this.tuNgay = tuNgay;
+      this.denNgay = denNgay;
+      this.lyDo = lyDo;
    }
-   public void setMatamvang(String matamvang) {
-      this.matamvang = matamvang;
+   public String getIdTamVang() {
+      return idTamVang;
    }
-   public NhanKhau getNguoitamvang() {
-      return nguoitamvang;
+   public void setIdTamVang(String idTamVang) {
+      this.idTamVang = idTamVang;
    }
-   public void setNguoitamvang(NhanKhau nguoitamvang) {
-      this.nguoitamvang = nguoitamvang;
+   public NhanKhau getNguoiTamVang() {
+      return nguoiTamVang;
    }
-   public Date getTungay() {
-      return tungay;
+   public void setNguoiTamVang(NhanKhau nguoiTamVang) {
+      this.nguoiTamVang = nguoiTamVang;
    }
-   public void setTungay(Date tungay) {
-      this.tungay = tungay;
+   public String getNoiTamTru() {
+      return noiTamTru;
    }
-   public Date getDenngay() {
-      return denngay;
+   public void setNoiTamTru(String noiTamTru) {
+      this.noiTamTru = noiTamTru;
    }
-   public void setDenngay(Date denngay) {
-      this.denngay = denngay;
+   public Date getTuNgay() {
+      return tuNgay;
    }
-   public String getLydo() {
-      return lydo;
+   public void setTuNgay(Date tuNgay) {
+      this.tuNgay = tuNgay;
    }
-   public void setLydo(String lydo) {
-      this.lydo = lydo;
-   } 
+   public Date getDenNgay() {
+      return denNgay;
+   }
+   public void setDenNgay(Date denNgay) {
+      this.denNgay = denNgay;
+   }
+   public String getLyDo() {
+      return lyDo;
+   }
+   public void setLyDo(String lyDo) {
+      this.lyDo = lyDo;
+   }
 
    
 }

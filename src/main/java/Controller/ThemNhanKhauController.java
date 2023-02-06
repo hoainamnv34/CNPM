@@ -32,22 +32,19 @@ public class ThemNhanKhauController implements Initializable{
     DatePicker ngaySinhDatePicker;
 
     @FXML
-    TextField cMNField;
+    TextField cccdField;
 
     @FXML
     TextField queQuanField;
 
     @FXML
-    TextField noiSinhField;
+    TextField thuongTruField;
 
     @FXML
     ChoiceBox gioiTinBox;
 
     @FXML
     ChoiceBox danTocBox; 
-
-    @FXML
-    ChoiceBox tonGiaoBox;
 
     @FXML
     TextField ngheNghiepField;
@@ -76,16 +73,16 @@ public class ThemNhanKhauController implements Initializable{
 
         BooleanBinding ismaHoKhauFieldEmpty =maHoKhauField.textProperty().isEmpty();
         BooleanBinding ishohoTenFieldEmpty =hoTenField.textProperty().isEmpty();
-        BooleanBinding iscMNFieldEmpty = cMNField.textProperty().isEmpty();
-        BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
+        BooleanBinding iscccdFieldEmpty = cccdField.textProperty().isEmpty();
+        BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscccdFieldEmpty);
         saveButton.disableProperty().bind(areTextFieldsEmpty);
     }
 
     @FXML
     protected void Submit(ActionEvent e) {
         System.out.println(danTocBox.getValue());
-        newNhanKhau = new NhanKhau(1, hoTenField.getText(), cMNField.getText(), noiSinhField.getText(), queQuanField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText()
-        , ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), 0);
+        newNhanKhau = new NhanKhau(1, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), thuongTruField.getText(), queQuanField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText()
+        , gioiTinBox.getValue().toString(), 0);
         String maNhanKhau = "xl";
         newtThanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, maHoKhauField.getText(), quanHeVoiChuHoBox.getValue().toString());
         Alert infoAlert = new Alert(AlertType.INFORMATION);

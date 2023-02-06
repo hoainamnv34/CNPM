@@ -27,17 +27,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 public class NhanKhauController implements Initializable {
-     /*private int id;
-     private String noisinh;
-     private String nguyenquan;
-     private String dantoc;
-     private String nghenghiep;
-     private Date ngaysinh;
-     private int cccd;
-     private int idtronghokhau;
-     private int idhokhau;
-     private Boolean tamtru;
-     private Boolean tamvang;*/
 
      @FXML
      private TableView<NhanKhau> table;
@@ -51,11 +40,14 @@ public class NhanKhauController implements Initializable {
      @FXML
      private TableColumn<NhanKhau, String> cccd;
 
-     @FXML 
-     private TableColumn<NhanKhau, String> noisinh;
+     @FXML
+     private TableColumn<NhanKhau, LocalDate> ngaysinh;
+
+     @FXML
+     private TableColumn<NhanKhau, String> gioitinh;
 
      @FXML 
-     private TableColumn<NhanKhau, String> nguyenquan;
+     private TableColumn<NhanKhau, String> quequan;
 
      @FXML 
      private TableColumn<NhanKhau, String> dantoc;
@@ -63,8 +55,7 @@ public class NhanKhauController implements Initializable {
      @FXML 
      private TableColumn<NhanKhau, String> nghenghiep;
 
-     @FXML
-     private TableColumn<NhanKhau, LocalDate> ngaysinh;
+     
 
      @FXML 
      private Button editButton;
@@ -79,20 +70,20 @@ public class NhanKhauController implements Initializable {
      @Override
      public void initialize(URL arg0, ResourceBundle arg1) {
           nhankhauList = FXCollections.observableArrayList(
-               new NhanKhau(0, "Son", "1111", "Vinh", "NamDan", "Kinh", "SV", LocalDate.of(2020, 10, 20), null, 1),
-               new NhanKhau(1, "Nam", "1111", "Vinh", "NamDan", "Kinh", "SV", LocalDate.of(2020, 10, 20), null, 1)
+               new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1),
+               new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1)
           //new NhanKhau(1)
           );
 
           // sTT.setCellValueFactory(new String());
           sTT.setCellValueFactory(new PropertyValueFactory<NhanKhau, Integer>("id"));
-          hoten.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("hoten"));
-          ngaysinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, LocalDate>("ngaysinh"));
-          noisinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("noisinh"));
-          nguyenquan.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("nguyenquan"));
-          nghenghiep.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("nghenghiep"));
-          dantoc.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("dantoc"));
+          hoten.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("hoTen"));
           cccd.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("cccd"));
+          ngaysinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, LocalDate>("ngaySinh"));
+          gioitinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("gioiTinh"));
+          quequan.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("queQuan"));
+          dantoc.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("danToc"));
+          nghenghiep.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("ngheNghiep"));
           table.setItems(nhankhauList);
 
           BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
@@ -117,7 +108,7 @@ public class NhanKhauController implements Initializable {
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
           Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
           alert.setTitle("Cofirmation");
-          alert.setHeaderText("Bạn muốn xóa Nhân Khẩu " + selected.getHoten());
+          alert.setHeaderText("Bạn muốn xóa Nhân Khẩu " + selected.getHoTen());
           //   alert.setContentText("choose your option");
 
           ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
@@ -129,7 +120,7 @@ public class NhanKhauController implements Initializable {
           Optional<ButtonType> result = alert.showAndWait();
 
           if (result.get()== buttonTypeYes){
-               String message = "Xóa Nhân Khẩu " + selected.getHoten() + " thành công"; 
+               String message = "Xóa Nhân Khẩu " + selected.getHoTen() + " thành công"; 
                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
                alert1.setTitle("Information");
                alert1.setHeaderText("Notification");
@@ -145,13 +136,6 @@ public class NhanKhauController implements Initializable {
      protected void editEvent(ActionEvent e) throws IOException{
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
 
-
      }
 
-     @FXML
-     protected void disableEvent(ActionEvent e) {
-          BooleanBinding isSelected = table.selectionModelProperty().isNotNull();
-          delButton.disableProperty().bind(isSelected);
-          editButton.disableProperty().bind(isSelected);
-     }
 }
