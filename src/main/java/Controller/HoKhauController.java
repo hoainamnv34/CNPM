@@ -64,7 +64,7 @@ public class HoKhauController implements Initializable{
       );
 
       idHoKhau.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("idHoKhau"));
-      hoTenChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("hoTenChuHo"));
+      hoTenChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("hoTen"));
       cCCDChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("cccdChHo"));
       diaChiHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("diaChiHo"));
       table.setItems(hokhauList);

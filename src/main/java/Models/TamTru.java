@@ -60,6 +60,9 @@ public class TamTru {
       return this.nguoitamtru.getHoTen();
    }
 
+   public String getHoTen() {
+      return nguoitamtru.getHoTen();
+   }
    
-   
+  
 }
