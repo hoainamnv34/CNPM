@@ -56,6 +56,9 @@ public class TamTru {
    public void setLyDo(String lyDo) {
       this.lyDo = lyDo;
    }
+   public String gethoten() {
+      return this.nguoitamtru.getHoTen();
+   }
 
    
    

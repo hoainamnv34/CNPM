@@ -68,7 +68,7 @@ public class TamTruController implements Initializable {
       );
 
       idTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("idTamTru"));
-      // hoTen.setCellValueFactory(new PropertyValueFactory<TamTru, String>("hoTenChuHo"));
+      hoTen.setCellValueFactory(new PropertyValueFactory<TamTru, String>("hoten"));
       noiTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("noiTamTru"));
       tuNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("tuNgay"));
       denNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("denNgay"));
