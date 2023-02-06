@@ -40,23 +40,13 @@ public class HoKhau {
    public void setMahokhau(String mahokhau) {
       this.mahokhau = mahokhau;
    }
-<<<<<<< HEAD
    
-=======
-   public CCCD getChuho() {
-      return chuho;
-   }
-   public void setChuho(CCCD chuho) {
-      this.chuho = chuho;
-   }
->>>>>>> 3cd8550bf0f4af35b86d7471c66146233cc5665b
    public String getDiachiho() {
       return diachiho;
    }
    public void setDiachiho(String diachiho) {
       this.diachiho = diachiho;
    }
-<<<<<<< HEAD
    public String getcccdchuho() {
       return cccdchuho;
    }
@@ -74,7 +64,5 @@ public class HoKhau {
       this.hotenchuho = hotenchuho;
    }
    
-=======
->>>>>>> 3cd8550bf0f4af35b86d7471c66146233cc5665b
    
 }
