@@ -34,9 +34,9 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="44.0" prefWidth="982.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
-                        <Button mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
-                        <Button graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
+                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
+                        <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
+                        <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
                      </children>
                   </HBox>
                </children>

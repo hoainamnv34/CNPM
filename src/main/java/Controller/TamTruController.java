@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class TamTruController implements Initializable {
-    @FXML
+   @FXML
    private TableView<TamTru> table;
 
    @FXML
@@ -48,8 +48,6 @@ public class TamTruController implements Initializable {
    private TableColumn<TamTru,String > lyDo;
 
 
-
-
    @FXML 
    private Button editButton;
 
@@ -71,10 +69,10 @@ public class TamTruController implements Initializable {
 
       idTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("idTamTru"));
       // hoTen.setCellValueFactory(new PropertyValueFactory<TamTru, String>("hoTenChuHo"));
-      noiTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("hoTenChuHo"));
-      tuNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("hoTenChuHo"));
-      denNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("cccdChHo"));
-      lyDo.setCellValueFactory(new PropertyValueFactory<TamTru, String>("diaChiHo"));
+      noiTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("noiTamTru"));
+      tuNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("tuNgay"));
+      denNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("denNgay"));
+      lyDo.setCellValueFactory(new PropertyValueFactory<TamTru, String>("lyDo"));
       table.setItems(tamTruList);
 
       BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
