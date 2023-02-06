@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.NhanKhauController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.NhanKhauController">
 
    <center>
       <VBox prefHeight="480.0" prefWidth="1063.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="table" prefHeight="627.0" prefWidth="1178.0">
+            <TableView fx:id="table" onSort="#disableEvent" prefHeight="627.0" prefWidth="1178.0">
               <columns>
                 <TableColumn fx:id="sTT" prefWidth="40.79998856782913" text="STT" />
                 <TableColumn fx:id="hoten" prefWidth="191.19997787475586" text="Họ và tên" />
@@ -36,7 +36,7 @@
                   <HBox alignment="BOTTOM_CENTER" layoutY="-23.0" prefHeight="69.0" prefWidth="1196.0">
                      <children>
                         <Button fx:id="editButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
-                        <Button fx:id="delButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
+                        <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
                         <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
                      </children>
                   </HBox>
