@@ -23,7 +23,6 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -80,6 +79,8 @@ public class HoKhauController implements Initializable{
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
         Parent root = loader.load();
+        ThemHoKhauController controller = loader.getController();
+        controller.setHoKhauController(this);
         Scene scene = new Scene(root);
         addStage.setScene(scene);
         addStage.show();
@@ -118,5 +119,10 @@ public class HoKhauController implements Initializable{
    protected void editEvent(ActionEvent e) throws IOException{
       HoKhau selected = table.getSelectionModel().getSelectedItem();
 
+   }
+
+
+   public void addList(HoKhau hoKhau) {
+      hokhauList.add(hoKhau);
    }
 }

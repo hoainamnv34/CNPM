@@ -1,13 +1,16 @@
 package Controller;
 
+import Models.HoKhau;
+import Models.PhanAnhKienNghi;
+import Models.NhanKhau;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import Models.NhanKhau;
-import Models.TamTru;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,30 +29,34 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class TamTruController implements Initializable {
-   @FXML
-   private TableView<TamTru> table;
+public class PhanAnhKienNghiController implements Initializable{
 
    @FXML
-   private TableColumn<TamTru, String> sTT;
+   private TableView<PhanAnhKienNghi> table;
 
    @FXML
-   private TableColumn<TamTru, String> idTamTru;
+   private TableColumn<PhanAnhKienNghi, Integer> id;
 
    @FXML
-   private TableColumn<TamTru, String> hoTen;
+   private TableColumn<PhanAnhKienNghi, String> nguoiPhanAnh;
 
    @FXML
-   private TableColumn<TamTru, String> noiTamTru;
+   private TableColumn<PhanAnhKienNghi, String> noiDung;
 
    @FXML
-   private TableColumn<TamTru, LocalDate> tuNgay;
+   private TableColumn<PhanAnhKienNghi, LocalDate> ngayGui;
 
    @FXML
-   private TableColumn<TamTru,LocalDate > denNgay;
+   private TableColumn<PhanAnhKienNghi, Boolean> trangThai;
 
    @FXML
-   private TableColumn<TamTru,String > lyDo;
+   private TableColumn<PhanAnhKienNghi, String> capPhanHoi;
+
+   @FXML
+   private TableColumn<PhanAnhKienNghi, String> phanHoi;
+
+   @FXML
+   private TableColumn<PhanAnhKienNghi, LocalDate> ngayPhanHoi;
 
 
    @FXML 
@@ -61,34 +68,38 @@ public class TamTruController implements Initializable {
    @FXML 
    private Button addButton;
 
-   private ObservableList<TamTru> tamTruList;
+   private ObservableList<PhanAnhKienNghi> paknList;
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
-      tamTruList = FXCollections.observableArrayList(
-         new TamTru("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro"),
-         new TamTru("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
-         
+      paknList = FXCollections.observableArrayList(
+         //new HoKhau("HK.1","Son", "568", "Hoang Mai"),
+         //new HoKhau("HK.2","Nam", "346", "Hoang Mai")
+         new PhanAnhKienNghi(1, "123", new NhanKhau("Son"),
+          "App qldc nhu cut", LocalDate.of(2020,12,12), false,
+           "chu tich xa", "Chua co", null)
    
       );
 
-      idTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("idTamTru"));
-      hoTen.setCellValueFactory(new PropertyValueFactory<TamTru, String>("hoTen"));
-      noiTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("noiTamTru"));
-      tuNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("tuNgay"));
-      denNgay.setCellValueFactory(new PropertyValueFactory<TamTru, LocalDate>("denNgay"));
-      lyDo.setCellValueFactory(new PropertyValueFactory<TamTru, String>("lyDo"));
-      table.setItems(tamTruList);
+      id.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, Integer>("id"));
+      nguoiPhanAnh.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("ten"));
+      noiDung.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("noiDung"));
+      ngayGui.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, LocalDate>("ngayPA"));
+      trangThai.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, Boolean>("trangThai"));
+      capPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("capPhanAnh"));
+      phanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("phanHoi"));
+      ngayPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, LocalDate>("ngayPhanHoi"));
+      table.setItems(paknList);
 
       BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
    }
 
-   @FXML
+   /*@FXML
    protected void addEvent(ActionEvent e) throws IOException {
         Stage addStage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
+        loader.setLocation(getClass().getResource("ThemPA.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         addStage.setScene(scene);
@@ -97,10 +108,10 @@ public class TamTruController implements Initializable {
 
    @FXML
    protected void deleteEvent(ActionEvent e) throws IOException{
-         TamTru selected = table.getSelectionModel().getSelectedItem();
+         HoKhau selected = table.getSelectionModel().getSelectedItem();
          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
          alert.setTitle("Cofirmation");
-         alert.setHeaderText("Bạn muốn xóa tạm trú của " + selected.getHoTen());
+         alert.setHeaderText("Bạn muốn xóa hộ khẩu có chủ hộ tên " + selected.getHoTenChuHo());
          //   alert.setContentText("choose your option");
 
          ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
@@ -112,13 +123,13 @@ public class TamTruController implements Initializable {
          Optional<ButtonType> result = alert.showAndWait();
 
          if (result.get()== buttonTypeYes){
-            String message = "Xóa Hộ khẩu " + selected.getHoTen() + " thành công"; 
+            String message = "Xóa Hộ khẩu " + selected.getHoTenChuHo() + " thành công"; 
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Information");
             alert1.setHeaderText("Notification");
             alert1.setContentText(message);
             alert1.show();
-            tamTruList.remove(selected);
+            hokhauList.remove(selected);
          }      
          else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
             System.out.println("Code for no");
@@ -126,8 +137,7 @@ public class TamTruController implements Initializable {
 
    @FXML
    protected void editEvent(ActionEvent e) throws IOException{
-      // HoKhau selected = table.getSelectionModel().getSelectedItem();
+      HoKhau selected = table.getSelectionModel().getSelectedItem();
 
-   }
-    
+   }*/
 }

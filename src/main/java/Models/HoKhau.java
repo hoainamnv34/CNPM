@@ -39,6 +39,10 @@ public class HoKhau {
       this.cccdChHo = cccdChHo;
    }
 
+   public String getHoTen() {
+      return this.hoTenChuHo;
+   }
+
    
    
 }

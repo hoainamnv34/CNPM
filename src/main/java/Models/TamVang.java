@@ -1,18 +1,16 @@
 package Models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class TamVang {
    private String idTamVang;
    private NhanKhau nguoiTamVang;
    private String noiTamTru;
-   private Date tuNgay; 
-   private Date denNgay;
+   private LocalDate tuNgay; 
+   private LocalDate denNgay;
    private String lyDo;
-
-
-   
-   public TamVang(String idTamVang, NhanKhau nguoiTamVang, String noiTamTru, Date tuNgay, Date denNgay, String lyDo) {
+ 
+   public TamVang(String idTamVang, NhanKhau nguoiTamVang, String noiTamTru, LocalDate tuNgay, LocalDate denNgay, String lyDo) {
       this.idTamVang = idTamVang;
       this.nguoiTamVang = nguoiTamVang;
       this.noiTamTru = noiTamTru;
@@ -20,6 +18,7 @@ public class TamVang {
       this.denNgay = denNgay;
       this.lyDo = lyDo;
    }
+
    public String getIdTamVang() {
       return idTamVang;
    }
@@ -38,16 +37,16 @@ public class TamVang {
    public void setNoiTamTru(String noiTamTru) {
       this.noiTamTru = noiTamTru;
    }
-   public Date getTuNgay() {
+   public LocalDate getTuNgay() {
       return tuNgay;
    }
-   public void setTuNgay(Date tuNgay) {
+   public void setTuNgay(LocalDate tuNgay) {
       this.tuNgay = tuNgay;
    }
-   public Date getDenNgay() {
+   public LocalDate getDenNgay() {
       return denNgay;
    }
-   public void setDenNgay(Date denNgay) {
+   public void setDenNgay(LocalDate denNgay) {
       this.denNgay = denNgay;
    }
    public String getLyDo() {
@@ -55,6 +54,10 @@ public class TamVang {
    }
    public void setLyDo(String lyDo) {
       this.lyDo = lyDo;
+   }
+
+   public String getHoTen() {
+      return nguoiTamVang.getHoTen();
    }
 
    

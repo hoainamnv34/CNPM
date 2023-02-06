@@ -98,7 +98,11 @@ public class NhanKhauController implements Initializable {
           FXMLLoader loader = new FXMLLoader();
           loader.setLocation(getClass().getResource("ThemNhanKhau.fxml"));
           Parent root = loader.load();
+     
           Scene scene = new Scene(root);
+          ThemNhanKhauController controller = loader.getController();
+          controller.setNhanKhauController(this);
+          
           addStage.setScene(scene);
           addStage.show();
      }
@@ -130,12 +134,32 @@ public class NhanKhauController implements Initializable {
           }      
           else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
                System.out.println("Code for no");
+
+          
      }
 
      @FXML
      protected void editEvent(ActionEvent e) throws IOException{
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
+          Stage addStage = new Stage();
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("SuaNhanKhau.fxml"));
+          Parent root = loader.load();
+     
+          Scene scene = new Scene(root);
+          SuaNhanKhauController controller = loader.getController();
+          controller.setSuaNhanKhauController(this);
+          
+          addStage.setScene(scene);
+          addStage.show();         
+
+          
 
      }
+
+     public void addList(NhanKhau nhanKhau) {
+          nhankhauList.add(nhanKhau);
+     }
+
 
 }
