@@ -43,11 +43,14 @@ public class TamTru {
    public void setLydo(String lydo) {
       this.lydo = lydo;
    }
+<<<<<<< HEAD
    public String getNoitamtru() {
       return noitamtru;
    }
    public void setNoitamtru(String noitamtru) {
       this.noitamtru = noitamtru;
    }
+=======
+>>>>>>> 3cd8550bf0f4af35b86d7471c66146233cc5665b
    
 }
