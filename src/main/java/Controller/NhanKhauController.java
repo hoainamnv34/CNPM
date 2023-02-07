@@ -2,6 +2,8 @@ package Controller;
 
 import Models.NhanKhau;
 
+
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -148,7 +150,7 @@ public class NhanKhauController implements Initializable {
      
           Scene scene = new Scene(root);
           SuaNhanKhauController controller = loader.getController();
-          controller.setSuaNhanKhauController(this);
+          controller.setNhanKhauController(this);
           
           addStage.setScene(scene);
           addStage.show();         
