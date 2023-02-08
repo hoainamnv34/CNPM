@@ -1,32 +1,22 @@
 package QLDC;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class TESTSQL {
     public static void main(String[] args) {
-        System.out.println("Nam");
-        SQLServerDataSource ds = new SQLServerDataSource();
-        ds.setUser("sa");
-        ds.setPassword("123");
-        ds.setServerName("Laptop\\SQLEXPRESS");
-    //   ds.setServerName("SQLEXPRESS");
-        ds.setPortNumber(1433);
-        ds.setDatabaseName("TEST");
-        try {
-            Connection conn = ds.getConnection();
-            System.out.println("connect success");
-            System.out.println(conn.getMetaData());
-        } catch (SQLServerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        var url  = "jdbc:mysql://localhost:3306/TEST";
+        String ur = "jdbc:sqlserver://latop\\SQLEXPRESS:1433";
+        var user = "root";
+        var password = "";
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            System.out.println(conn.getCatalog());
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
+
     }
     
 }

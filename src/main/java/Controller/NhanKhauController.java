@@ -6,7 +6,12 @@ import Models.NhanKhau;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -69,8 +74,28 @@ public class NhanKhauController implements Initializable {
      private Button addButton;
 
      private ObservableList<NhanKhau> nhankhauList;
+
+     private List<NhanKhau> NkList;
+
      @Override
      public void initialize(URL arg0, ResourceBundle arg1) {
+
+          try {
+               Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+               Statement stmt = conn.createStatement();
+               String query = "SELECT HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau";
+               ResultSet rs = stmt.executeQuery(query);
+               int i = 1;
+               while(rs.next()) {
+                    NkList.add(new NhanKhau(i, rs.getNString(1),rs.getString(2), rs.getDate(3).toLocalDate(), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 2));
+               }
+
+          } catch (Exception e) {
+               e.printStackTrace();
+          }
+
+          
+
           nhankhauList = FXCollections.observableArrayList(
                new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1),
                new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1)

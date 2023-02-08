@@ -16,9 +16,9 @@ public class NhanKhau {
 
    
 
-   public NhanKhau(String hoTen) {
-      this.hoTen = hoTen;
-   }
+   // public NhanKhau(String hoTen) {
+   //    this.hoTen = hoTen;
+   // }
    public NhanKhau(int id, String hoTen, String cccd, LocalDate ngaySinh, String gioiTinh, String queQuan,
          String thuongTru, String danToc, String ngheNghiep, int idTrongHoKhau) {
       this.id = id;

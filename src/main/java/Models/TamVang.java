@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class TamVang {
    private String idTamVang;
+   private String manNhanKhau;
    private NhanKhau nguoiTamVang;
    private String noiTamTru;
    private LocalDate tuNgay; 
