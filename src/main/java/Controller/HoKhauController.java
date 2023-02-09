@@ -4,7 +4,11 @@ import Models.HoKhau;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -54,11 +58,30 @@ public class HoKhauController implements Initializable{
    private Button addButton;
 
    private ObservableList<HoKhau> hokhauList;
+
+   private List<HoKhau> hKList = new ArrayList<HoKhau>();
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
+
+      try {
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Statement stmt = conn.createStatement();
+         String query = "SELECT HK.IDHoKhau, HoTen, HK.CCCDChuho, HK.Diachi FROM dbo.HoKhau AS HK INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = HK.CCCDChuho";
+         ResultSet rs = stmt.executeQuery(query);
+         while(rs.next()) {
+            hKList.add(new HoKhau(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getNString(4)));
+         }
+         conn.close();
+
+    } catch (Exception e) {
+         e.printStackTrace();
+    }
+
+      
       hokhauList = FXCollections.observableArrayList(
-         new HoKhau("HK.1","Son", "568", "Hoang Mai"),
-         new HoKhau("HK.2","Nam", "346", "Hoang Mai")
+         // new HoKhau("HK.1","Son", "568", "Hoang Mai"),
+         // new HoKhau("HK.2","Nam", "346", "Hoang Mai")
+         hKList
    
       );
 
@@ -110,6 +133,17 @@ public class HoKhauController implements Initializable{
             alert1.setContentText(message);
             alert1.show();
             hokhauList.remove(selected);
+            try {
+               Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+               Statement stmt = conn.createStatement();
+               String query = "DELETE FROM HoKhau WHERE IDHoKhau = \'" + selected.getIdHoKhau() + "\'";
+               System.out.println(query);
+               stmt.executeQuery(query);
+               conn.close();
+      
+            } catch (Exception ex) {
+              ex.getStackTrace();
+            }
          }      
          else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
             System.out.println("Code for no");

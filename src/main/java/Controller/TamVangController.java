@@ -2,7 +2,12 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,64 +67,80 @@ public class TamVangController implements Initializable {
    private Button addButton;
 
    private ObservableList<TamVang> tamVangList;
+   private List<TamVang> tVList = new ArrayList<TamVang>();
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
-        tamVangList = FXCollections.observableArrayList(
-            new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2021,8,9),LocalDate.of(2020, 10, 20), "ly do"),
-            new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
-        );
+      try {
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Statement stmt = conn.createStatement();
+         String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = TamTru.CCCD";
+         ResultSet rs = stmt.executeQuery(query);
+   
+         while(rs.next()) {
+            tVList.add(new TamVang(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(), rs.getNString(6)));
+         }
 
-        idTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("idTamVang"));
-        hoTen.setCellValueFactory(new PropertyValueFactory<TamVang, String>("hoTen"));
-        noiTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("noiTamTru"));
-        tuNgay.setCellValueFactory(new PropertyValueFactory<TamVang, LocalDate>("tuNgay"));
-        denNgay.setCellValueFactory(new PropertyValueFactory<TamVang, LocalDate>("denNgay"));
-        lyDo.setCellValueFactory(new PropertyValueFactory<TamVang, String>("lyDo"));
-        table.setItems(tamVangList);
+      } catch (Exception e) {
+            e.printStackTrace();
+      }
 
-        BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
-        delButton.disableProperty().bind(isSelected);
-        editButton.disableProperty().bind(isSelected);
+      tamVangList = FXCollections.observableArrayList(
+      tVList
+         // new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2021,8,9),LocalDate.of(2020, 10, 20), "ly do"),
+         // new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
+      );
+
+      idTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("idTamVang"));
+      hoTen.setCellValueFactory(new PropertyValueFactory<TamVang, String>("hoTen"));
+      noiTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("noiTamTru"));
+      tuNgay.setCellValueFactory(new PropertyValueFactory<TamVang, LocalDate>("tuNgay"));
+      denNgay.setCellValueFactory(new PropertyValueFactory<TamVang, LocalDate>("denNgay"));
+      lyDo.setCellValueFactory(new PropertyValueFactory<TamVang, String>("lyDo"));
+      table.setItems(tamVangList);
+
+      BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
+      delButton.disableProperty().bind(isSelected);
+      editButton.disableProperty().bind(isSelected);
    }
 
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
-        Stage addStage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        addStage.setScene(scene);
-        addStage.show();
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();
    }
 
    @FXML
    protected void deleteEvent(ActionEvent e) throws IOException{
-         TamVang selected = table.getSelectionModel().getSelectedItem();
-         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-         alert.setTitle("Cofirmation");
-         alert.setHeaderText("Bạn muốn xóa tạm trú của " + selected.getHoTen());
-         //   alert.setContentText("choose your option");
+      TamVang selected = table.getSelectionModel().getSelectedItem();
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Cofirmation");
+      alert.setHeaderText("Bạn muốn xóa tạm trú của " + selected.getHoTen());
+      //   alert.setContentText("choose your option");
 
-         ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-         ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
-         // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+      ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+      // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+      alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
-         Optional<ButtonType> result = alert.showAndWait();
+      Optional<ButtonType> result = alert.showAndWait();
 
-         if (result.get()== buttonTypeYes){
-            String message = "Xóa Hộ khẩu " + selected.getHoTen() + " thành công"; 
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("Information");
-            alert1.setHeaderText("Notification");
-            alert1.setContentText(message);
-            alert1.show();
-            tamVangList.remove(selected);
-         }      
-         else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
-            System.out.println("Code for no");
+      if (result.get()== buttonTypeYes){
+         String message = "Xóa Hộ khẩu " + selected.getHoTen() + " thành công"; 
+         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+         alert1.setTitle("Information");
+         alert1.setHeaderText("Notification");
+         alert1.setContentText(message);
+         alert1.show();
+         tamVangList.remove(selected);
+      }      
+      else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
+         System.out.println("Code for no");
    }
 
    @FXML

@@ -3,18 +3,16 @@ package Models;
 import java.time.LocalDate;
 
 public class PhanAnhKienNghi {
-    private int id;
     private String maPA;
     private NhanKhau nguoiPA;
     private String noiDung;
     private LocalDate ngayPA;
-    private Boolean trangThai;
+    private String trangThai;
     private String capPhanAnh;
     private String phanHoi;
     private LocalDate ngayPhanHoi;
-    public PhanAnhKienNghi(int id, String maPA, NhanKhau nguoiPA, String noiDung, LocalDate ngayPA, Boolean trangThai,
+    public PhanAnhKienNghi( String maPA, NhanKhau nguoiPA, String noiDung, LocalDate ngayPA, String trangThai,
             String capPhanAnh, String phanHoi, LocalDate ngayPhanHoi) {
-        this.id = id;
         this.maPA = maPA;
         this.nguoiPA = nguoiPA;
         this.noiDung = noiDung;
@@ -23,12 +21,6 @@ public class PhanAnhKienNghi {
         this.capPhanAnh = capPhanAnh;
         this.phanHoi = phanHoi;
         this.ngayPhanHoi = ngayPhanHoi;
-    }
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
     public String getMaPA() {
         return maPA;
@@ -54,10 +46,10 @@ public class PhanAnhKienNghi {
     public void setNgayPA(LocalDate ngayPA) {
         this.ngayPA = ngayPA;
     }
-    public Boolean getTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
-    public void setTrangThai(Boolean trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
     public String getCapPhanAnh() {

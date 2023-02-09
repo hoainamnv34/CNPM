@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -75,7 +76,7 @@ public class NhanKhauController implements Initializable {
 
      private ObservableList<NhanKhau> nhankhauList;
 
-     private List<NhanKhau> NkList;
+     private List<NhanKhau> NkList = new ArrayList<NhanKhau>();
 
      @Override
      public void initialize(URL arg0, ResourceBundle arg1) {
@@ -87,7 +88,8 @@ public class NhanKhauController implements Initializable {
                ResultSet rs = stmt.executeQuery(query);
                int i = 1;
                while(rs.next()) {
-                    NkList.add(new NhanKhau(i, rs.getNString(1),rs.getString(2), rs.getDate(3).toLocalDate(), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 2));
+                    NkList.add(new NhanKhau(i, rs.getNString(1),rs.getString(2), rs.getDate(3).toLocalDate(), rs.getNString(4), rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), 2));
+                    i++;
                }
 
           } catch (Exception e) {
@@ -97,8 +99,9 @@ public class NhanKhauController implements Initializable {
           
 
           nhankhauList = FXCollections.observableArrayList(
-               new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1),
-               new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1)
+               // new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1),
+               // new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1)
+               NkList
           //new NhanKhau(1)
           );
 
@@ -125,7 +128,6 @@ public class NhanKhauController implements Initializable {
           FXMLLoader loader = new FXMLLoader();
           loader.setLocation(getClass().getResource("ThemNhanKhau.fxml"));
           Parent root = loader.load();
-     
           Scene scene = new Scene(root);
           ThemNhanKhauController controller = loader.getController();
           controller.setNhanKhauController(this);
@@ -135,34 +137,57 @@ public class NhanKhauController implements Initializable {
      }
 
      @FXML
-     protected void deleteEvent(ActionEvent e) throws IOException{
+     protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
-          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-          alert.setTitle("Cofirmation");
-          alert.setHeaderText("Bạn muốn xóa Nhân Khẩu " + selected.getHoTen());
-          //   alert.setContentText("choose your option");
-
-          ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-          ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
-          // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-          alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-          Optional<ButtonType> result = alert.showAndWait();
-
-          if (result.get()== buttonTypeYes){
-               String message = "Xóa Nhân Khẩu " + selected.getHoTen() + " thành công"; 
-               Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-               alert1.setTitle("Information");
-               alert1.setHeaderText("Notification");
-               alert1.setContentText(message);
-               alert1.show();
-               nhankhauList.remove(selected);
-          }      
-          else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
-               System.out.println("Code for no");
-
           
+          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+          Statement stmt = conn.createStatement();
+          // String query = "SELECT  COUNT(*) FROM	dbo.HoKhau WHERE CCCDChuho = '" + selected.getCccd() + "'";
+          // System.out.println(query);
+          // ResultSet rs = stmt.executeQuery(query);
+          // rs.next();
+          // System.out.println(rs.getInt(1));
+          // if(false){
+          //      System.out.println("Xóa nhân khẩu là chủ hộ");
+          // } else {
+          //      String query = "DELETE FROM dbo.ThanhVienCuaHo WHERE CCCD = \'" + selected.getCccd() + "\'" 
+          //      +  "\nDELETE FROM dbo.PhanAnhKienNghi WHERE CCCD = \'" + selected.getCccd() + "\'"
+          //      + "\nDELETE FROM dbo.TamTru WHERE CCCD = \'" + selected.getCccd() + "\'"
+          //      + "\nDELETE FROM dbo.TamVang WHERE CCCD = \'" + selected.getCccd() + "\'"
+          //      + "\nDELETE FROM dbo.NhanKhau WHERE CCCD = \'" + selected.getCccd() + "\'";
+          //      System.out.println(query);
+          //      ResultSet rst =  stmt.executeQuery(query);
+          // }
+          conn.close();
+      
+
+          // Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+          // alert.setTitle("Cofirmation");
+          // alert.setHeaderText("Bạn muốn xóa Nhân Khẩu " + selected.getHoTen());
+          // //   alert.setContentText("choose your option");
+
+          // ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+          // ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+          // // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+          // alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+          // Optional<ButtonType> result = alert.showAndWait();
+
+          // if (result.get()== buttonTypeYes){
+          //      String message = "Xóa Nhân Khẩu " + selected.getHoTen() + " thành công"; 
+          //      Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+          //      alert1.setTitle("Information");
+          //      alert1.setHeaderText("Notification");
+          //      alert1.setContentText(message);
+          //      alert1.show();
+          //      nhankhauList.remove(selected);
+               
+          // }      
+          // else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
+          //      System.out.println("Code for no");
+
      }
 
      @FXML

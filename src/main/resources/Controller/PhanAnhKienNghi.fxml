@@ -15,8 +15,8 @@
          <children>
             <TableView fx:id="table" prefHeight="627.0" prefWidth="1178.0">
               <columns>
-                <TableColumn fx:id="id" prefWidth="40.79998856782913" text="STT" />
-                <TableColumn fx:id="nguoiPhanAnh" prefWidth="183.0" text="Tên người gửi " />
+                <TableColumn fx:id="maPA" prefWidth="84.0" text="Mã" />
+                <TableColumn fx:id="nguoiPhanAnh" prefWidth="140.0" text="Tên người gửi " />
                   <TableColumn fx:id="noiDung" prefWidth="144.0" text="Nội dung " />
                   <TableColumn fx:id="ngayGui" prefWidth="101.0" text="Ngày gửi" />
                   <TableColumn fx:id="trangThai" prefWidth="110.0" text="Trạng thái" />

@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class SQLController {
     //url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
-    private static String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyNhanKhau;encrypt=true;trustServerCertificate=true;";
+    private static String DB_URL = "jdbc:sqlserver://192.168.1.108:1433;DatabaseName=QuanLy;encrypt=true;trustServerCertificate=true;";
 //    private static String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;DatabaseName=TEST;encrypt=true;trustServerCertificate=true;";
     //
 //            + "databaseName=TEST;"

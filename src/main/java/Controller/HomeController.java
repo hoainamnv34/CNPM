@@ -115,7 +115,7 @@ public class HomeController implements Initializable {
         vBox.getChildren().remove(currentRoot);
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("HoKhau.fxml"));
+            loader.setLocation(getClass().getResource("PhanAnhKienNghi.fxml"));
             Parent root = loader.load();
             currentRoot = root;
             vBox.getChildren().add(root);

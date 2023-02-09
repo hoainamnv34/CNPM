@@ -6,8 +6,13 @@ import Models.NhanKhau;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -35,7 +40,7 @@ public class PhanAnhKienNghiController implements Initializable{
    private TableView<PhanAnhKienNghi> table;
 
    @FXML
-   private TableColumn<PhanAnhKienNghi, Integer> id;
+   private TableColumn<PhanAnhKienNghi, String> maPA;
 
    @FXML
    private TableColumn<PhanAnhKienNghi, String> nguoiPhanAnh;
@@ -47,7 +52,7 @@ public class PhanAnhKienNghiController implements Initializable{
    private TableColumn<PhanAnhKienNghi, LocalDate> ngayGui;
 
    @FXML
-   private TableColumn<PhanAnhKienNghi, Boolean> trangThai;
+   private TableColumn<PhanAnhKienNghi, String> trangThai;
 
    @FXML
    private TableColumn<PhanAnhKienNghi, String> capPhanHoi;
@@ -69,22 +74,42 @@ public class PhanAnhKienNghiController implements Initializable{
    private Button addButton;
 
    private ObservableList<PhanAnhKienNghi> paknList;
+   private List<PhanAnhKienNghi> pAList = new ArrayList<PhanAnhKienNghi>();
+
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
+
+      try {
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Statement stmt = conn.createStatement();
+         String query = "SELECT maPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = PhanAnhKienNghi.CCCD";
+         ResultSet rs = stmt.executeQuery(query);
+
+         while(rs.next()) {
+            LocalDate ngayPhanHoi = rs.getDate(8) == null ? null : rs.getDate(8).toLocalDate();
+            pAList.add(new PhanAnhKienNghi(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getNString(5), rs.getNString(6), rs.getNString(7),ngayPhanHoi ));
+           
+         }
+      } catch (Exception e) {
+            e.printStackTrace();
+      }
+
+
       paknList = FXCollections.observableArrayList(
+         pAList
          //new HoKhau("HK.1","Son", "568", "Hoang Mai"),
          //new HoKhau("HK.2","Nam", "346", "Hoang Mai")
-         new PhanAnhKienNghi(1, "123", new NhanKhau("Son"),
-          "App qldc nhu cut", LocalDate.of(2020,12,12), false,
-           "chu tich xa", "Chua co", null)
+         // new PhanAnhKienNghi(1, "123", new NhanKhau("Son"),
+         //  "App qldc nhu cut", LocalDate.of(2020,12,12), false,
+         //   "chu tich xa", "Chua co", null)
    
       );
 
-      id.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, Integer>("id"));
+      maPA.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("maPA"));
       nguoiPhanAnh.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("ten"));
       noiDung.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("noiDung"));
       ngayGui.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, LocalDate>("ngayPA"));
-      trangThai.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, Boolean>("trangThai"));
+      trangThai.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("trangThai"));
       capPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("capPhanAnh"));
       phanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("phanHoi"));
       ngayPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, LocalDate>("ngayPhanHoi"));

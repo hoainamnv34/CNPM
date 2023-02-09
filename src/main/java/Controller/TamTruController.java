@@ -2,7 +2,12 @@ package Controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -62,11 +67,30 @@ public class TamTruController implements Initializable {
    private Button addButton;
 
    private ObservableList<TamTru> tamTruList;
+   private List<TamTru> tTList = new ArrayList<TamTru>();
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
+
+
+      try {
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Statement stmt = conn.createStatement();
+         String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = TamTru.CCCD";
+         ResultSet rs = stmt.executeQuery(query);
+         int i = 1;
+         while(rs.next()) {
+            tTList.add(new TamTru(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(), rs.getNString(6)));
+         }
+
+    } catch (Exception e) {
+         e.printStackTrace();
+    }
+
+
       tamTruList = FXCollections.observableArrayList(
-         new TamTru("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro"),
-         new TamTru("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
+         // new TamTru("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro"),
+         // new TamTru("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
+         tTList
          
    
       );
