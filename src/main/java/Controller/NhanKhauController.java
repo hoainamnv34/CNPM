@@ -138,20 +138,55 @@ public class NhanKhauController implements Initializable {
           
      }
 
+     private NhanKhau selectNhanKhau;
      @FXML
      protected void editEvent(ActionEvent e) throws IOException{
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
+          setSelectNhanKhau(selected);
           Stage addStage = new Stage();
           FXMLLoader loader = new FXMLLoader();
           loader.setLocation(getClass().getResource("SuaNhanKhau.fxml"));
           Parent root = loader.load();
      
-          Scene scene = new Scene(root);
-          SuaNhanKhauController controller = loader.getController();
-          controller.setSuaNhanKhauController(this);
           
+          SuaNhanKhauController controller = loader.getController();
+          controller.setNhanKhauController(this);
+          controller.setNhanKhauEdit(selected);
+          controller.hoTenField.setText(selected.getHoTen());
+          controller.cccdField.setText(selected.getCccd());
+          controller.ngaySinhDatePicker.setValue(selected.getNgaySinh());
+          controller.ngheNghiepField.setText(selected.getNgheNghiep());
+          controller.danTocBox.setValue(selected.getDanToc());
+          controller.thuongTruField.setText(selected.getThuongTru());
+          controller.queQuanField.setText(selected.getQueQuan());
+         /* @FXML
+         TextField hoTenField;
+
+         @FXML
+         DatePicker ngaySinhDatePicker;
+
+         @FXML
+         TextField cccdField;
+
+         @FXML
+         TextField queQuanField;
+
+         @FXML
+         TextField thuongTruField;
+
+         @FXML
+         ChoiceBox gioiTinBox;
+
+         @FXML
+         ChoiceBox danTocBox; 
+
+         @FXML
+         TextField ngheNghiepField;*/
+          //NhanKhau edited = controller.getEditNhanKhau();
+          
+          Scene scene = new Scene(root);
           addStage.setScene(scene);
-          addStage.show();         
+          addStage.show();      
 
           
 
@@ -160,6 +195,30 @@ public class NhanKhauController implements Initializable {
      public void addList(NhanKhau nhanKhau) {
           nhankhauList.add(nhanKhau);
      }
+
+     public void editList(NhanKhau cu, NhanKhau moi) {
+         //System.out.println(cu.getHoTen());
+         //System.out.println(moi.getHoTen());
+         int sz = nhankhauList.size();
+         for (int i = 0; i < sz; i++) {
+            if (nhankhauList.get(i).equals(cu)) {
+               //System.out.println("day ne!!");
+               nhankhauList.set(i, moi);
+               break;
+            }
+         }
+         for (NhanKhau nhanKhau : nhankhauList) {
+            System.out.println(nhanKhau.getHoTen());
+         }
+     }
+
+   public NhanKhau getSelectNhanKhau() {
+      return selectNhanKhau;
+   }
+
+   public void setSelectNhanKhau(NhanKhau selectNhanKhau) {
+      this.selectNhanKhau = selectNhanKhau;
+   }
 
 
 }

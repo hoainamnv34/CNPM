@@ -60,9 +60,7 @@ public class ThemNhanKhauController implements Initializable{
     private ThanhVienCuaHo newtThanhVienCuaHo;
     private NhanKhauController nhanKhauController;
 
-
-
-    @Override
+   @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ngaySinhDatePicker.setValue(LocalDate.now());
 
@@ -82,9 +80,10 @@ public class ThemNhanKhauController implements Initializable{
 
     @FXML
     protected void Submit(ActionEvent e) {
-        System.out.println(danTocBox.getValue());
-        newNhanKhau = new NhanKhau(1, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), thuongTruField.getText(), queQuanField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText()
-        , gioiTinBox.getValue().toString(), 0);
+        System.out.println(danTocBox.getValue());        
+        newNhanKhau = new NhanKhau(1, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(),
+        thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText()
+        , 0);
         String maNhanKhau = "xl";
         newtThanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, maHoKhauField.getText(), quanHeVoiChuHoBox.getValue().toString());
         nhanKhauController.addList(newNhanKhau);
