@@ -1,8 +1,11 @@
 package Controller;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
-
 import Models.UserMoldel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,12 +49,12 @@ public class LoginController implements Initializable {
 
     @FXML
     protected void Submit (ActionEvent event) {
-        if (userField.getText().equals(userMoldel1.getUserName()) && passwordField.getText().equals(userMoldel1.getPassword())) {
+        
+        if (checkValidAccount(userField.getText(), passwordField.getText())) {
             System.out.println("true");
             try {
                 changeSceneHome(event);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
@@ -62,9 +65,29 @@ public class LoginController implements Initializable {
             alert.setContentText("Vui lòng kiểm tra và thử lại");
             alert.show();
         }
+    }
 
-        System.out.println("xxxx");
-        
+    private boolean checkValidAccount(String user, String password) {
+        try{
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT TaiKhoan, MatKhau FROM dbo.TaiKhoan");
+            if (rs == null) {
+                conn.close();
+                return false;
+            }
+            while(rs.next()) {
+                if(rs.getString(1).equals(user) && rs.getString(2).equals(password)){
+                    conn.close();
+                    return true;
+                }
+            }
+            conn.close();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+
+        return false;
     }
 
 

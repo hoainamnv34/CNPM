@@ -1,0 +1,63 @@
+--- nhan khau table
+    String hoTen;
+    String cccd; PRIMARY KEY
+    LocalDate ngaySinh;
+    String gioiTinh;
+    String queQuan;
+    String thuongTru;
+    String danToc;
+    String ngheNghiep;
+    int idTrongHoKhau;
+
+
+    DBCC CHECKIDENT ("YourTableNameHere", RESEED, 1);
+
+
+    --hokhau table
+    String idHoKhau;
+    String hoTenChuHo;
+    String cccdChHo;
+    String diaChiHo;
+
+    --phananhkiennghi table
+    String maPA;
+    String cCCD;
+    String noiDung;
+    LocalDate ngayPA;
+    Boolean trangThai;
+    String capPhanAnh;
+    String phanHoi;
+    LocalDate ngayPhanHoi;
+
+    --tamtru table
+    String idTamTru;
+    String cCCD;
+    String noiTamTru;
+    LocalDate tuNgay;
+    LocalDate denNgay;
+    String lyDo;
+
+
+    --TamVang table
+    String idTamVang;
+    String cCCD;
+    String noiTamTru;
+    LocalDate tuNgay; 
+    LocalDate denNgay;
+    String lyDo;
+
+--ThanhVienCuaHo table
+    private String idNhanKhau;
+    private String idHoKhau;
+    private String quanHeVoiChuHo;
+    private String noithuongtrutruoc;
+
+--user;
+    int ID;
+    String userName;
+    String password;
+
+
+
+
+
