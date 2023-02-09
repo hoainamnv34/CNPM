@@ -59,7 +59,21 @@ public class SuaNhanKhauController implements Initializable{
     private NhanKhau newNhanKhau;
     private ThanhVienCuaHo newtThanhVienCuaHo;
     private NhanKhauController nhanKhauController;
+    private NhanKhau nhanKhauEdit;
 
+
+
+    public NhanKhau getNhanKhauEdit() {
+      return nhanKhauEdit;
+   }
+
+   public void setNhanKhauEdit(NhanKhau nhanKhauEdit) {
+      this.nhanKhauEdit = nhanKhauEdit;
+   }
+
+   public SuaNhanKhauController() {
+
+   }
 
 
     @Override
@@ -68,7 +82,7 @@ public class SuaNhanKhauController implements Initializable{
 
         maHoKhauField.textProperty().addListener((observable, oldValue, newValue)-> {
             if(newValue.equals("1")){
-                System.out.println("hello");
+                //System.out.println("hello");
             }
             
         });
@@ -78,18 +92,28 @@ public class SuaNhanKhauController implements Initializable{
         BooleanBinding iscccdFieldEmpty = cccdField.textProperty().isEmpty();
         BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscccdFieldEmpty);
         saveButton.disableProperty().bind(areTextFieldsEmpty);
+        //maHoKhauField.setText(nhanKhauEdit.get);
+        //hoTenField.setText(nhanKhauEdit.getHoTen());
+        //NhanKhau nk = nhanKhauController.getSelectNhanKhau();
+        //hoTenField.setText(nhanKhauEdit.getHoTen());
+        //NhanKhauController controller = this.getNhanKhauController();
     }
 
     @FXML
     protected void Submit(ActionEvent e) {
-        System.out.println(danTocBox.getValue());
-        newNhanKhau = new NhanKhau(1, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), thuongTruField.getText(), queQuanField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText()
-        , gioiTinBox.getValue().toString(), 0);
+        //System.out.println(danTocBox.getValue());
+        newNhanKhau = new NhanKhau(1, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(),
+        thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText()
+        , 0);
         String maNhanKhau = "xl";
         newtThanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, maHoKhauField.getText(), quanHeVoiChuHoBox.getValue().toString());
-        nhanKhauController.addList(newNhanKhau);
+        NhanKhau selectNhanKhau = nhanKhauController.getSelectNhanKhau();
+        //System.out.println(selectNhanKhau.getHoTen());
+        nhanKhauController.editList(selectNhanKhau, newNhanKhau);
         Alert infoAlert = new Alert(AlertType.INFORMATION);
-        infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
+        NhanKhau nk = this.getNhanKhauEdit();
+        System.out.println(nk.getHoTen());
+        infoAlert.setHeaderText("Sửa Nhân Khẩu Thành Công");
         // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công");
         
         infoAlert.showAndWait();
@@ -104,6 +128,5 @@ public class SuaNhanKhauController implements Initializable{
     public void setNhanKhauController(NhanKhauController nhanKhauController) {
         this.nhanKhauController = nhanKhauController;
     }
-
     
 }

@@ -57,6 +57,14 @@ public class HoKhauController implements Initializable{
    @FXML 
    private Button addButton;
 
+   private HoKhau selectHoKhau;
+   public HoKhau getSelectHoKhau() {
+      return selectHoKhau;
+   }
+
+   public void setSelectHoKhau(HoKhau selectHoKhau) {
+      this.selectHoKhau = selectHoKhau;
+   }
    private ObservableList<HoKhau> hokhauList;
 
    private List<HoKhau> hKList = new ArrayList<HoKhau>();
@@ -152,11 +160,41 @@ public class HoKhauController implements Initializable{
    @FXML
    protected void editEvent(ActionEvent e) throws IOException{
       HoKhau selected = table.getSelectionModel().getSelectedItem();
+      setSelectHoKhau(selected);
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("SuaHoKhau.fxml"));
+      Parent root = loader.load();
 
+      SuaHoKhauController controller = loader.getController();
+      controller.setHoKhauController(this);
+      controller.hoTenField.setText(selected.getHoTen());
+      controller.cMNField.setText(selected.getCccdChHo());
+      //controller.ngaySinhDatePicker.setValue(selected.get.getNgaySinh());
+
+
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();  
    }
 
 
    public void addList(HoKhau hoKhau) {
       hokhauList.add(hoKhau);
    }
+   public void editList(HoKhau cu, HoKhau moi) {
+      //System.out.println(cu.getHoTen());
+      //System.out.println(moi.getHoTen());
+      int sz = hokhauList.size();
+      for (int i = 0; i < sz; i++) {
+         if (hokhauList.get(i).equals(cu)) {
+            //System.out.println("day ne!!");
+            hokhauList.set(i, moi);
+            break;
+         }
+      }
+      for (HoKhau HoKhau : hokhauList) {
+         System.out.println(HoKhau.getHoTen());
+      }
+  }
 }
