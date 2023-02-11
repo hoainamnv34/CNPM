@@ -11,8 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 
 public class HomeController implements Initializable {
     
@@ -32,7 +32,7 @@ public class HomeController implements Initializable {
     Button qLPAKNBtn;
 
     @FXML
-    VBox vBox;
+    Pane pane;
     
     private Parent currentRoot;
     
@@ -43,9 +43,12 @@ public class HomeController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("NhanKhau.fxml"));
             Region root = (Region)loader.load();
+
             currentRoot = root;
-            vBox.getChildren().add(root);
-            // root.prefHeightProperty().bind(vBox.heightProperty());
+            pane.getChildren().add(root);
+            root.prefHeightProperty().bind(pane.heightProperty());
+            root.prefWidthProperty().bind(pane.widthProperty());
+            
 
             
         } catch (IOException e) {
@@ -56,14 +59,15 @@ public class HomeController implements Initializable {
 
     @FXML
     protected void nhanKhauChangeScene(ActionEvent event) {
-        vBox.getChildren().remove(currentRoot);
+        pane.getChildren().remove(currentRoot);
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("NhanKhau.fxml"));
             Region root = (Region)loader.load();
             currentRoot = root;
-            vBox.getChildren().add(root);
-            // root.prefHeightProperty().bind(vBox.heightProperty());
+            pane.getChildren().add(root);
+            root.prefHeightProperty().bind(pane.heightProperty());
+            root.prefWidthProperty().bind(pane.widthProperty());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -72,14 +76,15 @@ public class HomeController implements Initializable {
 
     @FXML
     protected void hoKhauChangeScene(ActionEvent event) {
-        vBox.getChildren().remove(currentRoot);
+        pane.getChildren().remove(currentRoot);
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("HoKhau.fxml"));
             Region root = (Region)loader.load();
             currentRoot = root;
-            vBox.getChildren().add(root);
-            // root.prefHeightProperty().bind(vBox.heightProperty());
+            pane.getChildren().add(root);
+            root.prefHeightProperty().bind(pane.heightProperty());
+            root.prefWidthProperty().bind(pane.widthProperty());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -88,14 +93,15 @@ public class HomeController implements Initializable {
 
     @FXML
     protected void tamTruChangeScene(ActionEvent event) {
-        vBox.getChildren().remove(currentRoot);
+        pane.getChildren().remove(currentRoot);
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("TamTru.fxml"));
             Region root = (Region)loader.load();
             currentRoot = root;
-            vBox.getChildren().add(root);
-            // root.prefHeightProperty().bind(vBox.heightProperty());
+            pane.getChildren().add(root);
+            root.prefHeightProperty().bind(pane.heightProperty());
+            root.prefWidthProperty().bind(pane.widthProperty());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -104,14 +110,15 @@ public class HomeController implements Initializable {
 
     @FXML
     protected void tamVangChangeScene(ActionEvent event) {
-        vBox.getChildren().remove(currentRoot);
+        pane.getChildren().remove(currentRoot);
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("TamVang.fxml"));
             Region root = (Region)loader.load();
             currentRoot = root;
-            vBox.getChildren().add(root);
-            // root.prefHeightProperty().bind(vBox.heightProperty());
+            pane.getChildren().add(root);
+            root.prefHeightProperty().bind(pane.heightProperty());
+            root.prefWidthProperty().bind(pane.widthProperty());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -120,14 +127,15 @@ public class HomeController implements Initializable {
 
     @FXML
     protected void phanAnhKienNghiChangeScene(ActionEvent event) {
-        vBox.getChildren().remove(currentRoot);
+        pane.getChildren().remove(currentRoot);
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("PhanAnhKienNghi.fxml"));
             Region root = (Region)loader.load();
             currentRoot = root;
-            vBox.getChildren().add(root);
-            // root.prefHeightProperty().bind(vBox.heightProperty());
+            pane.getChildren().add(root);
+            root.prefHeightProperty().bind(pane.heightProperty());
+            root.prefWidthProperty().bind(pane.widthProperty());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

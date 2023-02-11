@@ -134,6 +134,7 @@ public class NhanKhauController implements Initializable {
                Scene scene = new Scene(root);
                ThemNhanKhauController controller = loader.getController();
                controller.setNhanKhauController(this);
+               scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
                addStage.setScene(scene);
                addStage.show();
           } catch (IOException e1) {
@@ -195,8 +196,6 @@ public class NhanKhauController implements Initializable {
                else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
                     System.out.println("Code for no");
                
-
-
           }
           conn.close();
      }
@@ -213,15 +212,7 @@ public class NhanKhauController implements Initializable {
           Parent root = loader.load();
           SuaNhanKhauController controller = loader.getController();
           controller.setNhanKhauController(this);
-
-          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-          Statement stmt = conn.createStatement();
-          String query = "SELECT MaHoKhau FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau() + "'";
-          ResultSet rs = stmt.executeQuery(query);
-          rs.next();
-
           controller.setNhanKhauEdit(selected);
-          controller.maHoKhauField.setText(rs.getString(1));
           controller.hoTenField.setText(selected.getHoTen());
           controller.cccdField.setText(selected.getCccd());
           controller.ngaySinhDatePicker.setValue(selected.getNgaySinh());
@@ -229,8 +220,18 @@ public class NhanKhauController implements Initializable {
           controller.danTocBox.setValue(selected.getDanToc());
           controller.thuongTruField.setText(selected.getThuongTru());
           controller.queQuanField.setText(selected.getQueQuan());
-         
+
+          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+          Statement stmt = conn.createStatement();
+          String query = "SELECT MaHoKhau FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau().trim() + "'";
+          ResultSet rs = stmt.executeQuery(query);
+          if (rs.next()) {
+               controller.maHoKhauField.setText(rs.getString(1));
+          };
+
+          
           Scene scene = new Scene(root);
+          scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
           addStage.setScene(scene);
           addStage.show();      
 

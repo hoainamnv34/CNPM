@@ -118,6 +118,7 @@ public class TamTruController implements Initializable {
         ThemTamTruController controller = loader.getController();
         controller.setTamTruController(this);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
         addStage.setScene(scene);
         addStage.show();
    }
@@ -176,6 +177,7 @@ public class TamTruController implements Initializable {
       controller.lydoField.setText(selected.getLyDo());
       controller.setTamTruEdit(selected);
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();
    }

@@ -13,14 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThemHoKhauController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="720.0" styleClass="subStage" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ThemHoKhauController">
    <children>
-      <Label layoutX="323.0" layoutY="14.0" text="Thêm Hộ Khẩu">
-         <font>
-            <Font size="21.0" />
-         </font>
-      </Label>
-      <Button fx:id="saveButton" layoutX="461.0" layoutY="483.0" mnemonicParsing="false" onAction="#Submit" prefHeight="39.0" prefWidth="49.0" text="Lưu" />
+      <Button fx:id="saveButton" layoutX="393.0" layoutY="483.0" mnemonicParsing="false" onAction="#Submit" prefHeight="39.0" prefWidth="117.0" styleClass="btn3" text="Lưu" />
       <VBox layoutX="167.0" layoutY="73.0" prefHeight="388.0" prefWidth="476.0">
          <children>
             <Pane prefHeight="128.0" prefWidth="476.0">
@@ -34,42 +29,42 @@
             </Pane>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="175.0" text="Họ và tên chủ hộ">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Họ và tên chủ hộ">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="hoTenField" prefHeight="31.0" prefWidth="242.0" promptText="Nguyễn Văn A" />
+                  <TextField fx:id="hoTenField" prefHeight="31.0" prefWidth="200.0" promptText="Nguyễn Văn A" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="175.0" text="CCCD">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="CCCD">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="cMNField" prefHeight="30.0" prefWidth="210.0" promptText="0123456789" />
+                  <TextField fx:id="cMNField" prefHeight="30.0" prefWidth="200.0" promptText="0123456789" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="174.0" text="Ngày sinh">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Ngày sinh">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="ngaySinhDatePicker" prefHeight="25.0" prefWidth="208.0" />
+                  <DatePicker fx:id="ngaySinhDatePicker" prefHeight="25.0" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="176.0" text="Giới tính">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Giới tính">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="gioiTinBox" prefWidth="150.0" value="Nam">
+                  <ChoiceBox fx:id="gioiTinBox" prefWidth="100.0" value="Nam">
                      <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Nam" />
@@ -82,32 +77,32 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="173.0" text="Quê Quán">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Quê Quán">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="queQuanField" />
+                  <TextField fx:id="queQuanField" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="171.0" text="Thường Trú">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Thường Trú">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="thuongTruField" />
+                  <TextField fx:id="thuongTruField" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="179.0" text="Dân tộc">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Dân tộc">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="danTocBox" prefHeight="26.0" prefWidth="81.0" value="Kinh">
+                  <ChoiceBox fx:id="danTocBox" prefHeight="26.0" prefWidth="100.0" value="Kinh">
                         <items>
                             <FXCollections fx:factory="observableArrayList">
                                 <String fx:value="Kinh" />
@@ -172,15 +167,24 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="167.0" text="Nghề nghiệp">
+                  <Label prefHeight="28.0" prefWidth="150.0" text="Nghề nghiệp">
                      <font>
-                        <Font size="19.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ngheNghiepField" promptText="Công nhân" />
+                  <TextField fx:id="ngheNghiepField" prefHeight="25.0" prefWidth="200.0" promptText="Công nhân" />
                </children>
             </HBox>
          </children>
       </VBox>
+      <HBox prefHeight="59.0" prefWidth="720.0" styleClass="header-subStage">
+         <children>
+            <Label styleClass="title_header" text="Thêm Hộ Khẩu">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

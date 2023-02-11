@@ -164,6 +164,7 @@ public class SuaNhanKhauController implements Initializable{
 
         query = "UPDATE dbo.ThanhVienCuaHo SET MaHoKhau   = '" + maHoKhauField.getText() + "', QuanHeVoiCH = N'" + quanHeVoiChuHoBox.getValue().toString() + "', MaTrongHoKhau = (SELECT COUNT(*) FROM dbo.ThanhVienCuaHo WHERE MaHoKhau = '" 
         + maHoKhauField.getText() + "') + 1 WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau() + "'";
+        System.out.println(query);
         stmt.execute(query);
         conn.close();
         

@@ -196,6 +196,7 @@ public class PhanAnhKienNghiController implements Initializable{
       controller.noidungArea.setText(selected.getNoiDung());
    
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();      
    }
@@ -217,6 +218,7 @@ public class PhanAnhKienNghiController implements Initializable{
       controller.ngayPALabel.setText(selected.getNgayPA().toString());
    
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();   
    }

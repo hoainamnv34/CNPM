@@ -10,34 +10,56 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="705.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CapNhatPhanHoiController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="705.0" styleClass="subStage" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CapNhatPhanHoiController">
    <children>
-      <Label layoutX="169.0" layoutY="14.0" text="Cập Nhật Phản Hồi">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Button fx:id="saveButton" layoutX="290.0" layoutY="336.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="126.0" text="Cập Nhật" />
+      <Button fx:id="saveButton" layoutX="290.0" layoutY="336.0" mnemonicParsing="false" onAction="#submit" prefHeight="25.0" prefWidth="159.0" styleClass="btn3" text="Cập Nhật" />
       <Label fx:id="alertLabel" layoutX="70.0" layoutY="114.0" prefHeight="17.0" prefWidth="198.0" />
-      <Label layoutX="20.0" layoutY="200.0" text="Phản hồi" />
+      <Label layoutX="20.0" layoutY="200.0" text="Phản hồi">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
       <TextArea fx:id="phanHoiTextArea" layoutX="118.0" layoutY="199.0" prefHeight="111.0" prefWidth="461.0" />
-      <HBox layoutX="34.0" layoutY="59.0" prefHeight="25.0" prefWidth="637.0">
+      <HBox layoutX="15.0" layoutY="59.0" prefHeight="27.0" prefWidth="675.0">
          <children>
-            <Label prefHeight="17.0" prefWidth="83.0" text="Mã Phản ánh" />
-            <Label fx:id="maPALabel" prefHeight="17.0" prefWidth="135.0" />
-            <Label prefHeight="17.0" prefWidth="52.0" text="Họ Tên" />
-            <Label fx:id="hoTenLabel" prefHeight="17.0" prefWidth="181.0" />
-            <Label prefHeight="17.0" prefWidth="100.0" text="Ngày Phản Ánh" />
-            <Label fx:id="ngayPALabel" prefHeight="17.0" prefWidth="133.0" />
+            <Label prefHeight="27.0" prefWidth="142.0" text="Mã Phản ánh">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="maPALabel" prefHeight="26.0" prefWidth="117.0" />
+            <Label prefHeight="27.0" prefWidth="85.0" text="Họ Tên">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="hoTenLabel" prefHeight="28.0" prefWidth="164.0" />
+            <Label prefHeight="27.0" prefWidth="155.0" text="Ngày Phản Ánh">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <Label fx:id="ngayPALabel" prefHeight="25.0" prefWidth="110.0" />
          </children>
       </HBox>
-      <HBox layoutX="37.0" layoutY="107.0" prefHeight="32.0" prefWidth="570.0">
+      <HBox layoutX="14.0" layoutY="107.0" prefHeight="32.0" prefWidth="675.0">
          <children>
-            <Label prefHeight="17.0" prefWidth="103.0" text="Cấp Phản Hồi" />
-            <TextField fx:id="capPhanHoiField" prefHeight="25.0" prefWidth="152.0" />
+            <Label prefHeight="32.0" prefWidth="136.0" text="Cấp Phản Hồi">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <TextField fx:id="capPhanHoiField" prefHeight="32.0" prefWidth="152.0" />
             <Pane prefHeight="32.0" prefWidth="51.0" />
-            <Label prefHeight="17.0" prefWidth="123.0" text="Ngày Phản hồi" textAlignment="CENTER" />
-            <DatePicker fx:id="ngayPHDatePicker" prefHeight="25.0" prefWidth="151.0" />
+            <Label prefHeight="32.0" prefWidth="136.0" text="Ngày Phản hồi" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <DatePicker fx:id="ngayPHDatePicker" prefHeight="25.0" prefWidth="159.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="47.0" prefWidth="705.0" styleClass="header-subStage">
+         <children>
+            <Label styleClass="title_header" text="Cập Nhật Phản Hồi">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
    </children>

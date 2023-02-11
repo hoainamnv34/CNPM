@@ -132,7 +132,7 @@ public class ThemTamTruController implements Initializable{
             ex.getStackTrace();
         }
         Alert infoAlert = new Alert(AlertType.INFORMATION);
-        infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
+        infoAlert.setHeaderText("Thêm Tạm Trú Thành Công");
         // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
         infoAlert.showAndWait();
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();

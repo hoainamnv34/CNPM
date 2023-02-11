@@ -114,6 +114,7 @@ public class TamVangController implements Initializable {
       ThemTamVangController controller = loader.getController();
       controller.setTamVangController(this);
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();
    }
@@ -170,6 +171,7 @@ public class TamVangController implements Initializable {
       controller.lydoField.setText(selected.getLyDo());
       controller.setTamVangEdit(selected);
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();
 

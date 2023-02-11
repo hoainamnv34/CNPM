@@ -42,6 +42,15 @@
     -fx-font-weight:bold;
 }
 
+.btn3{
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-pref-height: 50px;
+    -fx-pref-weight: 200px;
+    -fx-font-weight:bold;
+}
+
 .scence{
     -fx-border-color: black
 }
@@ -57,7 +66,7 @@
 
 .nav_item{
     -fx-border-style: none solid;
-    -fx-border-color:  transparent yellow;
+    -fx-border-color:   transparent  transparent  transparent yellow;
     -fx-background-color: green;
     -fx-text-fill: white;
     -fx-font-size: 14px;
@@ -66,4 +75,19 @@
 .footer{
     -fx-pref-height: 130px;
     -fx-background-color: rgba(240, 230, 232, 0.562)
+}
+
+
+.subStage{
+    /* -fx-pref-height: 600px; */
+    -fx-pref-weight: 800px;
+    -fx-background-color: rgba(250, 246, 247, 0.836)
+
+
+}
+
+.header-subStage{
+    -fx-pref-height: 30px;
+    -fx-pref-weight: 800px;
+    -fx-background-color: green;
 }

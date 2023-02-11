@@ -13,7 +13,7 @@
    <center>
       <VBox prefHeight="503.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="table" prefHeight="500.0" prefWidth="1000.0">
+            <TableView fx:id="table" prefHeight="500.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
               <columns>
                   <TableColumn fx:id="sTT" prefWidth="46.0" text="STT" />
                 <TableColumn fx:id="idTamVang" prefWidth="92.0" text="Mã Tạm Vắng" />
@@ -32,9 +32,9 @@
          <children>
             <HBox alignment="CENTER" prefHeight="44.0" prefWidth="982.0">
                <children>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Sửa" textFill="#454029" />
-                  <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
-                  <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
+                  <Button fx:id="editButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Sửa" textAlignment="CENTER" textFill="#454029" />
+                  <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" textAlignment="CENTER" />
+                  <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefWidth="150.0" styleClass="btn2" text="Thêm" textAlignment="CENTER" />
                </children>
             </HBox>
          </children>

@@ -9,7 +9,11 @@
 
 <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
    <center>
-      <VBox fx:id="vBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+      <VBox fx:id="vBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="404.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="pane" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
    </center>
    <top>
       <VBox prefHeight="96.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
@@ -21,7 +25,7 @@
             </Pane>
             <Pane prefHeight="45.0" prefWidth="1000.0" styleClass="header" VBox.vgrow="NEVER">
                <children>
-                  <HBox layoutX="7.0" layoutY="9.0" prefHeight="42.0" prefWidth="1000.0">
+                  <HBox layoutX="-1.0" layoutY="9.0" prefHeight="42.0" prefWidth="1000.0">
                      <children>
                         <Button fx:id="qLNhanKhauBtn" mnemonicParsing="false" onAction="#nhanKhauChangeScene" prefHeight="32.0" styleClass="nav_item" text="QUẢN LÝ THÔNG TIN NHÂN KHẨU" />
                         <Button fx:id="qLHoKhauBtn" mnemonicParsing="false" onAction="#hoKhauChangeScene" prefHeight="30.0" styleClass="nav_item" text="QUẢN LÝ THÔNG TIN HỘ KHẨU" />

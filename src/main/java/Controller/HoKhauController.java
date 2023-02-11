@@ -120,6 +120,7 @@ public class HoKhauController implements Initializable{
         ThemHoKhauController controller = loader.getController();
         controller.setHoKhauController(this);
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
         addStage.setScene(scene);
         addStage.show();
    }
@@ -203,6 +204,7 @@ public class HoKhauController implements Initializable{
       }
       conn.close();
       Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();  
    }
