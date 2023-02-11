@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TamVangController">
@@ -28,20 +28,16 @@
       </VBox>
    </center>
    <bottom>
-      <VBox alignment="CENTER" prefHeight="100.0" prefWidth="1000.0" styleClass="all" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="footer" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="44.0" prefWidth="1000.0" styleClass="header">
+            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="982.0">
                <children>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="44.0" prefWidth="982.0">
-                     <children>
-                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
-                        <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
-                        <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
-                     </children>
-                  </HBox>
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Sửa" textFill="#454029" />
+                  <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
+                  <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
                </children>
-            </Pane>
+            </HBox>
          </children>
-      </VBox>
+      </StackPane>
    </bottom>
 </BorderPane>

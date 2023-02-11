@@ -96,7 +96,7 @@ public class NhanKhauController implements Initializable {
                ResultSet rs = stmt.executeQuery(query);
                while(rs.next()) {
                     NkList.add(new NhanKhau(rs.getString(1),rs.getNString(2),rs.getString(3), rs.getDate(4).toLocalDate(), 
-                    rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(7), rs.getNString(8)));
+                    rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), rs.getNString(9)));
                }
                conn.close();
 

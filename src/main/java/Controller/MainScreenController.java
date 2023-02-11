@@ -16,7 +16,7 @@ public class MainScreenController extends Application {
         try{
             Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
             stage.setScene(scene);
             stage.show();
         }catch (Exception e){

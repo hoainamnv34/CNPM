@@ -7,31 +7,32 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
-   <top>
-      <Pane prefHeight="50.0" prefWidth="1000.0" styleClass="header" BorderPane.alignment="CENTER">
-         <children>
-            <Label styleClass="title_header" text="QUẢN LÝ THÔNG TIN KHU DÂN CƯ " />
-         </children>
-      </Pane>
-   </top>
+<BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
    <center>
-      <VBox fx:id="vBox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vBox" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <VBox prefHeight="96.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="44.0" prefWidth="1000.0" styleClass="header">
+            <Pane maxHeight="1.7976931348623157E308" prefHeight="50.0" prefWidth="1000.0" styleClass="header">
                <children>
-                  <HBox prefHeight="50.0" prefWidth="1000.0">
+                  <Label styleClass="title_header" text="QUẢN LÝ THÔNG TIN KHU DÂN CƯ " />
+               </children>
+            </Pane>
+            <Pane prefHeight="45.0" prefWidth="1000.0" styleClass="header" VBox.vgrow="NEVER">
+               <children>
+                  <HBox layoutX="7.0" layoutY="9.0" prefHeight="42.0" prefWidth="1000.0">
                      <children>
-                        <Button fx:id="qLNhanKhauBtn" mnemonicParsing="false" onAction="#nhanKhauChangeScene" prefHeight="30.0" prefWidth="222.0" text="QUẢN LÝ THÔNG TIN NHÂN KHẨU" />
-                        <Button fx:id="qLHoKhauBtn" mnemonicParsing="false" onAction="#hoKhauChangeScene" prefHeight="30.0" prefWidth="199.0" text="QUẢN LÝ THÔNG TIN HỘ KHẨU" />
-                        <Button fx:id="qLTamTruBtn" mnemonicParsing="false" onAction="#tamTruChangeScene" prefHeight="30.0" prefWidth="177.0" text="QUẢN LÝ TẠM TRÚ" />
-                        <Button fx:id="qLTamVangBtn" mnemonicParsing="false" onAction="#tamVangChangeScene" prefHeight="30.0" prefWidth="185.0" text="QUẢN LÝ TẠM VẮNG" />
-                        <Button fx:id="qLPAKNBtn" mnemonicParsing="false" onAction="#phanAnhKienNghiChangeScene" prefHeight="30.0" prefWidth="206.0" text="QUẢN LÝ PHẢN ÁNH - KIẾN NGHỊ" />
+                        <Button fx:id="qLNhanKhauBtn" mnemonicParsing="false" onAction="#nhanKhauChangeScene" prefHeight="32.0" styleClass="nav_item" text="QUẢN LÝ THÔNG TIN NHÂN KHẨU" />
+                        <Button fx:id="qLHoKhauBtn" mnemonicParsing="false" onAction="#hoKhauChangeScene" prefHeight="30.0" styleClass="nav_item" text="QUẢN LÝ THÔNG TIN HỘ KHẨU" />
+                        <Button fx:id="qLTamTruBtn" mnemonicParsing="false" onAction="#tamTruChangeScene" prefHeight="30.0" styleClass="nav_item" text="QUẢN LÝ TẠM TRÚ" />
+                        <Button fx:id="qLTamVangBtn" mnemonicParsing="false" onAction="#tamVangChangeScene" prefHeight="30.0" styleClass="nav_item" text="QUẢN LÝ TẠM VẮNG" />
+                        <Button fx:id="qLPAKNBtn" mnemonicParsing="false" onAction="#phanAnhKienNghiChangeScene" prefHeight="32.0" styleClass="nav_item" text="QUẢN LÝ PHẢN ÁNH - KIẾN NGHỊ" />
                      </children>
                   </HBox>
                </children>
             </Pane>
          </children>
       </VBox>
-   </center>
+   </top>
 </BorderPane>

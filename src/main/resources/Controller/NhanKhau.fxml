@@ -5,45 +5,40 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.NhanKhauController">
-
-   <center>
-      <VBox prefHeight="480.0" prefWidth="1063.0" BorderPane.alignment="CENTER">
+<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.NhanKhauController">
+   <bottom>
+      <StackPane maxHeight="-Infinity" prefHeight="130.0" styleClass="footer" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="table" prefHeight="627.0" prefWidth="1178.0">
+            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="130.0">
+               <children>
+                  <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editEvent" prefWidth="150.0" styleClass="btn2" text="Sửa" textFill="#454029" />
+                  <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
+                  <Button fx:id="addButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
+               </children>
+            </HBox>
+         </children>
+      </StackPane>
+   </bottom>
+   <center>
+      <VBox style="-fx-background-color: blue;" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="table" maxHeight="1.7976931348623157E308" prefWidth="1000.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="sTT" prefWidth="29.0" text="STT" />
                   <TableColumn fx:id="maNhanKhau" prefWidth="100.0" text="Mã Nhân Khẩu" />
-                <TableColumn fx:id="hoten" prefWidth="136.0" text="Họ và tên" />
-                  <TableColumn fx:id="cccd" prefWidth="121.0" text="Số CCCD" />
+                <TableColumn fx:id="hoten" prefWidth="145.0" text="Họ và tên" />
+                  <TableColumn fx:id="cccd" prefWidth="112.0" text="Số CCCD" />
                   <TableColumn fx:id="ngaysinh" prefWidth="104.0" text="Ngày sinh" />
-                  <TableColumn fx:id="gioitinh" prefWidth="76.0" text="Giới tính" />
-                  <TableColumn fx:id="quequan" prefWidth="165.0" text="Quê quán" />
-                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" prefWidth="111.0" text="Dân tộc" />
-                  <TableColumn fx:id="nghenghiep" prefWidth="195.0" text="Nghề nghiệp" />
+                  <TableColumn fx:id="gioitinh" prefWidth="87.0" text="Giới tính" />
+                  <TableColumn fx:id="quequan" prefWidth="154.0" text="Quê quán" />
+                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" prefWidth="103.0" text="Dân tộc" />
+                  <TableColumn fx:id="nghenghiep" prefWidth="160.0" text="Nghề nghiệp" />
               </columns>
             </TableView>
          </children>
       </VBox>
    </center>
-   <bottom>
-      <VBox alignment="CENTER" prefHeight="154.0" prefWidth="1048.0" styleClass="all" BorderPane.alignment="CENTER">
-         <children>
-            <Pane prefHeight="44.0" prefWidth="1000.0" styleClass="header">
-               <children>
-                  <HBox alignment="BOTTOM_CENTER" layoutY="-23.0" prefHeight="69.0" prefWidth="1196.0">
-                     <children>
-                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
-                        <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
-                        <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
-                     </children>
-                  </HBox>
-               </children>
-            </Pane>
-         </children>
-      </VBox>
-   </bottom>
 </BorderPane>

@@ -97,7 +97,7 @@ public class LoginController implements Initializable {
         loader.setLocation(getClass().getResource("HomeScene.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("login.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
         // StudentDetailController controller = loader.getController();
         // Student selected = table.getSelectionModel().getSelectedItem();
         // controller.setStudent(selected);
