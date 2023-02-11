@@ -10,12 +10,13 @@ public class test extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        
     }
 
     @Override
     public void start(Stage primaryStage) {
         try{
-            Parent root = FXMLLoader.load(this.getClass().getResource("HoKhau.fxml"));
+            Parent root = FXMLLoader.load(this.getClass().getResource("PhanAnhKienNghi.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

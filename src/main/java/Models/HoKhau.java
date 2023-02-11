@@ -3,15 +3,18 @@ package Models;
 public class HoKhau {
    private String idHoKhau;
    private String hoTenChuHo;
-   private String cccdChHo;
+   private String maNKChuHo;
+   private String cCCDChuHo;
    private String diaChiHo;
 
-
-
-   public HoKhau(String idHoKhau, String hoTenChuHo, String cCCDChuHo, String diaChiHo) {
+ 
+   
+   
+   public HoKhau(String idHoKhau, String hoTenChuHo, String maNKChuHo, String cCCDChuHo, String diaChiHo) {
       this.idHoKhau = idHoKhau;
       this.hoTenChuHo = hoTenChuHo;
-      this.cccdChHo = cCCDChuHo;
+      this.maNKChuHo = maNKChuHo;
+      this.cCCDChuHo = cCCDChuHo;
       this.diaChiHo = diaChiHo;
    }
    public String getIdHoKhau() {
@@ -32,16 +35,25 @@ public class HoKhau {
    public void setDiaChiHo(String diaChiHo) {
       this.diaChiHo = diaChiHo;
    }
-   public String getCccdChHo() {
-      return cccdChHo;
-   }
-   public void setCccdChHo(String cccdChHo) {
-      this.cccdChHo = cccdChHo;
-   }
+   
 
    public String getHoTen() {
       return this.hoTenChuHo;
    }
+   public String getMaNKChuHo() {
+      return maNKChuHo;
+   }
+   public void setMaNKChuHo(String maNKChuHo) {
+      this.maNKChuHo = maNKChuHo;
+   }
+   public String getCCCDChuHo() {
+      return cCCDChuHo;
+   }
+   public void setCCCDChuHo(String cCCDChuHo) {
+      this.cCCDChuHo = cCCDChuHo;
+   }
+
+
 
    
    

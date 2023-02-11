@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 import Models.NhanKhau;
 import Models.TamVang;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -73,7 +75,7 @@ public class TamVangController implements Initializable {
       try {
          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
          Statement stmt = conn.createStatement();
-         String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = TamTru.CCCD";
+         String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamVang INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = TamVang.MaNhanKhau";
          ResultSet rs = stmt.executeQuery(query);
    
          while(rs.next()) {
@@ -89,7 +91,7 @@ public class TamVangController implements Initializable {
          // new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2021,8,9),LocalDate.of(2020, 10, 20), "ly do"),
          // new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
       );
-
+      sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
       idTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("idTamVang"));
       hoTen.setCellValueFactory(new PropertyValueFactory<TamVang, String>("hoTen"));
       noiTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("noiTamTru"));
@@ -107,15 +109,17 @@ public class TamVangController implements Initializable {
    protected void addEvent(ActionEvent e) throws IOException {
       Stage addStage = new Stage();
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
+      loader.setLocation(getClass().getResource("ThemTamVang.fxml"));
       Parent root = loader.load();
+      ThemTamVangController controller = loader.getController();
+      controller.setTamVangController(this);
       Scene scene = new Scene(root);
       addStage.setScene(scene);
       addStage.show();
    }
 
    @FXML
-   protected void deleteEvent(ActionEvent e) throws IOException{
+   protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
       TamVang selected = table.getSelectionModel().getSelectedItem();
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
       alert.setTitle("Cofirmation");
@@ -131,7 +135,13 @@ public class TamVangController implements Initializable {
       Optional<ButtonType> result = alert.showAndWait();
 
       if (result.get()== buttonTypeYes){
-         String message = "Xóa Hộ khẩu " + selected.getHoTen() + " thành công"; 
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Statement stmt;
+         stmt = conn.createStatement();
+         String query =  "DELETE FROM dbo.TamVang WHERE  ID = '" + selected.getIdTamVang() + "\'";
+         System.out.println(query);
+         stmt.execute(query);
+         String message = "Xóa Tạm vắng " + selected.getHoTen() + " thành công"; 
          Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
          alert1.setTitle("Information");
          alert1.setHeaderText("Notification");
@@ -145,8 +155,33 @@ public class TamVangController implements Initializable {
 
    @FXML
    protected void editEvent(ActionEvent e) throws IOException{
-      // HoKhau selected = table.getSelectionModel().getSelectedItem();
+      TamVang selected = table.getSelectionModel().getSelectedItem();
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("SuaTamVang.fxml"));
+      Parent root = loader.load();
+      SuaTamVangController controller = loader.getController();
+      controller.setTamVangController(this);
+      controller.maNKField.setText(selected.getIdTamVang());
+      controller.hoTenLabel.setText(selected.getHoTen());
+      controller.noiTamTruField.setText(selected.getNoiTamTru());
+      controller.tuNgayDatePicker.setValue(selected.getTuNgay());
+      controller.denNgayDatePicker.setValue(selected.getDenNgay());
+      controller.lydoField.setText(selected.getLyDo());
+      controller.setTamVangEdit(selected);
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();
 
+   }
+
+   public void addList(TamVang tamVang) {
+      tamVangList.add(tamVang);
+   }
+
+   public void removeList(TamVang tamVangCu, TamVang tamVangMoi ) {
+      int index = tamVangList.indexOf(tamVangCu);
+      tamVangList.set(index, tamVangMoi);
    }
     
 }

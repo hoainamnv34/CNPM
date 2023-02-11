@@ -8,9 +8,11 @@ public class PhanAnhKienNghi {
     private String noiDung;
     private LocalDate ngayPA;
     private String trangThai;
-    private String capPhanAnh;
+    private String capPhanHoi;
     private String phanHoi;
     private LocalDate ngayPhanHoi;
+
+
     public PhanAnhKienNghi( String maPA, NhanKhau nguoiPA, String noiDung, LocalDate ngayPA, String trangThai,
             String capPhanAnh, String phanHoi, LocalDate ngayPhanHoi) {
         this.maPA = maPA;
@@ -18,7 +20,7 @@ public class PhanAnhKienNghi {
         this.noiDung = noiDung;
         this.ngayPA = ngayPA;
         this.trangThai = trangThai;
-        this.capPhanAnh = capPhanAnh;
+        this.capPhanHoi = capPhanAnh;
         this.phanHoi = phanHoi;
         this.ngayPhanHoi = ngayPhanHoi;
     }
@@ -52,11 +54,11 @@ public class PhanAnhKienNghi {
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
-    public String getCapPhanAnh() {
-        return capPhanAnh;
+    public String getCapPhanHoi() {
+        return capPhanHoi;
     }
-    public void setCapPhanAnh(String capPhanAnh) {
-        this.capPhanAnh = capPhanAnh;
+    public void setCapPhanHoi(String capPhanHoi) {
+        this.capPhanHoi = capPhanHoi;
     }
     public String getPhanHoi() {
         return phanHoi;

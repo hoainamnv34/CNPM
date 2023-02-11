@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class TamVang {
    private String idTamVang;
+   private String cCCD;
    private NhanKhau nguoiTamVang;
    private String noiTamTru;
    private LocalDate tuNgay; 
@@ -58,6 +59,14 @@ public class TamVang {
 
    public String getHoTen() {
       return nguoiTamVang.getHoTen();
+   }
+
+   public String getcCCD() {
+      return cCCD;
+   }
+
+   public void setcCCD(String cCCD) {
+      this.cCCD = cCCD;
    }
 
    

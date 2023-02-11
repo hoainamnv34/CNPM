@@ -1,6 +1,11 @@
 package Controller;
 
+
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -69,24 +74,66 @@ public class ThemHoKhauController implements Initializable  {
 
     @FXML
     protected void Submit(ActionEvent e) {
+        try {
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Statement stmt = conn.createStatement();
+            String query = "SELECT TOP 1 MaHoKhau FROM dbo.HoKhau ORDER BY MaHoKhau DESC";
+            ResultSet rs = stmt.executeQuery(query);
+            rs.next();
+            String input = rs.getString(1);
+            System.out.println(input);
+            int dotIndex = input.indexOf(".");
+            String prefix = input.substring(0, dotIndex + 1);
+            int number = Integer.parseInt(input.substring(dotIndex + 1).trim()) + 1;
+            String maHoKhau = (prefix + String.format("%05d", number)).trim();
+            System.out.println("ma nhan khau" + maHoKhau);
 
-        String maHoKhau = createMaHoKhau();
-        newNhanKhau = new NhanKhau(0, hoTenField.getText(), cMNField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), 1);
-        String maNhanKhau = "xl";
-        newtThanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, maHoKhau, "Chủ Hộ");
-        newHoKhau = new HoKhau(maHoKhau, newNhanKhau.getHoTen(), newNhanKhau.getCccd(), newNhanKhau.getThuongTru());
-        hoKhauController.addList(newHoKhau);
-        Alert infoAlert = new Alert(AlertType.INFORMATION);
-        infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
-        infoAlert.setContentText("Bạn đã tạo thành công một Hộ Khẩu có mã " + maHoKhau);
+
+            stmt = conn.createStatement();
+            query = "SELECT TOP 1 MaNhanKhau FROM dbo.NhanKhau ORDER BY MaNhanKhau DESC";
+            rs = stmt.executeQuery(query);
+            rs.next();
+            input = rs.getString(1);
+            System.out.println(input);
+            dotIndex = input.indexOf(".");
+            prefix = input.substring(0, dotIndex + 1);
+            number = Integer.parseInt(input.substring(dotIndex + 1).trim()) + 1;
+            String maNhanKhau = (prefix + String.format("%05d", number)).trim();
+            System.out.println("ma nhan khau" + maNhanKhau);
+
+
+            query = "INSERT INTO dbo.NhanKhau (MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep) VALUES ( '"
+            + maNhanKhau + "', N'" + hoTenField.getText() +"', '" + cMNField.getText()  + "', '" + ngaySinhDatePicker.getValue().toString() + "', N'"
+            + gioiTinBox.getValue().toString() +  "', N'" + queQuanField.getText() + "', N'" +  thuongTruField.getText() + "',N'"
+            +  danTocBox.getValue().toString() + "', N'" + ngheNghiepField.getText() +   "')";
+            stmt.execute(query);
+
+
+            query = "INSERT INTO dbo.HoKhau (MaHoKhau, MaNKChuHo,Diachi) VALUES('"
+            + maHoKhau + "','" + maNhanKhau + "', N'" + thuongTruField.getText() + "')";
+            stmt.execute(query);
+            newHoKhau = new HoKhau(maHoKhau, hoTenField.getText(), maNhanKhau, cMNField.getText(), thuongTruField.getText());
+        
+            
+            query = "INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc, MaTrongHoKhau)VALUES ('"
+            +  maNhanKhau + "', '" + maHoKhau + "',  N'Chủ hộ',N'" + "" + "'," + String.valueOf(1) + ")";
+            stmt.execute(query);
+
+
+            hoKhauController.addList(newHoKhau);
+            conn.close();
+            Alert infoAlert = new Alert(AlertType.INFORMATION);
+            infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
+            infoAlert.setContentText("Bạn đã tạo thành công một Hộ Khẩu có mã " + maHoKhau);
         
         infoAlert.showAndWait();
+          
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-    private String createMaHoKhau() {
-        return "55.767";
     }
 
 

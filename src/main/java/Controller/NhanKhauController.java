@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -30,10 +32,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
 public class NhanKhauController implements Initializable {
 
      @FXML
@@ -41,6 +46,9 @@ public class NhanKhauController implements Initializable {
 
      @FXML
      private TableColumn<NhanKhau, Integer> sTT;
+
+     @FXML
+     private TableColumn<NhanKhau, String> maNhanKhau;
 
      @FXML 
      private TableColumn<NhanKhau, String> hoten;
@@ -75,38 +83,31 @@ public class NhanKhauController implements Initializable {
      private Button addButton;
 
      private ObservableList<NhanKhau> nhankhauList;
+     private NhanKhau selectNhanKhau;
 
      private List<NhanKhau> NkList = new ArrayList<NhanKhau>();
 
      @Override
      public void initialize(URL arg0, ResourceBundle arg1) {
-
           try {
                Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
                Statement stmt = conn.createStatement();
-               String query = "SELECT HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau";
+               String query = "SELECT MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau";
                ResultSet rs = stmt.executeQuery(query);
-               int i = 1;
                while(rs.next()) {
-                    NkList.add(new NhanKhau(i, rs.getNString(1),rs.getString(2), rs.getDate(3).toLocalDate(), rs.getNString(4), rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), 2));
-                    i++;
+                    NkList.add(new NhanKhau(rs.getString(1),rs.getNString(2),rs.getString(3), rs.getDate(4).toLocalDate(), 
+                    rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(7), rs.getNString(8)));
                }
+               conn.close();
 
           } catch (Exception e) {
                e.printStackTrace();
           }
 
-          
+          nhankhauList = FXCollections.observableArrayList(NkList);
 
-          nhankhauList = FXCollections.observableArrayList(
-               // new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1),
-               // new NhanKhau(0, "Son", "1111", LocalDate.of(2020, 10, 20), "Nam", "NamDan", "Vinh", "Kinh", "SV", 1)
-               NkList
-          //new NhanKhau(1)
-          );
-
-          // sTT.setCellValueFactory(new String());
-          sTT.setCellValueFactory(new PropertyValueFactory<NhanKhau, Integer>("id"));
+          sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
+          maNhanKhau.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("maNhanKhau"));
           hoten.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("hoTen"));
           cccd.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("cccd"));
           ngaysinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, LocalDate>("ngaySinh"));
@@ -123,87 +124,104 @@ public class NhanKhauController implements Initializable {
      }
 
      @FXML
-     protected void addEvent(ActionEvent e) throws IOException {
+     protected void addEvent(ActionEvent e) {
           Stage addStage = new Stage();
           FXMLLoader loader = new FXMLLoader();
           loader.setLocation(getClass().getResource("ThemNhanKhau.fxml"));
-          Parent root = loader.load();
-          Scene scene = new Scene(root);
-          ThemNhanKhauController controller = loader.getController();
-          controller.setNhanKhauController(this);
+          Parent root;
+          try {
+               root = loader.load();
+               Scene scene = new Scene(root);
+               ThemNhanKhauController controller = loader.getController();
+               controller.setNhanKhauController(this);
+               addStage.setScene(scene);
+               addStage.show();
+          } catch (IOException e1) {
+               System.out.println(e1.getMessage());
+          }
           
-          addStage.setScene(scene);
-          addStage.show();
      }
 
      @FXML
-     protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
+     protected void deleteEvent(ActionEvent e) throws SQLException {
+          Alert alert;
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
-          
           Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-          Statement stmt = conn.createStatement();
-          // String query = "SELECT  COUNT(*) FROM	dbo.HoKhau WHERE CCCDChuho = '" + selected.getCccd() + "'";
-          // System.out.println(query);
-          // ResultSet rs = stmt.executeQuery(query);
-          // rs.next();
-          // System.out.println(rs.getInt(1));
-          // if(false){
-          //      System.out.println("Xóa nhân khẩu là chủ hộ");
-          // } else {
-          //      String query = "DELETE FROM dbo.ThanhVienCuaHo WHERE CCCD = \'" + selected.getCccd() + "\'" 
-          //      +  "\nDELETE FROM dbo.PhanAnhKienNghi WHERE CCCD = \'" + selected.getCccd() + "\'"
-          //      + "\nDELETE FROM dbo.TamTru WHERE CCCD = \'" + selected.getCccd() + "\'"
-          //      + "\nDELETE FROM dbo.TamVang WHERE CCCD = \'" + selected.getCccd() + "\'"
-          //      + "\nDELETE FROM dbo.NhanKhau WHERE CCCD = \'" + selected.getCccd() + "\'";
-          //      System.out.println(query);
-          //      ResultSet rst =  stmt.executeQuery(query);
-          // }
-          conn.close();
-      
-
-          // Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-          // alert.setTitle("Cofirmation");
-          // alert.setHeaderText("Bạn muốn xóa Nhân Khẩu " + selected.getHoTen());
-          // //   alert.setContentText("choose your option");
-
-          // ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-          // ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
-          // // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-          // alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
-
-          // Optional<ButtonType> result = alert.showAndWait();
-
-          // if (result.get()== buttonTypeYes){
-          //      String message = "Xóa Nhân Khẩu " + selected.getHoTen() + " thành công"; 
-          //      Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-          //      alert1.setTitle("Information");
-          //      alert1.setHeaderText("Notification");
-          //      alert1.setContentText(message);
-          //      alert1.show();
-          //      nhankhauList.remove(selected);
+          Statement stmt;
+          stmt = conn.createStatement();
+          String query = "SELECT  COUNT(*) FROM dbo.HoKhau WHERE MaNKChuHo = '" + selected.getMaNhanKhau() + "'";
+          ResultSet rs = stmt.executeQuery(query);
+          rs.next();
+          if(rs.getInt(1) != 0){
+               alert = new Alert(Alert.AlertType.ERROR);
+               alert.setTitle("Lỗi");
+               alert.setHeaderText("Xóa nhân khẩu là Chủ hộ");
+               query = "SELECT MaHoKhau FROM dbo.HoKhau WHERE MaNKChuHo= '" + selected.getMaNhanKhau() + "'";
+               rs = stmt.executeQuery(query);
+               rs.next();
+               alert.setContentText("Hãy xóa hộ khẩu " + rs.getString(1) + " trước!");
+               alert.show();
                
-          // }      
-          // else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
-          //      System.out.println("Code for no");
+          } else {
+               alert = new Alert(Alert.AlertType.CONFIRMATION);
+               alert.setTitle("Cofirmation");
+               alert.setHeaderText("Bạn muốn xóa Nhân Khẩu " + selected.getHoTen());
+               //   alert.setContentText("choose your option");
+               ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+               ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+               // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
+               alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+               Optional<ButtonType> result = alert.showAndWait();
+
+               if (result.get()== buttonTypeYes){
+                    String message = "Xóa Nhân Khẩu " + selected.getHoTen() + " thành công"; 
+                    Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                    alert1.setTitle("Information");
+                    alert1.setHeaderText("Notification");
+                    alert1.setContentText(message);
+                    alert1.show();
+                    nhankhauList.remove(selected);
+                    query = 
+                         "DELETE FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = \'" + selected.getMaNhanKhau() + "\'"
+                         +  "\nDELETE FROM dbo.PhanAnhKienNghi WHERE MaNhanKhau = \'" + selected.getMaNhanKhau() + "\'"
+                         + "\nDELETE FROM dbo.TamTru WHERE MaNhanKhau = \'" + selected.getMaNhanKhau() + "\'"
+                         + "\nDELETE FROM dbo.TamVang WHERE MaNhanKhau = \'" + selected.getMaNhanKhau() + "\'"
+                         + "\n DELETE FROM NhanKhau WHERE MaNhanKhau = '" + selected.getMaNhanKhau() + "'";
+                    System.out.println(query);
+                    stmt.execute(query);
+                    
+               }      
+               else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
+                    System.out.println("Code for no");
+               
+
+
+          }
+          conn.close();
      }
 
-     private NhanKhau selectNhanKhau;
+     
+
      @FXML
-     protected void editEvent(ActionEvent e) throws IOException{
+     protected void editEvent(ActionEvent e) throws IOException, SQLException{
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
           setSelectNhanKhau(selected);
           Stage addStage = new Stage();
           FXMLLoader loader = new FXMLLoader();
           loader.setLocation(getClass().getResource("SuaNhanKhau.fxml"));
           Parent root = loader.load();
-     
-          
           SuaNhanKhauController controller = loader.getController();
           controller.setNhanKhauController(this);
+
+          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+          Statement stmt = conn.createStatement();
+          String query = "SELECT MaHoKhau FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau() + "'";
+          ResultSet rs = stmt.executeQuery(query);
+          rs.next();
+
           controller.setNhanKhauEdit(selected);
+          controller.maHoKhauField.setText(rs.getString(1));
           controller.hoTenField.setText(selected.getHoTen());
           controller.cccdField.setText(selected.getCccd());
           controller.ngaySinhDatePicker.setValue(selected.getNgaySinh());
@@ -211,37 +229,12 @@ public class NhanKhauController implements Initializable {
           controller.danTocBox.setValue(selected.getDanToc());
           controller.thuongTruField.setText(selected.getThuongTru());
           controller.queQuanField.setText(selected.getQueQuan());
-         /* @FXML
-         TextField hoTenField;
-
-         @FXML
-         DatePicker ngaySinhDatePicker;
-
-         @FXML
-         TextField cccdField;
-
-         @FXML
-         TextField queQuanField;
-
-         @FXML
-         TextField thuongTruField;
-
-         @FXML
-         ChoiceBox gioiTinBox;
-
-         @FXML
-         ChoiceBox danTocBox; 
-
-         @FXML
-         TextField ngheNghiepField;*/
-          //NhanKhau edited = controller.getEditNhanKhau();
-          
+         
           Scene scene = new Scene(root);
           addStage.setScene(scene);
           addStage.show();      
 
-          
-
+          conn.close();
      }
 
      public void addList(NhanKhau nhanKhau) {
@@ -249,8 +242,6 @@ public class NhanKhauController implements Initializable {
      }
 
      public void editList(NhanKhau cu, NhanKhau moi) {
-         //System.out.println(cu.getHoTen());
-         //System.out.println(moi.getHoTen());
          int sz = nhankhauList.size();
          for (int i = 0; i < sz; i++) {
             if (nhankhauList.get(i).equals(cu)) {
@@ -258,9 +249,6 @@ public class NhanKhauController implements Initializable {
                nhankhauList.set(i, moi);
                break;
             }
-         }
-         for (NhanKhau nhanKhau : nhankhauList) {
-            System.out.println(nhanKhau.getHoTen());
          }
      }
 

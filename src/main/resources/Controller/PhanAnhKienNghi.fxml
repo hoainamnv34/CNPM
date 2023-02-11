@@ -15,14 +15,15 @@
          <children>
             <TableView fx:id="table" prefHeight="627.0" prefWidth="1178.0">
               <columns>
-                <TableColumn fx:id="maPA" prefWidth="84.0" text="Mã" />
-                <TableColumn fx:id="nguoiPhanAnh" prefWidth="140.0" text="Tên người gửi " />
-                  <TableColumn fx:id="noiDung" prefWidth="144.0" text="Nội dung " />
-                  <TableColumn fx:id="ngayGui" prefWidth="101.0" text="Ngày gửi" />
-                  <TableColumn fx:id="trangThai" prefWidth="110.0" text="Trạng thái" />
-                  <TableColumn fx:id="capPhanHoi" prefWidth="196.0" text="Cấp giải quyết " />
-                  <TableColumn fx:id="phanHoi" maxWidth="1000.0" minWidth="0.0" text="Phản hồi" />
-                  <TableColumn fx:id="ngayPhanHoi" prefWidth="141.0" text="Ngày phản hồi" />
+                  <TableColumn fx:id="sTT" prefWidth="50.0" text="STT" />
+                <TableColumn fx:id="maPA" prefWidth="78.0" text="Mã" />
+                <TableColumn fx:id="nguoiPhanAnh" prefWidth="149.0" text="Tên người gửi " />
+                  <TableColumn fx:id="noiDung" prefWidth="174.0" text="Nội dung " />
+                  <TableColumn fx:id="ngayGui" prefWidth="120.0" text="Ngày gửi" />
+                  <TableColumn fx:id="trangThai" prefWidth="109.0" text="Trạng thái" />
+                  <TableColumn fx:id="capPhanHoi" prefWidth="91.0" text="Cấp giải quyết " />
+                  <TableColumn fx:id="phanHoi" maxWidth="1000.0" minWidth="0.0" prefWidth="138.0" text="Phản hồi" />
+                  <TableColumn fx:id="ngayPhanHoi" prefWidth="90.0" text="Ngày phản hồi" />
               </columns>
             </TableView>
          </children>
@@ -35,9 +36,10 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" layoutY="-23.0" prefHeight="69.0" prefWidth="1196.0">
                      <children>
-                        <Button fx:id="editButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
-                        <Button fx:id="delButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
-                        <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
+                        <Button fx:id="editButton" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="177.0" style="-fx-background-image: red;" styleClass="delete" text="Sửa" textFill="#454029" />
+                        <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="210.0" text="Xóa" />
+                        <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="181.0" text="Thêm" />
+                        <Button fx:id="updButton" mnemonicParsing="false" onAction="#updateEvent" prefHeight="43.0" prefWidth="171.0" text="Cập Nhật Phản Hồi" />
                      </children>
                   </HBox>
                </children>

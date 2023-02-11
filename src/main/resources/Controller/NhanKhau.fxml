@@ -15,14 +15,15 @@
          <children>
             <TableView fx:id="table" prefHeight="627.0" prefWidth="1178.0">
               <columns>
-                <TableColumn fx:id="sTT" prefWidth="40.79998856782913" text="STT" />
-                <TableColumn fx:id="hoten" prefWidth="183.0" text="Họ và tên" />
-                  <TableColumn fx:id="cccd" prefWidth="144.0" text="Số CCCD" />
-                  <TableColumn fx:id="ngaysinh" prefWidth="101.0" text="Ngày sinh" />
-                  <TableColumn fx:id="gioitinh" prefWidth="110.0" text="Giới tính" />
-                  <TableColumn fx:id="quequan" prefWidth="196.0" text="Quê quán" />
-                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" text="Dân tộc" />
-                  <TableColumn fx:id="nghenghiep" prefWidth="141.0" text="Nghề nghiệp" />
+                <TableColumn fx:id="sTT" prefWidth="29.0" text="STT" />
+                  <TableColumn fx:id="maNhanKhau" prefWidth="100.0" text="Mã Nhân Khẩu" />
+                <TableColumn fx:id="hoten" prefWidth="136.0" text="Họ và tên" />
+                  <TableColumn fx:id="cccd" prefWidth="121.0" text="Số CCCD" />
+                  <TableColumn fx:id="ngaysinh" prefWidth="104.0" text="Ngày sinh" />
+                  <TableColumn fx:id="gioitinh" prefWidth="76.0" text="Giới tính" />
+                  <TableColumn fx:id="quequan" prefWidth="165.0" text="Quê quán" />
+                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" prefWidth="111.0" text="Dân tộc" />
+                  <TableColumn fx:id="nghenghiep" prefWidth="195.0" text="Nghề nghiệp" />
               </columns>
             </TableView>
          </children>

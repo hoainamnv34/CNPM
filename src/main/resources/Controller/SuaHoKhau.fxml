@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SuaHoKhauController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SuaHoKhauController">
    <children>
       <Label layoutX="323.0" layoutY="14.0" text="Sửa Hộ Khẩu">
          <font>
@@ -87,7 +87,7 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="queQuanField" />
+                  <TextField fx:id="queQuanField" prefHeight="25.0" prefWidth="262.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -97,7 +97,7 @@
                         <Font size="19.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="thuongTruField" />
+                  <TextField fx:id="thuongTruField" prefHeight="25.0" prefWidth="266.0" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">

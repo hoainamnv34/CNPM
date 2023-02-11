@@ -1,6 +1,10 @@
 package Controller;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -52,52 +56,60 @@ public class SuaHoKhauController implements Initializable{
    Button saveButton;
 
     private NhanKhau newNhanKhau;
-    private ThanhVienCuaHo newtThanhVienCuaHo;
     private HoKhauController hoKhauController;
-    private NhanKhau nhanKhauEdit;
+    private HoKhau hoKhauEdit;
 
 
 
-    public NhanKhau getNhanKhauEdit() {
-      return nhanKhauEdit;
-   }
 
-   public void setNhanKhauEdit(NhanKhau nhanKhauEdit) {
-      this.nhanKhauEdit = nhanKhauEdit;
-   }
+    public HoKhau getHoKhauEdit() {
+        return hoKhauEdit;
+    }
 
+    public void setHoKhauEdit(HoKhau hoKhauEdit) {
+        this.hoKhauEdit = hoKhauEdit;
+    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-      ngaySinhDatePicker.setValue(LocalDate.now());
+        
+       
 
-      BooleanBinding ismaHoKhauFieldEmpty =thuongTruField.textProperty().isEmpty();
-      BooleanBinding ishohoTenFieldEmpty =hoTenField.textProperty().isEmpty();
-      BooleanBinding iscMNFieldEmpty = cMNField.textProperty().isEmpty();
-      BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
+        BooleanBinding ismaHoKhauFieldEmpty =thuongTruField.textProperty().isEmpty();
+        BooleanBinding ishohoTenFieldEmpty =hoTenField.textProperty().isEmpty();
+        BooleanBinding iscMNFieldEmpty = cMNField.textProperty().isEmpty();
+        BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
 
-      saveButton.disableProperty().bind(areTextFieldsEmpty);
+        saveButton.disableProperty().bind(areTextFieldsEmpty);
     }
 
     @FXML
-    protected void Submit(ActionEvent e) {
+    protected void Submit(ActionEvent e) throws SQLException {
         //System.out.println(danTocBox.getValue());
-        String maHoKhau = "testID1503";
-        newNhanKhau = new NhanKhau(0, hoTenField.getText(), cMNField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), 1);
-        String maNhanKhau = "xl";
-        newtThanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, maHoKhau, "Chủ Hộ");
-        HoKhau newHoKhau = new HoKhau(maHoKhau, newNhanKhau.getHoTen(), newNhanKhau.getCccd(), newNhanKhau.getThuongTru());
+        String maNKChuHo = hoKhauController.getMaNKChuHo();
+
+        
+        Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+        Statement stmt = conn.createStatement();
+        String query = "UPDATE dbo.NhanKhau SET HoTen = N'" + hoTenField.getText() + "', CCCD = '" + cMNField.getText() + "', NgaySinh = '" + ngaySinhDatePicker.getValue().toString() 
+        + "', GioiTinh = N'" +  gioiTinBox.getValue().toString() + "', QueQuan = N'" + queQuanField.getText()+"', ThuongTru = N'" + thuongTruField.getText() + "', Dantoc = N'" + danTocBox.getValue().toString()
+        + "', NgheNghiep = '"  + ngheNghiepField.getText() +"' WHERE MaNhanKhau = '" + maNKChuHo + "'\n"
+        + "UPDATE dbo.HoKhau SET	Diachi = N'" + thuongTruField.getText() 
+        + "' WHERE MaNKChuHo = '" + maNKChuHo + "'";
+        System.out.println(query);
+        stmt.execute(query);
+        conn.close();
+
+        newNhanKhau = new NhanKhau(maNKChuHo, hoTenField.getText(), cMNField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(),
+        thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText());
+        HoKhau newHoKhau = new HoKhau(hoKhauEdit.getIdHoKhau(), hoTenField.getText(), maNKChuHo, cMNField.getText(), thuongTruField.getText());
+
         //System.out.println(selectNhanKhau.getHoTen());
-        HoKhau selectHoKhau = hoKhauController.getSelectHoKhau();
-        hoKhauController.editList(selectHoKhau, newHoKhau);
+        hoKhauController.editList(hoKhauEdit, newHoKhau);
         Alert infoAlert = new Alert(AlertType.INFORMATION);
-        //NhanKhau nk = this.getNhanKhauEdit();
-        //System.out.println(nk.getHoTen());
-
-
+        // NhanKhau nk = this.getNhanKhauEdit();
 
         infoAlert.setHeaderText("Sửa Hộ Khẩu Thành Công");
-        // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công");
         
         infoAlert.showAndWait();
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();

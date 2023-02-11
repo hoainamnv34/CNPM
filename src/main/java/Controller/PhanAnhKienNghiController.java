@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,6 +41,8 @@ public class PhanAnhKienNghiController implements Initializable{
    @FXML
    private TableView<PhanAnhKienNghi> table;
 
+   @FXML
+   private TableColumn<PhanAnhKienNghi, Integer> sTT;
    @FXML
    private TableColumn<PhanAnhKienNghi, String> maPA;
 
@@ -73,6 +77,20 @@ public class PhanAnhKienNghiController implements Initializable{
    @FXML 
    private Button addButton;
 
+   @FXML
+   private Button updButton;
+
+   private PhanAnhKienNghi selectPAKN;
+
+   
+   public PhanAnhKienNghi getSelectPAKN() {
+      return selectPAKN;
+   }
+
+   public void setSelectPAKN(PhanAnhKienNghi selectPAKN) {
+      this.selectPAKN = selectPAKN;
+   }
+
    private ObservableList<PhanAnhKienNghi> paknList;
    private List<PhanAnhKienNghi> pAList = new ArrayList<PhanAnhKienNghi>();
 
@@ -82,7 +100,7 @@ public class PhanAnhKienNghiController implements Initializable{
       try {
          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
          Statement stmt = conn.createStatement();
-         String query = "SELECT maPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = PhanAnhKienNghi.CCCD";
+         String query = "SELECT MaPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = PhanAnhKienNghi.MaNhanKhau";
          ResultSet rs = stmt.executeQuery(query);
 
          while(rs.next()) {
@@ -97,20 +115,15 @@ public class PhanAnhKienNghiController implements Initializable{
 
       paknList = FXCollections.observableArrayList(
          pAList
-         //new HoKhau("HK.1","Son", "568", "Hoang Mai"),
-         //new HoKhau("HK.2","Nam", "346", "Hoang Mai")
-         // new PhanAnhKienNghi(1, "123", new NhanKhau("Son"),
-         //  "App qldc nhu cut", LocalDate.of(2020,12,12), false,
-         //   "chu tich xa", "Chua co", null)
    
       );
-
+      sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
       maPA.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("maPA"));
       nguoiPhanAnh.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("ten"));
       noiDung.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("noiDung"));
       ngayGui.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, LocalDate>("ngayPA"));
       trangThai.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("trangThai"));
-      capPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("capPhanAnh"));
+      capPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("capPhanHoi"));
       phanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("phanHoi"));
       ngayPhanHoi.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, LocalDate>("ngayPhanHoi"));
       table.setItems(paknList);
@@ -118,25 +131,29 @@ public class PhanAnhKienNghiController implements Initializable{
       BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
-   }
+      updButton.disableProperty().bind(isSelected);
 
-   /*@FXML
-   protected void addEvent(ActionEvent e) throws IOException {
-        Stage addStage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ThemPA.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        addStage.setScene(scene);
-        addStage.show();
    }
 
    @FXML
-   protected void deleteEvent(ActionEvent e) throws IOException{
-         HoKhau selected = table.getSelectionModel().getSelectedItem();
+   protected void addEvent(ActionEvent e) throws IOException {
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("ThemPhanAnhKienNghi.fxml"));
+      Parent root = loader.load();
+      ThemPAKNController controller = loader.getController();
+      controller.setpAKNController(this);
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();
+   }
+
+   @FXML
+   protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
+         PhanAnhKienNghi selected = table.getSelectionModel().getSelectedItem();
          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
          alert.setTitle("Cofirmation");
-         alert.setHeaderText("Bạn muốn xóa hộ khẩu có chủ hộ tên " + selected.getHoTenChuHo());
+         alert.setHeaderText("Bạn muốn xóa phán ánh kiến nghị " + selected.getMaPA());
          //   alert.setContentText("choose your option");
 
          ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
@@ -148,21 +165,72 @@ public class PhanAnhKienNghiController implements Initializable{
          Optional<ButtonType> result = alert.showAndWait();
 
          if (result.get()== buttonTypeYes){
-            String message = "Xóa Hộ khẩu " + selected.getHoTenChuHo() + " thành công"; 
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Statement stmt = conn.createStatement();
+            String query = "DELETE dbo.PhanAnhKienNghi WHERE MaPA = '" + selected.getMaPA() + "'";
+            stmt.execute(query);
+            conn.close();
+            String message = "Xóa phán ánh kiến nghị " + selected.getMaPA() + " thành công"; 
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Information");
             alert1.setHeaderText("Notification");
             alert1.setContentText(message);
             alert1.show();
-            hokhauList.remove(selected);
+            paknList.remove(selected);
          }      
-         else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
-            System.out.println("Code for no");
    }
 
    @FXML
    protected void editEvent(ActionEvent e) throws IOException{
-      HoKhau selected = table.getSelectionModel().getSelectedItem();
+      PhanAnhKienNghi selected = table.getSelectionModel().getSelectedItem();
+      this.setSelectPAKN(selected);
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("SuaPhanAnhKienNghi.fxml"));
+      Parent root = loader.load();
+      SuaPAKNController controller = loader.getController();
+      controller.setpAKNController(this);
+      controller.setpAKNEdit(selected);
+      controller.maPALabel.setText(selected.getMaPA());
+      controller.hoTenLabel.setText(selected.getNguoiPA().getHoTen());
+      controller.noidungArea.setText(selected.getNoiDung());
+   
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();      
+   }
 
-   }*/
+
+   @FXML
+   protected void updateEvent(ActionEvent e) throws IOException {
+      PhanAnhKienNghi selected = table.getSelectionModel().getSelectedItem();
+      this.setSelectPAKN(selected);
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("CapNhatPhanHoi.fxml"));
+      Parent root = loader.load();
+      CapNhatPhanHoiController controller = loader.getController();
+      controller.setpAKNController(this);
+      controller.setpAKNEdit(selected);
+      controller.maPALabel.setText(selected.getMaPA());
+      controller.hoTenLabel.setText(selected.getNguoiPA().getHoTen());
+      controller.ngayPALabel.setText(selected.getNgayPA().toString());
+   
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();   
+   }
+
+
+   public void addList(PhanAnhKienNghi phanAnhKienNghi) {
+      paknList.add(phanAnhKienNghi);
+   }
+
+   public void editList(PhanAnhKienNghi cu, PhanAnhKienNghi moi) {
+      int index = paknList.indexOf(cu);
+      paknList.set(index, moi);
+   }
+ 
+
+
 }

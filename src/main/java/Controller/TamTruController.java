@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 import Models.NhanKhau;
 import Models.TamTru;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,13 +73,12 @@ public class TamTruController implements Initializable {
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
 
-
       try {
          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
          Statement stmt = conn.createStatement();
-         String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.CCCD = TamTru.CCCD";
+         String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = TamTru.MaNhanKhau";
          ResultSet rs = stmt.executeQuery(query);
-         int i = 1;
+
          while(rs.next()) {
             tTList.add(new TamTru(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(), rs.getNString(6)));
          }
@@ -94,7 +95,7 @@ public class TamTruController implements Initializable {
          
    
       );
-
+      sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
       idTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("idTamTru"));
       hoTen.setCellValueFactory(new PropertyValueFactory<TamTru, String>("hoTen"));
       noiTamTru.setCellValueFactory(new PropertyValueFactory<TamTru, String>("noiTamTru"));
@@ -112,15 +113,17 @@ public class TamTruController implements Initializable {
    protected void addEvent(ActionEvent e) throws IOException {
         Stage addStage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
+        loader.setLocation(getClass().getResource("ThemTamTru.fxml"));
         Parent root = loader.load();
+        ThemTamTruController controller = loader.getController();
+        controller.setTamTruController(this);
         Scene scene = new Scene(root);
         addStage.setScene(scene);
         addStage.show();
    }
 
    @FXML
-   protected void deleteEvent(ActionEvent e) throws IOException{
+   protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
          TamTru selected = table.getSelectionModel().getSelectedItem();
          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
          alert.setTitle("Cofirmation");
@@ -136,7 +139,15 @@ public class TamTruController implements Initializable {
          Optional<ButtonType> result = alert.showAndWait();
 
          if (result.get()== buttonTypeYes){
-            String message = "Xóa Hộ khẩu " + selected.getHoTen() + " thành công"; 
+
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Statement stmt;
+            stmt = conn.createStatement();
+            String query = "DELETE FROM dbo.TamTru WHERE ID = '" + selected.getIdTamTru() + "'";
+            System.out.println(query);
+            stmt.execute(query);
+
+            String message = "Xóa Tạm trú " + selected.getHoTen() + " thành công"; 
             Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1.setTitle("Information");
             alert1.setHeaderText("Notification");
@@ -150,8 +161,34 @@ public class TamTruController implements Initializable {
 
    @FXML
    protected void editEvent(ActionEvent e) throws IOException{
-      // HoKhau selected = table.getSelectionModel().getSelectedItem();
+      TamTru selected = table.getSelectionModel().getSelectedItem();
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("SuaTamTru.fxml"));
+      Parent root = loader.load();
+      SuaTamTruController controller = loader.getController();
+      controller.setTamTruController(this);
+      controller.maNKField.setText(selected.getIdTamTru());
+      controller.hoTenLabel.setText(selected.getHoTen());
+      controller.noiTamTruField.setText(selected.getNoiTamTru());
+      controller.tuNgayDatePicker.setValue(selected.getTuNgay());
+      controller.denNgayDatePicker.setValue(selected.getDenNgay());
+      controller.lydoField.setText(selected.getLyDo());
+      controller.setTamTruEdit(selected);
+      Scene scene = new Scene(root);
+      addStage.setScene(scene);
+      addStage.show();
+   }
 
+
+   public void addList(TamTru tamTru) {
+      tamTruList.add(tamTru);
+   }
+
+
+   public void removeList(TamTru tamTruCu, TamTru tamTruMoi) {
+      int index = tamTruList.indexOf(tamTruCu);
+      tamTruList.set(index, tamTruMoi);
    }
     
 }

@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1236.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SuaNhanKhauController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="597.0" prefWidth="1236.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SuaNhanKhauController">
    <children>
-      <TableView layoutX="49.0" layoutY="79.0" prefHeight="460.0" prefWidth="466.0">
+      <TableView fx:id="tableView" layoutX="49.0" layoutY="79.0" prefHeight="460.0" prefWidth="466.0">
         <columns>
-          <TableColumn prefWidth="291.0" text="Họ và tên" />
-          <TableColumn minWidth="0.0" prefWidth="174.0" text="Quan hệ với chủ hộ" />
+          <TableColumn fx:id="hoTen" prefWidth="291.0" text="Họ và tên" />
+          <TableColumn fx:id="qHeChuHo" minWidth="0.0" prefWidth="174.0" text="Quan hệ với chủ hộ" />
         </columns>
       </TableView>
       <Label layoutX="61.0" layoutY="34.0" text="Hộ khẩu">
@@ -48,7 +48,7 @@
          </font>
       </Label>
       <TextField fx:id="cccdField" layoutX="713.0" layoutY="183.0" prefHeight="30.0" prefWidth="242.0" promptText="0123456789" />
-      <TextField fx:id="maHoKhauField" layoutX="708.0" layoutY="64.0" prefHeight="31.0" prefWidth="149.0" promptText="Mã hộ khẩu. Ex: MHK-1" />
+      <TextField fx:id="maHoKhauField" layoutX="708.0" layoutY="64.0" prefHeight="31.0" prefWidth="149.0" promptText="HK.00001" />
       <Label layoutX="577.0" layoutY="66.0" text="Mã hộ khẩu">
          <font>
             <Font size="19.0" />
@@ -168,5 +168,6 @@
          </font>
       </Label>
       <TextField fx:id="thuongTruField" layoutX="708.0" layoutY="260.0" />
+      <Label fx:id="alertLabel" layoutX="927.0" layoutY="71.0" prefHeight="17.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
