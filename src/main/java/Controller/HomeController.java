@@ -14,6 +14,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
+
+
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class HomeController implements Initializable {
     
     @FXML

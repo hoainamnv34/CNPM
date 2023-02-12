@@ -3,15 +3,12 @@ package Controller;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import Models.NhanKhau;
+
 import Models.PhanAnhKienNghi;
-import Models.TamTru;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,8 +21,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 
 public class CapNhatPhanHoiController implements Initializable{
     @FXML
@@ -50,22 +53,31 @@ public class CapNhatPhanHoiController implements Initializable{
     Button saveButton;
 
     private PhanAnhKienNghiController pAKNController;
-    private PhanAnhKienNghi pAKNEdit;
+    public PhanAnhKienNghi pAKNEdit;
     
-
-    public PhanAnhKienNghi getpAKNEdit() {
-        return pAKNEdit;
-    }
-
-    public void setpAKNEdit(PhanAnhKienNghi pAKNEdit) {
-        this.pAKNEdit = pAKNEdit;
-    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ngayPHDatePicker.setValue(LocalDate.now());
         BooleanBinding isnoidungAreaEmpty = phanHoiTextArea.textProperty().isEmpty();
         saveButton.disableProperty().bind(isnoidungAreaEmpty);
+    }
+
+    public PhanAnhKienNghiController getpAKNController() {
+        return pAKNController;
+    }
+   
+    public void setpAKNController(PhanAnhKienNghiController pAKNController) {
+        this.pAKNController = pAKNController;
+    }
+
+    public PhanAnhKienNghi getpAKNEdit() {
+        return pAKNEdit;
+    }
+
+    
+    public void setpAKNEdit(PhanAnhKienNghi pAKNEdit) {
+        this.pAKNEdit = pAKNEdit;
     }
 
     @FXML
@@ -96,14 +108,6 @@ public class CapNhatPhanHoiController implements Initializable{
         infoAlert.showAndWait();
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
-    }
-   
-    public PhanAnhKienNghiController getpAKNController() {
-        return pAKNController;
-    }
-
-    public void setpAKNController(PhanAnhKienNghiController pAKNController) {
-        this.pAKNController = pAKNController;
     }
     
 }

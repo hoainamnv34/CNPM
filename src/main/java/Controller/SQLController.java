@@ -3,16 +3,19 @@ package Controller;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ * @see https://viettuts.vn/java-jdbc/ket-noi-java-voi-sqlserver
+ */
 public class SQLController {
     //url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
     public static String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=QLDC;encrypt=true;trustServerCertificate=true;";
-//    private static String DB_URL = "jdbc:sqlserver://localhost\\SQLEXPRESS:1433;DatabaseName=TEST;encrypt=true;trustServerCertificate=true;";
-    //
-//            + "databaseName=TEST;"
-//            + "integratedSecurity=true";
+
     public static String USER_NAME = "sa";
     public static String PASSWORD = "123";
 

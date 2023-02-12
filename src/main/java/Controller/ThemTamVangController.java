@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Models.NhanKhau;
-import Models.TamTru;
 import Models.TamVang;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
@@ -22,9 +21,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class ThemTamVangController implements Initializable{
     @FXML
     TextField maNKField;
@@ -64,16 +70,19 @@ public class ThemTamVangController implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        
+        // Set the tuNgay and denNgay date pickers to current date
         tuNgayDatePicker.setValue(LocalDate.now());
         denNgayDatePicker.setValue(LocalDate.now());
-
+        
+        // Validate the maNKField input
         BooleanBinding ismaNKFieldEmpty = maNKField.textProperty().isEmpty();
         BooleanBinding isnoiTamTruFieldEmpty = noiTamTruField.textProperty().isEmpty();
         BooleanBinding islydoFieldEmpty = lydoField.textProperty().isEmpty();
         BooleanBinding areTextFieldEmpty = ismaNKFieldEmpty.or(isnoiTamTruFieldEmpty.or(islydoFieldEmpty));
         saveButton.disableProperty().bind(areTextFieldEmpty);
 
-
+        // Update alertLabel and hoTenLabel when text in maNKField changes
         maNKField.textProperty().addListener((observable, oldValue, newValue)-> {
             
             if(newValue.length() == 8){
@@ -85,9 +94,11 @@ public class ThemTamVangController implements Initializable{
                     ResultSet rs = stmt.executeQuery(query);
                    
                     if(!rs.next()) {
+                        //Handled the excepition when entered wrong MaNhanKhau
                         alertLabel.setText("Mã Nhân khẩu sai");
 
                     }else{
+                        // display the valid HoTen tilte for entered MaNhanKhau
                         alertLabel.setText("Mã Nhân khẩu đúng");
                         hoTenLabel.setText(rs.getNString(1));
                     }
@@ -96,12 +107,14 @@ public class ThemTamVangController implements Initializable{
                     ex.printStackTrace();
                 }
             }else {
+                //Display error message for entered MaNhanKhau code
                 alertLabel.setText("Mã Nhân khẩu có dạng: NK.xxxxx");
             }
         });
         
     }
 
+    // Submit method called on the press of saveButton
     @FXML
     protected void submit(ActionEvent e) {
         TamVang tamTru;

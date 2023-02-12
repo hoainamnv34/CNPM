@@ -109,6 +109,15 @@ public class TamTruController implements Initializable {
       editButton.disableProperty().bind(isSelected);
    }
 
+   public void addList(TamTru tamTru) {
+      tamTruList.add(tamTru);
+   }
+
+   public void removeList(TamTru tamTruCu, TamTru tamTruMoi) {
+      int index = tamTruList.indexOf(tamTruCu);
+      tamTruList.set(index, tamTruMoi);
+   }
+
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
         Stage addStage = new Stage();
@@ -122,6 +131,7 @@ public class TamTruController implements Initializable {
         addStage.setScene(scene);
         addStage.show();
    }
+
 
    @FXML
    protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
@@ -160,6 +170,7 @@ public class TamTruController implements Initializable {
             System.out.println("Code for no");
    }
 
+
    @FXML
    protected void editEvent(ActionEvent e) throws IOException{
       TamTru selected = table.getSelectionModel().getSelectedItem();
@@ -180,17 +191,6 @@ public class TamTruController implements Initializable {
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();
-   }
-
-
-   public void addList(TamTru tamTru) {
-      tamTruList.add(tamTru);
-   }
-
-
-   public void removeList(TamTru tamTruCu, TamTru tamTruMoi) {
-      int index = tamTruList.indexOf(tamTruCu);
-      tamTruList.set(index, tamTruMoi);
    }
     
 }

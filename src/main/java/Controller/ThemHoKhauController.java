@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import Models.HoKhau;
-import Models.NhanKhau;
-import Models.ThanhVienCuaHo;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +24,12 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class ThemHoKhauController implements Initializable  {
 
     @FXML
@@ -55,8 +59,7 @@ public class ThemHoKhauController implements Initializable  {
     @FXML
     Button saveButton;
 
-    private NhanKhau newNhanKhau;
-    private ThanhVienCuaHo newtThanhVienCuaHo;
+
     private HoKhau newHoKhau;
     private HoKhauController hoKhauController;
     @Override
@@ -69,6 +72,16 @@ public class ThemHoKhauController implements Initializable  {
         BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
 
         saveButton.disableProperty().bind(areTextFieldsEmpty);
+    }
+
+
+    public HoKhauController getHoKhauController() {
+        return hoKhauController;
+    }
+
+
+    public void setHoKhauController(HoKhauController hoKhauController) {
+        this.hoKhauController = hoKhauController;
     }
 
 
@@ -134,16 +147,6 @@ public class ThemHoKhauController implements Initializable  {
         
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-
-    public HoKhauController getHoKhauController() {
-        return hoKhauController;
-    }
-
-
-    public void setHoKhauController(HoKhauController hoKhauController) {
-        this.hoKhauController = hoKhauController;
     }
 
     

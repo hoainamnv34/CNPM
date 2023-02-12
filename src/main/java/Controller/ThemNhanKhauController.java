@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -15,14 +14,11 @@ import javafx.scene.control.Label;
 
 import Models.NhanKhau;
 import Models.ThanhVienCuaHo;
-import View.nhap;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -36,6 +32,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class ThemNhanKhauController implements Initializable{
 
     @FXML
@@ -134,6 +135,14 @@ public class ThemNhanKhauController implements Initializable{
         });
     }
 
+    public NhanKhauController getNhanKhauController() {
+        return nhanKhauController;
+    }
+
+    public void setNhanKhauController(NhanKhauController nhanKhauController) {
+        this.nhanKhauController = nhanKhauController;
+    }
+
     @FXML
     protected void Submit(ActionEvent e) {       
         try {
@@ -184,13 +193,5 @@ public class ThemNhanKhauController implements Initializable{
         infoAlert.showAndWait();
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-    public NhanKhauController getNhanKhauController() {
-        return nhanKhauController;
-    }
-
-    public void setNhanKhauController(NhanKhauController nhanKhauController) {
-        this.nhanKhauController = nhanKhauController;
     }
 }

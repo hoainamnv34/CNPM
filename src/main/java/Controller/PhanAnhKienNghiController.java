@@ -212,7 +212,7 @@ public class PhanAnhKienNghiController implements Initializable{
       Parent root = loader.load();
       CapNhatPhanHoiController controller = loader.getController();
       controller.setpAKNController(this);
-      controller.setpAKNEdit(selected);
+      selected.setpAKNEdit(controller);
       controller.maPALabel.setText(selected.getMaPA());
       controller.hoTenLabel.setText(selected.getNguoiPA().getHoTen());
       controller.ngayPALabel.setText(selected.getNgayPA().toString());
@@ -232,6 +232,10 @@ public class PhanAnhKienNghiController implements Initializable{
       int index = paknList.indexOf(cu);
       paknList.set(index, moi);
    }
+
+public PhanAnhKienNghi getpAKNEdit(CapNhatPhanHoiController capNhatPhanHoiController) {
+    return capNhatPhanHoiController.pAKNEdit;
+}
  
 
 

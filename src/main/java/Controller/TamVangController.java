@@ -105,6 +105,15 @@ public class TamVangController implements Initializable {
       editButton.disableProperty().bind(isSelected);
    }
 
+   public void addList(TamVang tamVang) {
+      tamVangList.add(tamVang);
+   }
+
+   public void removeList(TamVang tamVangCu, TamVang tamVangMoi ) {
+      int index = tamVangList.indexOf(tamVangCu);
+      tamVangList.set(index, tamVangMoi);
+   }
+
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
       Stage addStage = new Stage();
@@ -175,15 +184,6 @@ public class TamVangController implements Initializable {
       addStage.setScene(scene);
       addStage.show();
 
-   }
-
-   public void addList(TamVang tamVang) {
-      tamVangList.add(tamVang);
-   }
-
-   public void removeList(TamVang tamVangCu, TamVang tamVangMoi ) {
-      int index = tamVangList.indexOf(tamVangCu);
-      tamVangList.set(index, tamVangMoi);
    }
     
 }

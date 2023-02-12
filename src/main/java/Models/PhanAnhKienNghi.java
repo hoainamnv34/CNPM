@@ -2,6 +2,10 @@ package Models;
 
 import java.time.LocalDate;
 
+import Controller.CapNhatPhanHoiController;
+
+
+
 public class PhanAnhKienNghi {
     private String maPA;
     private NhanKhau nguoiPA;
@@ -74,6 +78,9 @@ public class PhanAnhKienNghi {
     }
     public String getTen() {
         return nguoiPA.getHoTen();
+    }
+    public void setpAKNEdit(CapNhatPhanHoiController capNhatPhanHoiController) {
+        capNhatPhanHoiController.pAKNEdit = this;
     }
       
 }

@@ -31,6 +31,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class HoKhauController implements Initializable{
 
    @FXML
@@ -61,6 +67,10 @@ public class HoKhauController implements Initializable{
    private HoKhau selectHoKhau;
    private String maNKChuHo;
    
+   private ObservableList<HoKhau> hokhauList;
+
+   private List<HoKhau> hKList = new ArrayList<HoKhau>();
+
    public String getMaNKChuHo() {
       return maNKChuHo;
    }
@@ -69,6 +79,7 @@ public class HoKhauController implements Initializable{
       this.maNKChuHo = maNKChuHo;
    }
 
+   
    public HoKhau getSelectHoKhau() {
       return selectHoKhau;
    }
@@ -76,10 +87,6 @@ public class HoKhauController implements Initializable{
    public void setSelectHoKhau(HoKhau selectHoKhau) {
       this.selectHoKhau = selectHoKhau;
    }
-
-   private ObservableList<HoKhau> hokhauList;
-
-   private List<HoKhau> hKList = new ArrayList<HoKhau>();
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -110,6 +117,27 @@ public class HoKhauController implements Initializable{
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
    }
+
+   public void addList(HoKhau hoKhau) {
+      hokhauList.add(hoKhau);
+   }
+
+
+   public void editList(HoKhau cu, HoKhau moi) {
+      //System.out.println(cu.getHoTen());
+      //System.out.println(moi.getHoTen());
+      int sz = hokhauList.size();
+      for (int i = 0; i < sz; i++) {
+         if (hokhauList.get(i).equals(cu)) {
+            //System.out.println("day ne!!");
+            hokhauList.set(i, moi);
+            break;
+         }
+      }
+      // for (HoKhau HoKhau : hokhauList) {
+      //    System.out.println(HoKhau.getHoTen());
+      // }
+  }
 
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
@@ -208,25 +236,4 @@ public class HoKhauController implements Initializable{
       addStage.setScene(scene);
       addStage.show();  
    }
-
-
-   public void addList(HoKhau hoKhau) {
-      hokhauList.add(hoKhau);
-   }
-
-   public void editList(HoKhau cu, HoKhau moi) {
-      //System.out.println(cu.getHoTen());
-      //System.out.println(moi.getHoTen());
-      int sz = hokhauList.size();
-      for (int i = 0; i < sz; i++) {
-         if (hokhauList.get(i).equals(cu)) {
-            //System.out.println("day ne!!");
-            hokhauList.set(i, moi);
-            break;
-         }
-      }
-      // for (HoKhau HoKhau : hokhauList) {
-      //    System.out.println(HoKhau.getHoTen());
-      // }
-  }
 }

@@ -1,5 +1,11 @@
 package Models;
 
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class HoKhau {
    private String idHoKhau;
    private String hoTenChuHo;
@@ -8,7 +14,6 @@ public class HoKhau {
    private String diaChiHo;
 
  
-   
    
    public HoKhau(String idHoKhau, String hoTenChuHo, String maNKChuHo, String cCCDChuHo, String diaChiHo) {
       this.idHoKhau = idHoKhau;

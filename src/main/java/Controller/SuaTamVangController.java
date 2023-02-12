@@ -2,14 +2,9 @@ package Controller;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import Models.NhanKhau;
-import Models.TamTru;
 import Models.TamVang;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
@@ -22,7 +17,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SuaTamVangController implements Initializable{
@@ -60,6 +54,21 @@ public class SuaTamVangController implements Initializable{
         saveButton.disableProperty().bind(areTextFieldEmpty);  
     }
 
+    public TamVangController getTamVangController() {
+        return tamVangController;
+    }
+    
+    public void setTamVangController(TamVangController tamVangController) {
+        this.tamVangController = tamVangController;
+    }
+
+    public TamVang getTamVangEdit() {
+        return tamVangEdit;
+    }
+    public void setTamVangEdit(TamVang tamVangEdit) {
+        this.tamVangEdit = tamVangEdit;
+    }
+
     @FXML
     protected void submit(ActionEvent e) {
         try {
@@ -85,21 +94,6 @@ public class SuaTamVangController implements Initializable{
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
 
-    }
-    
-    public TamVangController getTamVangController() {
-        return tamVangController;
-    }
-
-    public void setTamVangController(TamVangController tamVangController) {
-        this.tamVangController = tamVangController;
-    }
-    public TamVang getTamVangEdit() {
-        return tamVangEdit;
-    }
-
-    public void setTamVangEdit(TamVang tamVangEdit) {
-        this.tamVangEdit = tamVangEdit;
     }
 }
 

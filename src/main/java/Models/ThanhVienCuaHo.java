@@ -1,5 +1,12 @@
 package Models;
 
+
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class ThanhVienCuaHo {
     private String idNhanKhau;
     private String hoTen;
@@ -8,8 +15,6 @@ public class ThanhVienCuaHo {
     private String noithuongtrutruoc;
     private int idTrongHoKhau;
     
-
-  
 
     public ThanhVienCuaHo(String idNhanKhau, String hoTen, String idHoKhau, String quanHeVoiChuHo, int idTrongHoKhau) {
         this.idNhanKhau = idNhanKhau;

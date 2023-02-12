@@ -7,19 +7,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import Models.NhanKhau;
 import Models.ThanhVienCuaHo;
-import View.nhap;
 import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -88,16 +85,16 @@ public class SuaNhanKhauController implements Initializable{
 
 
 
-    public NhanKhau getNhanKhauEdit() {
-      return nhanKhauEdit;
+    public SuaNhanKhauController() {
+    
+       }
+
+   public NhanKhau getNhanKhauEdit() {
+  return nhanKhauEdit;
    }
 
    public void setNhanKhauEdit(NhanKhau nhanKhauEdit) {
       this.nhanKhauEdit = nhanKhauEdit;
-   }
-
-   public SuaNhanKhauController() {
-
    }
 
 
@@ -147,6 +144,16 @@ public class SuaNhanKhauController implements Initializable{
         });
     }
 
+    public NhanKhauController getNhanKhauController() {
+        return nhanKhauController;
+    }
+
+
+
+    public void setNhanKhauController(NhanKhauController nhanKhauController) {
+        this.nhanKhauController = nhanKhauController;
+    }
+
     @FXML
     protected void Submit(ActionEvent e) throws SQLException {
         //System.out.println(danTocBox.getValue());
@@ -179,16 +186,6 @@ public class SuaNhanKhauController implements Initializable{
         infoAlert.showAndWait();
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-
-
-    public NhanKhauController getNhanKhauController() {
-        return nhanKhauController;
-    }
-
-    public void setNhanKhauController(NhanKhauController nhanKhauController) {
-        this.nhanKhauController = nhanKhauController;
     }
     
 }

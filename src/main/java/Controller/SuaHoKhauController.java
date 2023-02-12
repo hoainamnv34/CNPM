@@ -2,7 +2,6 @@ package Controller;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -11,12 +10,9 @@ import java.util.ResourceBundle;
 
 import Models.HoKhau;
 import Models.NhanKhau;
-import Models.ThanhVienCuaHo;
-import View.nhap;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -61,7 +57,6 @@ public class SuaHoKhauController implements Initializable{
 
 
 
-
     public HoKhau getHoKhauEdit() {
         return hoKhauEdit;
     }
@@ -81,6 +76,14 @@ public class SuaHoKhauController implements Initializable{
         BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
 
         saveButton.disableProperty().bind(areTextFieldsEmpty);
+    }
+
+    public HoKhauController getHoKhauController() {
+        return hoKhauController;
+    }
+
+    public void setHoKhauController(HoKhauController hoKhauController) {
+        this.hoKhauController = hoKhauController;
     }
 
     @FXML
@@ -114,14 +117,6 @@ public class SuaHoKhauController implements Initializable{
         infoAlert.showAndWait();
         Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
-    }
-
-    public HoKhauController getHoKhauController() {
-        return hoKhauController;
-    }
-
-    public void setHoKhauController(HoKhauController hoKhauController) {
-        this.hoKhauController = hoKhauController;
     }
     
 }

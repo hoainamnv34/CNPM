@@ -2,6 +2,12 @@ package Models;
 
 import java.time.LocalDate;
 
+
+/*
+ * @author Vo Hoai Nam 4592
+ * @version 1.0 11/2/2023
+ * Class 136813, Teacher's name Trung.TT
+ */
 public class NhanKhau {
    private String maNhanKhau;
    private String hoTen;
