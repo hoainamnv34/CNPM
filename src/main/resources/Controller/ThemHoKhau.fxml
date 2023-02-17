@@ -20,7 +20,7 @@
          <children>
             <Pane prefHeight="128.0" prefWidth="476.0">
                <children>
-                  <Label layoutX="96.0" layoutY="3.0" prefHeight="59.0" prefWidth="189.0" text="Thông tin chủ hộ">
+                  <Label layoutX="95.0" layoutY="-15.0" prefHeight="59.0" prefWidth="189.0" text="Thông tin chủ hộ">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -167,16 +167,26 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="28.0" prefWidth="150.0" text="Nghề nghiệp">
+                  <Label prefHeight="27.0" prefWidth="154.0" text="Địa chỉ hộ">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ngheNghiepField" prefHeight="25.0" prefWidth="200.0" promptText="Công nhân" />
+                  <TextField fx:id="diaChiHoField" prefHeight="25.0" prefWidth="196.0" />
                </children>
             </HBox>
          </children>
       </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label prefHeight="28.0" prefWidth="150.0" text="Nghề nghiệp">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ngheNghiepField" prefHeight="25.0" prefWidth="200.0" promptText="Công nhân" />
+         </children>
+      </HBox>
       <HBox prefHeight="59.0" prefWidth="720.0" styleClass="header-subStage">
          <children>
             <Label styleClass="title_header" text="Thêm Hộ Khẩu">

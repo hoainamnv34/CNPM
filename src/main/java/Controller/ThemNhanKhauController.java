@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,8 +20,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -88,8 +92,30 @@ public class ThemNhanKhauController implements Initializable{
 
     private NhanKhau newNhanKhau;
     private NhanKhauController nhanKhauController;
+    private TamTruController tamTruController;
 
-   @Override
+    public TamTruController getTamTruController() {
+        return tamTruController;
+    }
+
+    public void setTamTruController(TamTruController tamTruController) {
+        this.tamTruController = tamTruController;
+    }
+
+    public NhanKhau getNewNhanKhau() {
+        return newNhanKhau;
+    }
+
+    public void setNewNhanKhau(NhanKhau newNhanKhau) {
+        this.newNhanKhau = newNhanKhau;
+    }
+
+
+    private List<ThanhVienCuaHo> tV = new ArrayList<ThanhVienCuaHo>();
+    private ObservableList<ThanhVienCuaHo> tVList;
+
+
+    @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ngaySinhDatePicker.setValue(LocalDate.now());
 
@@ -101,8 +127,7 @@ public class ThemNhanKhauController implements Initializable{
         
         
         maHoKhauField.textProperty().addListener((observable, oldValue, newValue)-> {
-            List<ThanhVienCuaHo> tV = new ArrayList<ThanhVienCuaHo>();
-            ObservableList<ThanhVienCuaHo> tVList;
+           
            
             if(newValue.length() == 8){
                 try {
@@ -144,7 +169,7 @@ public class ThemNhanKhauController implements Initializable{
     }
 
     @FXML
-    protected void Submit(ActionEvent e) {       
+    public void Submit(ActionEvent e) throws IOException {       
         try {
             Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
@@ -173,25 +198,60 @@ public class ThemNhanKhauController implements Initializable{
             + gioiTinBox.getValue().toString() +  "', N'" + queQuanField.getText() + "', N'" +  thuongTruField.getText() + "',N'"
             +  danTocBox.getValue().toString() + "', N'" + ngheNghiepField.getText() +   "')";
             stmt.execute(query);
-        
-            newNhanKhau = new NhanKhau(maNhanKhau, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(),
-            queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText());
-            nhanKhauController.addList(newNhanKhau);
+
             query = "INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc, MaTrongHoKhau)VALUES ('"
             +  maNhanKhau + "', '" + maHoKhauField.getText() + "',  N'" + quanHeVoiChuHoBox.getValue().toString() + "',N'" + "" + "'," + String.valueOf(iDTrongHoKhau) +")";
             stmt.execute(query);
 
+            
+            newNhanKhau = new NhanKhau(maNhanKhau, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(),
+            queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText());
+            
+            ThanhVienCuaHo thanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, hoTenField.getText(), maHoKhauField.getText(), quanHeVoiChuHoBox.getValue().toString(), null, iDTrongHoKhau);
+            this.addList(thanhVienCuaHo);
+            
+    
+            if(nhanKhauController != null) nhanKhauController.addList(newNhanKhau);
+            else {
+                query = "SELECT HK.Diachi FROM dbo.HoKhau AS HK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaHoKhau = HK.MaHoKhau"
+                + " INNER JOIN dbo.NhanKhau AS NK ON NK.MaNhanKhau = TV.MaNhanKhau WHERE TV.MaNhanKhau = '"
+                + maNhanKhau + "'";
+                rs = stmt.executeQuery(query);
+                rs.next();
+                Stage addStage = new Stage();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("ThemTamTru.fxml"));
+                Parent root = loader.load();
+                ThemTamTruController controller = loader.getController();
+                controller.maNKField.setText(maNhanKhau);
+                controller.noiTamTruField.setText(rs.getNString(1));
+                controller.setTamTruController(this.getTamTruController());
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+                addStage.setScene(scene);
+                addStage.show();
+            }
+            
             conn.close();
           
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        Alert infoAlert = new Alert(AlertType.INFORMATION);
-        infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
-        // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
-        infoAlert.showAndWait();
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
-        stage.close();
+        if(nhanKhauController != null) {
+            Alert infoAlert = new Alert(AlertType.INFORMATION);
+            infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
+            // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
+            infoAlert.showAndWait();
+        }
+
+        
+        // Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        // stage.close();
+    }
+
+
+    public void addList(ThanhVienCuaHo thanhVienCuaHo) {
+        tVList.add(thanhVienCuaHo);
     }
 }

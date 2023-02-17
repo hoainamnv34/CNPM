@@ -8,11 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.stage.Stage;
 
 
 
@@ -41,6 +44,9 @@ public class HomeController implements Initializable {
 
     @FXML
     Pane pane;
+
+    @FXML
+    Button logOut;
     
     private Parent currentRoot;
     
@@ -147,6 +153,25 @@ public class HomeController implements Initializable {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    @FXML 
+    protected void logOut(ActionEvent e) {
+        try {
+            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("Login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+            // StudentDetailController controller = loader.getController();
+            // Student selected = table.getSelectionModel().getSelectedItem();
+            // controller.setStudent(selected);
+            stage.setScene(scene);
+
+        } catch (IOException ee) {
+            ee.printStackTrace();
         }
     }
 }

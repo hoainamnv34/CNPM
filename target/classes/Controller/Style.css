@@ -93,7 +93,8 @@
 }
 
 .header-subStage{
-    -fx-pref-height: 30px;
+    -fx-pref-height: 40px;
     -fx-pref-weight: 800px;
     -fx-background-color: green;
+    /* -fx-background-color:rgb(120, 122, 3); */
 }

@@ -30,6 +30,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -120,16 +121,49 @@ public class TamTruController implements Initializable {
 
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
-        Stage addStage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ThemTamTru.fxml"));
-        Parent root = loader.load();
-        ThemTamTruController controller = loader.getController();
-        controller.setTamTruController(this);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
-        addStage.setScene(scene);
-        addStage.show();
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Cofirmation");
+      alert.setHeaderText("Alert Information");
+      alert.setContentText("choose your option");
+
+      ButtonType buttonTypeYes = new ButtonType("Tạo Nhân khẩu mới", ButtonBar.ButtonData.YES);
+      ButtonType buttonTypeNo = new ButtonType("Nhân Khẩu có sẵn", ButtonBar.ButtonData.NO);
+
+      alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+      Optional<ButtonType> result = alert.showAndWait();
+
+      if (result.get()== buttonTypeYes){
+         Stage addNKStage = new Stage();
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(getClass().getResource("ThemNhanKhau.fxml"));
+         Parent root = loader.load();
+         ThemNhanKhauController controller = loader.getController();
+         controller.setTamTruController(this);
+
+         // controller.setNhanKhauController(this);
+         Scene scene = new Scene(root);
+         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+         addNKStage.setScene(scene);
+         addNKStage.show();
+
+      }else if (result.get().getButtonData() == ButtonBar.ButtonData.NO){
+         Stage addStage = new Stage();
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(getClass().getResource("ThemTamTru.fxml"));
+         Parent root = loader.load();
+         ThemTamTruController controller = loader.getController();
+         controller.setTamTruController(this);
+         Scene scene = new Scene(root);
+         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+         addStage.setScene(scene);
+         addStage.show();
+      }
+      
+  
+      
+      
+      
    }
 
 

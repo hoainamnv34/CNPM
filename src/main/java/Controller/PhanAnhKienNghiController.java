@@ -80,6 +80,10 @@ public class PhanAnhKienNghiController implements Initializable{
    @FXML
    private Button updButton;
 
+
+   @FXML
+   private Button tKButton;
+
    private PhanAnhKienNghi selectPAKN;
 
    
@@ -221,6 +225,18 @@ public class PhanAnhKienNghiController implements Initializable{
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();   
+   }
+
+   @FXML
+   protected void tKEvent(ActionEvent e) throws IOException {
+      Stage stage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("ThongKe.fxml"));
+      Parent root = loader.load();
+      Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+      stage.setScene(scene);
+      stage.show();   
    }
 
 

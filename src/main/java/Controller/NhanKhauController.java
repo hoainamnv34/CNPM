@@ -146,6 +146,9 @@ public class NhanKhauController implements Initializable {
           } catch (IOException e1) {
                System.out.println(e1.getMessage());
           }
+
+
+          
           
      }
 
@@ -219,6 +222,7 @@ public class NhanKhauController implements Initializable {
           SuaNhanKhauController controller = loader.getController();
           controller.setNhanKhauController(this);
           controller.setNhanKhauEdit(selected);
+         
           controller.hoTenField.setText(selected.getHoTen());
           controller.cccdField.setText(selected.getCccd());
           controller.ngaySinhDatePicker.setValue(selected.getNgaySinh());
@@ -233,6 +237,7 @@ public class NhanKhauController implements Initializable {
           ResultSet rs = stmt.executeQuery(query);
           if (rs.next()) {
                controller.maHoKhauField.setText(rs.getString(1));
+               System.out.println("xxx");
           };
 
           

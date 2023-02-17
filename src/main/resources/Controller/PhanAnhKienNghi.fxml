@@ -39,6 +39,7 @@
                   <Button fx:id="delButton" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
                   <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
                   <Button fx:id="updButton" mnemonicParsing="false" onAction="#updateEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Cập Nhật Phản Hồi" />
+                  <Button fx:id="tKButton" mnemonicParsing="false" onAction="#tKEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Thống Kê" />
                </children>
             </HBox>
          </children>

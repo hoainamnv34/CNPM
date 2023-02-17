@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeController">
    <center>
@@ -21,6 +22,10 @@
             <Pane maxHeight="1.7976931348623157E308" prefHeight="50.0" prefWidth="1000.0" styleClass="header">
                <children>
                   <Label styleClass="title_header" text="QUẢN LÝ THÔNG TIN KHU DÂN CƯ " />
+                  <Button fx:id="logOut" alignment="CENTER" layoutX="885.0" layoutY="7.0" mnemonicParsing="false" onAction="#logOut" prefHeight="32.0" prefWidth="101.0" style="-fx-background-color: rgb(120, 122, 3); -fx-text-fill: white;" text="Log Out" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
                </children>
             </Pane>
             <Pane prefHeight="45.0" prefWidth="1000.0" styleClass="header" VBox.vgrow="NEVER">

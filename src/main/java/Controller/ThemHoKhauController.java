@@ -57,6 +57,9 @@ public class ThemHoKhauController implements Initializable  {
     TextField ngheNghiepField;
 
     @FXML
+    TextField diaChiHoField;
+
+    @FXML
     Button saveButton;
 
 
@@ -123,15 +126,13 @@ public class ThemHoKhauController implements Initializable  {
 
 
             query = "INSERT INTO dbo.HoKhau (MaHoKhau, MaNKChuHo,Diachi) VALUES('"
-            + maHoKhau + "','" + maNhanKhau + "', N'" + thuongTruField.getText() + "')";
+            + maHoKhau + "','" + maNhanKhau + "', N'" + diaChiHoField.getText() + "')";
             stmt.execute(query);
             newHoKhau = new HoKhau(maHoKhau, hoTenField.getText(), maNhanKhau, cMNField.getText(), thuongTruField.getText());
         
-            
             query = "INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc, MaTrongHoKhau)VALUES ('"
             +  maNhanKhau + "', '" + maHoKhau + "',  N'Chủ hộ',N'" + "" + "'," + String.valueOf(1) + ")";
             stmt.execute(query);
-
 
             hoKhauController.addList(newHoKhau);
             conn.close();
@@ -139,7 +140,7 @@ public class ThemHoKhauController implements Initializable  {
             infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
             infoAlert.setContentText("Bạn đã tạo thành công một Hộ Khẩu có mã " + maHoKhau);
         
-        infoAlert.showAndWait();
+            infoAlert.showAndWait();
           
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -134,25 +134,47 @@ public class HoKhauController implements Initializable{
             break;
          }
       }
-      // for (HoKhau HoKhau : hokhauList) {
-      //    System.out.println(HoKhau.getHoTen());
-      // }
   }
 
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
-        Stage addStage = new Stage();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
-        Parent root = loader.load();
-        ThemHoKhauController controller = loader.getController();
-        controller.setHoKhauController(this);
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
-        addStage.setScene(scene);
-        addStage.show();
-   }
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Cofirmation");
+      alert.setHeaderText("Alert Information");
+      alert.setContentText("choose your option");
 
+      ButtonType buttonTypeYes = new ButtonType("Tạo Hộ khẩu mới", ButtonBar.ButtonData.YES);
+      ButtonType buttonTypeNo = new ButtonType("Tách Hộ Khẩu", ButtonBar.ButtonData.NO);
+
+      alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+      Optional<ButtonType> result = alert.showAndWait();
+
+      if (result.get()== buttonTypeYes){
+         Stage addStage = new Stage();
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
+         Parent root = loader.load();
+         ThemHoKhauController controller = loader.getController();
+         controller.setHoKhauController(this);
+         Scene scene = new Scene(root);
+         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+         addStage.setScene(scene);
+         addStage.show();
+
+      }else if (result.get().getButtonData() == ButtonBar.ButtonData.NO){
+         Stage addStage = new Stage();
+         FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(getClass().getResource("TachHoKhau.fxml"));
+         Parent root = loader.load();
+         TachHoKhauController controller = loader.getController();
+         controller.setHoKhauController(this);
+         Scene scene = new Scene(root);
+         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+         addStage.setScene(scene);
+         addStage.show();
+      }
+   }
 
    @FXML
    protected void deleteEvent(ActionEvent e) throws IOException{
