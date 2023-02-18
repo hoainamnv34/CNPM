@@ -15,10 +15,11 @@
          <children>
             <TableView fx:id="table" prefHeight="627.0" prefWidth="1178.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="idHoKhau" prefWidth="114.0" text="Mã hộ khẩu" />
-                  <TableColumn fx:id="hoTenChuHo" prefWidth="161.0" text="Tên chủ hộ " />
-                <TableColumn fx:id="cCCDChuHo" prefWidth="175.0" text="CCCD Chủ Hộ" />
-                  <TableColumn fx:id="diaChiHo" prefWidth="230.0" text="Địa chỉ " />
+                  <TableColumn fx:id="sTT" prefWidth="49.0" text="STT" />
+                <TableColumn fx:id="idHoKhau" prefWidth="97.0" text="Mã hộ khẩu" />
+                  <TableColumn fx:id="hoTenChuHo" prefWidth="152.0" text="Tên chủ hộ " />
+                <TableColumn fx:id="cCCDChuHo" prefWidth="178.0" text="CCCD Chủ Hộ" />
+                  <TableColumn fx:id="diaChiHo" prefWidth="364.0" text="Địa chỉ " />
               </columns>
             </TableView>
          </children>
@@ -32,6 +33,7 @@
                   <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editEvent" prefWidth="150.0" styleClass="btn2" text="Sửa" textAlignment="CENTER" textFill="#454029" />
                   <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
                   <Button fx:id="addButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
+                  <Button fx:id="showTVButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#showEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Xem Thành viên" />
                </children>
             </HBox>
          </children>

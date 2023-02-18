@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
@@ -32,9 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -59,6 +56,9 @@ public class NhanKhauController implements Initializable {
      @FXML 
      private TableColumn<NhanKhau, String> hoten;
 
+     @FXML 
+     private TableColumn<NhanKhau, String> bidanh;
+
      @FXML
      private TableColumn<NhanKhau, String> cccd;
 
@@ -72,10 +72,16 @@ public class NhanKhauController implements Initializable {
      private TableColumn<NhanKhau, String> quequan;
 
      @FXML 
+     private TableColumn<NhanKhau, String> thuongtru;
+
+     @FXML 
      private TableColumn<NhanKhau, String> dantoc;
 
      @FXML 
      private TableColumn<NhanKhau, String> nghenghiep;
+
+     @FXML 
+     private TableColumn<NhanKhau, String> noilamviec;
 
      
 
@@ -88,6 +94,9 @@ public class NhanKhauController implements Initializable {
      @FXML 
      private Button addButton;
 
+     @FXML 
+     private Button changeButton;
+
      private ObservableList<NhanKhau> nhankhauList;
      private NhanKhau selectNhanKhau;
 
@@ -98,11 +107,11 @@ public class NhanKhauController implements Initializable {
           try {
                Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
                Statement stmt = conn.createStatement();
-               String query = "SELECT MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau";
+               String query = "SELECT MaNhanKhau, HoTen, BiDanh, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep, NoiLamViec FROM dbo.NhanKhau";
                ResultSet rs = stmt.executeQuery(query);
                while(rs.next()) {
-                    NkList.add(new NhanKhau(rs.getString(1),rs.getNString(2),rs.getString(3), rs.getDate(4).toLocalDate(), 
-                    rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), rs.getNString(9)));
+                    NkList.add(new NhanKhau(rs.getString(1),rs.getNString(2), rs.getNString(3), rs.getString(4), rs.getDate(5).toLocalDate(), 
+                    rs.getNString(6), rs.getNString(7), rs.getNString(8), rs.getNString(9), rs.getNString(10), rs.getNString(11)));
                }
                conn.close();
 
@@ -115,19 +124,48 @@ public class NhanKhauController implements Initializable {
           sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
           maNhanKhau.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("maNhanKhau"));
           hoten.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("hoTen"));
+          bidanh.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("biDanh"));
           cccd.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("cccd"));
           ngaysinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, LocalDate>("ngaySinh"));
           gioitinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("gioiTinh"));
           quequan.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("queQuan"));
+          thuongtru.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("thuongTru"));
           dantoc.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("danToc"));
           nghenghiep.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("ngheNghiep"));
+          noilamviec.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("noiLamViec"));
           table.setItems(nhankhauList);
 
           BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
           delButton.disableProperty().bind(isSelected);
           editButton.disableProperty().bind(isSelected);
+          changeButton.disableProperty().bind(isSelected);
 
      }
+
+     public void addList(NhanKhau nhanKhau) {
+          nhankhauList.add(nhanKhau);
+     }
+
+     public void editList(NhanKhau cu, NhanKhau moi) {
+         int sz = nhankhauList.size();
+         for (int i = 0; i < sz; i++) {
+            if (nhankhauList.get(i).equals(cu)) {
+               //System.out.println("day ne!!");
+               nhankhauList.set(i, moi);
+               break;
+            }
+         }
+     }
+
+     
+
+     public NhanKhau getSelectNhanKhau() {
+           return selectNhanKhau;
+        }
+
+     public void setSelectNhanKhau(NhanKhau selectNhanKhau) {
+           this.selectNhanKhau = selectNhanKhau;
+        }
 
      @FXML
      protected void addEvent(ActionEvent e) {
@@ -146,13 +184,10 @@ public class NhanKhauController implements Initializable {
           } catch (IOException e1) {
                System.out.println(e1.getMessage());
           }
-
-
-          
           
      }
 
-     @FXML
+   @FXML
      protected void deleteEvent(ActionEvent e) throws SQLException {
           Alert alert;
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
@@ -209,8 +244,6 @@ public class NhanKhauController implements Initializable {
           conn.close();
      }
 
-     
-
      @FXML
      protected void editEvent(ActionEvent e) throws IOException, SQLException{
           NhanKhau selected = table.getSelectionModel().getSelectedItem();
@@ -222,7 +255,7 @@ public class NhanKhauController implements Initializable {
           SuaNhanKhauController controller = loader.getController();
           controller.setNhanKhauController(this);
           controller.setNhanKhauEdit(selected);
-         
+     
           controller.hoTenField.setText(selected.getHoTen());
           controller.cccdField.setText(selected.getCccd());
           controller.ngaySinhDatePicker.setValue(selected.getNgaySinh());
@@ -249,28 +282,43 @@ public class NhanKhauController implements Initializable {
           conn.close();
      }
 
-     public void addList(NhanKhau nhanKhau) {
-          nhankhauList.add(nhanKhau);
+
+     @FXML
+     protected void changeEvent(ActionEvent e) throws IOException, SQLException{
+          NhanKhau selected = table.getSelectionModel().getSelectedItem();
+          setSelectNhanKhau(selected);
+          Stage addStage = new Stage();
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("ThayDoiNhanKhau.fxml"));
+          Parent root = loader.load();
+          ThayDoiNhanKhauController controller = loader.getController();
+          controller.setNhanKhauController(this);
+          controller.setNhanKhauEdit(selected);
+     
+          controller.hoTenLabel.setText(selected.getHoTen());
+          
+          
+
+          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+          Statement stmt = conn.createStatement();
+          String query = "SELECT MaHoKhau, QuanHeVoiCH, GhiChu FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau().trim() + "'";
+          ResultSet rs = stmt.executeQuery(query);
+          if (rs.next()) {
+               controller.maHoKhauLabel.setText(rs.getString(1));
+               controller.qHVoiChuHoLabel.setText(rs.getNString(2));
+               controller.ghiChuField.setText(rs.getNString(3));
+          };
+
+          
+          Scene scene = new Scene(root);
+          scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+          addStage.setScene(scene);
+          addStage.show();      
+
+          conn.close();
      }
 
-     public void editList(NhanKhau cu, NhanKhau moi) {
-         int sz = nhankhauList.size();
-         for (int i = 0; i < sz; i++) {
-            if (nhankhauList.get(i).equals(cu)) {
-               //System.out.println("day ne!!");
-               nhankhauList.set(i, moi);
-               break;
-            }
-         }
-     }
-
-   public NhanKhau getSelectNhanKhau() {
-      return selectNhanKhau;
-   }
-
-   public void setSelectNhanKhau(NhanKhau selectNhanKhau) {
-      this.selectNhanKhau = selectNhanKhau;
-   }
+     
 
 
 }

@@ -14,7 +14,7 @@ import java.sql.Statement;
  */
 public class SQLController {
     //url = "jdbc:sqlserver://" +serverName + ":1433;DatabaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;
-    public static String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=QLDC;encrypt=true;trustServerCertificate=true;";
+    public static String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=QuanLyDanCu;encrypt=true;trustServerCertificate=true;";
 
     public static String USER_NAME = "sa";
     public static String PASSWORD = "123";

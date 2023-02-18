@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,6 +44,9 @@ public class HoKhauController implements Initializable{
    private TableView<HoKhau> table;
 
    @FXML
+   private TableColumn<HoKhau, Integer> sTT;
+
+   @FXML
    private TableColumn<HoKhau, String> idHoKhau;
 
    @FXML
@@ -53,6 +57,10 @@ public class HoKhauController implements Initializable{
 
    @FXML
    private TableColumn<HoKhau, String> diaChiHo;
+
+
+   @FXML
+   private Button showTVButton;
 
 
    @FXML 
@@ -106,7 +114,7 @@ public class HoKhauController implements Initializable{
 
       
       hokhauList = FXCollections.observableArrayList(hKList);
-
+      sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
       idHoKhau.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("idHoKhau"));
       hoTenChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("hoTen"));
       cCCDChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("cCCDChuHo"));
@@ -116,6 +124,7 @@ public class HoKhauController implements Initializable{
       BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
+      showTVButton.disableProperty().bind(isSelected);
    }
 
    public void addList(HoKhau hoKhau) {
@@ -258,4 +267,45 @@ public class HoKhauController implements Initializable{
       addStage.setScene(scene);
       addStage.show();  
    }
+
+
+   @FXML
+   protected void showEvent(ActionEvent e) throws IOException, SQLException{
+      HoKhau selected = table.getSelectionModel().getSelectedItem();
+      setSelectHoKhau(selected);
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("SuaHoKhau.fxml"));
+      Parent root = loader.load();
+
+      SuaHoKhauController controller = loader.getController();
+      controller.setHoKhauController(this);
+      controller.setHoKhauEdit(selected);
+
+      Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+      Statement stmt = conn.createStatement();
+      String query = "SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep"
+      + " FROM dbo.NhanKhau AS NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau WHERE TV.MaHoKhau = '"
+      + selected.getIdHoKhau() + "' AND TV.QuanHeVoiCH = N'Chủ hộ'";
+      System.out.println(query);
+      ResultSet rs = stmt.executeQuery(query);
+      while(rs.next()){
+         this.setMaNKChuHo(rs.getString(1));
+         controller.hoTenField.setText(rs.getNString(2));
+         controller.cMNField.setText(rs.getString(3));
+         controller.ngaySinhDatePicker.setValue(rs.getDate(4).toLocalDate());
+         controller.gioiTinBox.setValue(rs.getNString(5));
+         controller.queQuanField.setText(rs.getNString(6));
+         controller.thuongTruField.setText(rs.getNString(7));
+         controller.danTocBox.setValue(rs.getNString(8));
+         controller.ngheNghiepField.setText(rs.getNString(9));
+      }
+      conn.close();
+      Scene scene = new Scene(root);
+      scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+      addStage.setScene(scene);
+      addStage.show();  
+   }
+
+
 }

@@ -17,6 +17,7 @@
                   <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editEvent" prefWidth="150.0" styleClass="btn2" text="Sửa" textFill="#454029" />
                   <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
                   <Button fx:id="addButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
+                  <Button fx:id="changeButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#changeEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thay đổi" />
                </children>
             </HBox>
          </children>
@@ -25,17 +26,20 @@
    <center>
       <VBox style="-fx-background-color: blue;" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="table" maxHeight="1.7976931348623157E308" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="table" maxHeight="1.7976931348623157E308" prefHeight="370.0" prefWidth="1066.0" VBox.vgrow="ALWAYS">
               <columns>
-                <TableColumn fx:id="sTT" prefWidth="29.0" text="STT" />
-                  <TableColumn fx:id="maNhanKhau" prefWidth="100.0" text="Mã Nhân Khẩu" />
-                <TableColumn fx:id="hoten" prefWidth="145.0" text="Họ và tên" />
-                  <TableColumn fx:id="cccd" prefWidth="112.0" text="Số CCCD" />
-                  <TableColumn fx:id="ngaysinh" prefWidth="104.0" text="Ngày sinh" />
-                  <TableColumn fx:id="gioitinh" prefWidth="87.0" text="Giới tính" />
-                  <TableColumn fx:id="quequan" prefWidth="154.0" text="Quê quán" />
-                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" prefWidth="103.0" text="Dân tộc" />
-                  <TableColumn fx:id="nghenghiep" prefWidth="160.0" text="Nghề nghiệp" />
+                <TableColumn fx:id="sTT" prefWidth="25.0" text="STT" />
+                  <TableColumn fx:id="maNhanKhau" prefWidth="90.0" text="Mã Nhân Khẩu" />
+                <TableColumn fx:id="hoten" prefWidth="140.0" text="Họ và tên" />
+                  <TableColumn fx:id="bidanh" prefWidth="120.0" text="Bí danh" />
+                  <TableColumn fx:id="cccd" prefWidth="100.0" text="Số CCCD" />
+                  <TableColumn fx:id="ngaysinh" prefWidth="90.0" text="Ngày sinh" />
+                  <TableColumn fx:id="gioitinh" prefWidth="60.0" text="Giới tính" />
+                  <TableColumn fx:id="quequan" prefWidth="130.0" text="Quê quán" />
+                  <TableColumn fx:id="thuongtru" maxWidth="1000.0" minWidth="0.0" prefWidth="130.0" text="Thường trú" />
+                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" prefWidth="60.0" text="Dân tộc" />
+                  <TableColumn fx:id="nghenghiep" text="Nghề nghiệp" />
+                  <TableColumn fx:id="noilamviec" prefWidth="110.0" text="Nơi làm việc" />
               </columns>
             </TableView>
          </children>
