@@ -178,18 +178,20 @@ public class NhanKhauController implements Initializable {
      protected void search(ActionEvent e) {
          String searchInfo = searchField.getText();
          if (searchInfo == "") return;
-         //System.out.println(searchInfo);
+         System.out.println(searchInfo);
          List<NhanKhau> searchResult = new ArrayList<NhanKhau>();
          try {
             Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
             String query = "SELECT MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau WHERE HoTen = '"
             + searchInfo + "'";
+            System.out.println(query);
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
                  searchResult.add(new NhanKhau(rs.getString(1),rs.getNString(2),rs.getString(3), rs.getDate(4).toLocalDate(), 
                  rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), rs.getNString(9)));
-            }
+            } 
+            System.out.println("wtf");
             conn.close();
 
             } catch (Exception esss) {
