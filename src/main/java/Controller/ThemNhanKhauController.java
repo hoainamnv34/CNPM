@@ -122,6 +122,7 @@ public class ThemNhanKhauController implements Initializable{
     private List<ThanhVienCuaHo> tV = new ArrayList<ThanhVienCuaHo>();
     private ObservableList<ThanhVienCuaHo> tVList;
 
+    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -150,6 +151,8 @@ public class ThemNhanKhauController implements Initializable{
 
                     }else{
                         alertLabel.setText("Mã Hộ khẩu đúng");
+                        
+
                         do {
                             tV.add(new ThanhVienCuaHo(rs.getNString(1), rs.getNString(2)));
                         }while(rs.next());
@@ -164,8 +167,10 @@ public class ThemNhanKhauController implements Initializable{
                 }
             }else {
                 alertLabel.setText("Mã Hộ khẩu có dạng: HK.xxxxx");
+
             }
         });
+
     }
 
     public NhanKhauController getNhanKhauController() {

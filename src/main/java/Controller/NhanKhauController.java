@@ -97,6 +97,9 @@ public class NhanKhauController implements Initializable {
      @FXML 
      private Button changeButton;
 
+     @FXML
+     private Button statisticalButton;
+
      private ObservableList<NhanKhau> nhankhauList;
      private NhanKhau selectNhanKhau;
 
@@ -183,8 +186,7 @@ public class NhanKhauController implements Initializable {
                addStage.show();
           } catch (IOException e1) {
                System.out.println(e1.getMessage());
-          }
-          
+          }    
      }
 
    @FXML
@@ -255,14 +257,18 @@ public class NhanKhauController implements Initializable {
           SuaNhanKhauController controller = loader.getController();
           controller.setNhanKhauController(this);
           controller.setNhanKhauEdit(selected);
+          
      
           controller.hoTenField.setText(selected.getHoTen());
+          controller.biDanhField.setText(selected.getBiDanh());
           controller.cccdField.setText(selected.getCccd());
           controller.ngaySinhDatePicker.setValue(selected.getNgaySinh());
           controller.ngheNghiepField.setText(selected.getNgheNghiep());
           controller.danTocBox.setValue(selected.getDanToc());
           controller.thuongTruField.setText(selected.getThuongTru());
           controller.queQuanField.setText(selected.getQueQuan());
+          controller.noiLamViecField.setText(selected.getNoiLamViec());
+     
 
           Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
           Statement stmt = conn.createStatement();
@@ -270,6 +276,13 @@ public class NhanKhauController implements Initializable {
           ResultSet rs = stmt.executeQuery(query);
           if (rs.next()) {
                controller.maHoKhauField.setText(rs.getString(1));
+               System.out.println("xxx");
+          };
+
+          query = "SELECT NoiThuongTruTruoc FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau().trim() + "'";
+          rs = stmt.executeQuery(query);
+          if (rs.next()) {
+               controller.noiThuongTruTruocField.setText(rs.getString(1));
                System.out.println("xxx");
           };
 
@@ -301,12 +314,14 @@ public class NhanKhauController implements Initializable {
 
           Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
           Statement stmt = conn.createStatement();
-          String query = "SELECT MaHoKhau, QuanHeVoiCH, GhiChu FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau().trim() + "'";
+          String query = "SELECT MaHoKhau, QuanHeVoiCH, NgayChuyenDi, NoiChuyenToi, GhiChu FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = '" + selected.getMaNhanKhau().trim() + "'";
           ResultSet rs = stmt.executeQuery(query);
           if (rs.next()) {
                controller.maHoKhauLabel.setText(rs.getString(1));
                controller.qHVoiChuHoLabel.setText(rs.getNString(2));
-               controller.ghiChuField.setText(rs.getNString(3));
+               controller.ngayChuyenDiPicker.setValue(rs.getDate(3) == null ? LocalDate.now() : rs.getDate(3).toLocalDate());
+               controller.noiChuyenDenField.setText(rs.getNString(4));
+               controller.ghiChuField.setText(rs.getNString(5));
           };
 
           
@@ -319,6 +334,22 @@ public class NhanKhauController implements Initializable {
      }
 
      
-
+     @FXML
+     protected void statisticalevent(ActionEvent e) {
+          Stage addStage = new Stage();
+          FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(getClass().getResource("ThongKeNhanKhau.fxml"));
+          Parent root;
+          try {
+               root = loader.load();
+               Scene scene = new Scene(root);
+               scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+               addStage.setScene(scene);
+               addStage.show();
+          } catch (IOException e1) {
+               System.out.println(e1.getMessage());
+          }
+          
+     }
 
 }

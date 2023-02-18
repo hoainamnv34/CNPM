@@ -76,12 +76,12 @@ public class SuaTamVangController implements Initializable{
             Statement stmt = conn.createStatement();
             String query = "UPDATE dbo.TamVang SET NoiTamTru = N'" + noiTamTruField.getText() + "', TuNgay = '"
             + tuNgayDatePicker.getValue().toString() + "', DenNgay = '" + denNgayDatePicker.getValue().toString() 
-            + "' WHERE ID = '" + tamVangEdit.getIdTamVang() + "'";
+            + "' WHERE ID = '" + tamVangEdit.getMaTamVang() + "'";
             System.out.println(query);
             stmt.execute(query);
             conn.close();
 
-            TamVang tamTru = new TamVang(tamVangEdit.getIdTamVang(), tamVangEdit.getNguoiTamVang() , noiTamTruField.getText(), tuNgayDatePicker.getValue(), denNgayDatePicker.getValue(), lydoField.getText());
+            TamVang tamTru = new TamVang(tamVangEdit.getMaTamVang(), tamVangEdit.getNguoiTamVang() , noiTamTruField.getText(), tuNgayDatePicker.getValue(), denNgayDatePicker.getValue(), lydoField.getText());
             tamVangController.removeList(tamVangEdit, tamTru);
 
         } catch (Exception ex) {

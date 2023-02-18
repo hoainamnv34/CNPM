@@ -168,19 +168,23 @@ public class SuaNhanKhauController implements Initializable{
         //System.out.println(danTocBox.getValue());
         NhanKhau selectNhanKhau = nhanKhauController.getSelectNhanKhau();
 
-        newNhanKhau = new NhanKhau(selectNhanKhau.getMaNhanKhau(), hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(),
-        thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText());
+        newNhanKhau = new NhanKhau(selectNhanKhau.getMaNhanKhau(), hoTenField.getText(),biDanhField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(),
+        thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), noiLamViecField.getText());
         
         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
         Statement stmt = conn.createStatement();
-        String query = "UPDATE dbo.NhanKhau SET HoTen = N'" + hoTenField.getText() + "', CCCD = '" + cccdField.getText() + "', NgaySinh = '" + ngaySinhDatePicker.getValue().toString() 
-        + "', GioiTinh = N'" +  gioiTinBox.getValue().toString() + "', QueQuan = N'" + queQuanField.getText()+"', ThuongTru = N'" + thuongTruField.getText() + "', Dantoc = N'" + danTocBox.getValue().toString()
-        + "', NgheNghiep = '"  + ngheNghiepField.getText() +"' WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau() + "'";
+
+
+        String query = "UPDATE dbo.NhanKhau SET	HoTen = N'" + hoTenField.getText() + "', BiDanh = N'" + biDanhField.getText() + "', CCCD = '" + cccdField.getText()
+        + "', NgaySinh = '" + ngaySinhDatePicker.getValue().toString() + "', GioiTinh = N'" + gioiTinBox.getValue().toString() + "', QueQuan = N'" + queQuanField.getText() 
+        + "', ThuongTru = N'" + thuongTruField.getText() + "', Dantoc = N'" + danTocBox.getValue().toString() + "', NgheNghiep = N'" + ngheNghiepField.getText()
+        + "', NoiLamViec = N'" + noiLamViecField.getText() + "' WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau()+ "'";
+        System.out.println(query);
         stmt.execute(query);
 
-        query = "UPDATE dbo.ThanhVienCuaHo SET MaHoKhau   = '" + maHoKhauField.getText() + "', QuanHeVoiCH = N'" + quanHeVoiChuHoBox.getValue().toString() + "', MaTrongHoKhau = (SELECT COUNT(*) FROM dbo.ThanhVienCuaHo WHERE MaHoKhau = '" 
-        + maHoKhauField.getText() + "') + 1 WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau() + "'";
-        System.out.println(query);
+        query = "UPDATE dbo.ThanhVienCuaHo SET	MaHoKhau = '" + maHoKhauField.getText() + "', QuanHeVoiCH = N'" + quanHeVoiChuHoBox.getValue().toString() 
+        + "', NoiThuongTruTruoc = N'" + noiThuongTruTruocField.getText() + "' WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau() + "'";
+        // System.out.println(query);
         stmt.execute(query);
         conn.close();
         

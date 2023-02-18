@@ -231,7 +231,7 @@ public class PhanAnhKienNghiController implements Initializable{
    protected void tKEvent(ActionEvent e) throws IOException {
       Stage stage = new Stage();
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("ThongKe.fxml"));
+      loader.setLocation(getClass().getResource("ThongKePAKN.fxml"));
       Parent root = loader.load();
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());

@@ -68,7 +68,9 @@ public class TamTru {
       this.lyDo = lyDo;
    }
 
-   
+   public String getHoten(){
+      return nguoitamtru.getHoTen();
+   }
 
    
 }

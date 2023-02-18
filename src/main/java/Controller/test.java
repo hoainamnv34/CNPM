@@ -16,7 +16,7 @@ public class test extends Application {
     @Override
     public void start(Stage primaryStage) {
         try{
-            Parent root = FXMLLoader.load(this.getClass().getResource("HoKhau.fxml"));
+            Parent root = FXMLLoader.load(this.getClass().getResource("PhanAnhKienNghi.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
             primaryStage.setScene(scene);

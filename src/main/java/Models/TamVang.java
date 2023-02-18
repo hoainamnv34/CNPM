@@ -4,17 +4,15 @@ import java.time.LocalDate;
 
 public class TamVang {
    private String maTamVang;
-   private String cCCD;
    private NhanKhau nguoiTamVang;
    private String noiTamTru;
    private LocalDate tuNgay; 
    private LocalDate denNgay;
    private String lyDo;
    
-   public TamVang(String maTamVang, String cCCD, NhanKhau nguoiTamVang, String noiTamTru, LocalDate tuNgay,
+   public TamVang(String maTamVang, NhanKhau nguoiTamVang, String noiTamTru, LocalDate tuNgay,
          LocalDate denNgay, String lyDo) {
       this.maTamVang = maTamVang;
-      this.cCCD = cCCD;
       this.nguoiTamVang = nguoiTamVang;
       this.noiTamTru = noiTamTru;
       this.tuNgay = tuNgay;
@@ -30,13 +28,6 @@ public class TamVang {
       this.maTamVang = maTamVang;
    }
 
-   public String getcCCD() {
-      return cCCD;
-   }
-
-   public void setcCCD(String cCCD) {
-      this.cCCD = cCCD;
-   }
 
    public NhanKhau getNguoiTamVang() {
       return nguoiTamVang;
@@ -76,6 +67,10 @@ public class TamVang {
 
    public void setLyDo(String lyDo) {
       this.lyDo = lyDo;
+   }
+
+   public String getHoTen() {
+      return nguoiTamVang.getHoTen();
    }
  
    

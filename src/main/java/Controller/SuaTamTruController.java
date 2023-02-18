@@ -80,12 +80,12 @@ public class SuaTamTruController implements Initializable{
             Statement stmt = conn.createStatement();
             String query = "UPDATE dbo.TamTru SET NoiTamTru = N'" + noiTamTruField.getText() + "', TuNgay = '"
             + tuNgayDatePicker.getValue().toString() + "', DenNgay = '" + denNgayDatePicker.getValue().toString() 
-            + "' WHERE ID = '" + tamTruEdit.getIdTamTru() + "'";
+            + "' WHERE ID = '" + tamTruEdit.getMaTamTru() + "'";
             System.out.println(query);
             stmt.execute(query);
             conn.close();
 
-            TamTru tamTru = new TamTru(tamTruEdit.getIdTamTru(), tamTruEdit.getNguoitamtru() , noiTamTruField.getText(), tuNgayDatePicker.getValue(), denNgayDatePicker.getValue(), lydoField.getText());
+            TamTru tamTru = new TamTru(tamTruEdit.getMaTamTru(), tamTruEdit.getNguoitamtru() , noiTamTruField.getText(), tuNgayDatePicker.getValue(), denNgayDatePicker.getValue(), lydoField.getText());
             tamTruController.removeList(tamTruEdit, tamTru);
 
         } catch (Exception ex) {

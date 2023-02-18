@@ -92,7 +92,7 @@ public class TamVangController implements Initializable {
          // new TamVang("TT.1", new NhanKhau("Nam"), "KA", LocalDate.of(2020, 10, 20), LocalDate.of(2021, 9, 8), "Tro")
       );
       sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
-      idTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("idTamVang"));
+      idTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("maTamVang"));
       hoTen.setCellValueFactory(new PropertyValueFactory<TamVang, String>("hoTen"));
       noiTamVang.setCellValueFactory(new PropertyValueFactory<TamVang, String>("noiTamTru"));
       tuNgay.setCellValueFactory(new PropertyValueFactory<TamVang, LocalDate>("tuNgay"));
@@ -148,7 +148,7 @@ public class TamVangController implements Initializable {
          Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
          Statement stmt;
          stmt = conn.createStatement();
-         String query =  "DELETE FROM dbo.TamVang WHERE  ID = '" + selected.getIdTamVang() + "\'";
+         String query =  "DELETE FROM dbo.TamVang WHERE  ID = '" + selected.getMaTamVang() + "\'";
          System.out.println(query);
          stmt.execute(query);
          String message = "Xóa Tạm vắng " + selected.getHoTen() + " thành công"; 
@@ -172,7 +172,7 @@ public class TamVangController implements Initializable {
       Parent root = loader.load();
       SuaTamVangController controller = loader.getController();
       controller.setTamVangController(this);
-      controller.maNKField.setText(selected.getIdTamVang());
+      controller.maNKField.setText(selected.getMaTamVang());
       controller.hoTenLabel.setText(selected.getHoTen());
       controller.noiTamTruField.setText(selected.getNoiTamTru());
       controller.tuNgayDatePicker.setValue(selected.getTuNgay());
