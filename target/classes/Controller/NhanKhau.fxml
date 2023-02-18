@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -18,7 +19,6 @@
                   <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
                   <Button fx:id="changeButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#changeEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thay đổi" />
                   <Button fx:id="addButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
-                  <Button fx:id="statisticalButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#statisticalevent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thống kê" />
                </children>
             </HBox>
          </children>
@@ -46,4 +46,11 @@
          </children>
       </VBox>
    </center>
+   <top>
+      <HBox prefHeight="32.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="searchField" prefHeight="38.0" prefWidth="300.0" promptText="Nhập Họ tên, mã Nhân khẩu hoặc số CCCD" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

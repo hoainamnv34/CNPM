@@ -33,6 +33,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -105,6 +106,9 @@ public class NhanKhauController implements Initializable {
 
      private List<NhanKhau> NkList = new ArrayList<NhanKhau>();
 
+     @FXML
+     private TextField searchField;
+
      @Override
      public void initialize(URL arg0, ResourceBundle arg1) {
           try {
@@ -143,6 +147,37 @@ public class NhanKhauController implements Initializable {
           editButton.disableProperty().bind(isSelected);
           changeButton.disableProperty().bind(isSelected);
 
+
+          searchField.textProperty().addListener((observable, oldValue, newValue)-> {
+               if(searchField.getText().isEmpty()) {
+                    table.setItems(nhankhauList);
+               }else {
+                    String searchInfo = searchField.getText();
+                    List<NhanKhau> searchResult = new ArrayList<NhanKhau>();
+                    try {
+                         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+                         Statement stmt = conn.createStatement();
+                         String query = "SELECT MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau WHERE HoTen LIKE N'%"
+                         + searchInfo + "%' OR MaNhanKhau LIKE '%" + searchInfo + "%' OR CCCD LIKE'%" + searchInfo + "%'";
+                         System.out.println(query);
+                         ResultSet rs = stmt.executeQuery(query);
+                         while(rs.next()) {
+                              searchResult.add(new NhanKhau(rs.getString(1),rs.getNString(2),rs.getString(3), rs.getDate(4).toLocalDate(), 
+                              rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), rs.getNString(9)));
+                         } 
+                         System.out.println("wtf");
+                         conn.close();
+
+                         } catch (Exception esss) {
+                              esss.printStackTrace();
+                         }
+
+                         ObservableList<NhanKhau> searchedNhanKhauList;
+                         searchedNhanKhauList = FXCollections.observableArrayList(searchResult);
+                         table.setItems(searchedNhanKhauList);
+                    }
+          });
+
      }
 
      public void addList(NhanKhau nhanKhau) {
@@ -169,6 +204,8 @@ public class NhanKhauController implements Initializable {
      public void setSelectNhanKhau(NhanKhau selectNhanKhau) {
            this.selectNhanKhau = selectNhanKhau;
         }
+
+     
 
      @FXML
      protected void addEvent(ActionEvent e) {

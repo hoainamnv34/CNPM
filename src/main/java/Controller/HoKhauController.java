@@ -29,6 +29,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -57,6 +58,9 @@ public class HoKhauController implements Initializable{
 
    @FXML
    private TableColumn<HoKhau, String> diaChiHo;
+
+   @FXML
+   private TextField searchField;
 
 
    @FXML
@@ -125,6 +129,36 @@ public class HoKhauController implements Initializable{
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
       showTVButton.disableProperty().bind(isSelected);
+
+
+      searchField.textProperty().addListener((observable, oldValue, newValue)-> {
+         if(searchField.getText().isEmpty()) {
+              table.setItems(hokhauList);
+         }else {
+              String searchInfo = searchField.getText();
+              List<HoKhau> searchResult = new ArrayList<HoKhau>();
+              try {
+                  Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+                  Statement stmt = conn.createStatement();
+                  String query = "SELECT HK.maHoKhau, HoTen, NK.maNhanKhau, NK.CCCD, HK.Diachi FROM dbo.HoKhau AS HK INNER JOIN dbo.NhanKhau AS NK ON HK.maNKChuHo = NK.maNhanKhau"
+                  + " WHERE NK.HoTen LIKE N'%" + searchInfo + "%' OR HK.MaHoKhau LIKE '%" + searchInfo + "%' OR NK.CCCD LIKE '%" + searchInfo + "%'";
+                  System.out.println(query);
+                  ResultSet rs = stmt.executeQuery(query);
+                  while(rs.next()) {
+                     searchResult.add(new HoKhau(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5)));
+                  } 
+                  System.out.println("wtf");
+                  conn.close();
+
+                  } catch (Exception esss) {
+                     esss.printStackTrace();
+                  }
+
+                  ObservableList<HoKhau> searchedNhanKhauList;
+                  searchedNhanKhauList = FXCollections.observableArrayList(searchResult);
+                  table.setItems(searchedNhanKhauList);
+              }
+    });
    }
 
    public void addList(HoKhau hoKhau) {
