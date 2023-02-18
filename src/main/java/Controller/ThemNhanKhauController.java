@@ -22,7 +22,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -62,6 +61,9 @@ public class ThemNhanKhauController implements Initializable{
     TextField hoTenField;
 
     @FXML
+    TextField biDanhField;
+
+    @FXML
     DatePicker ngaySinhDatePicker;
 
     @FXML
@@ -83,7 +85,13 @@ public class ThemNhanKhauController implements Initializable{
     TextField ngheNghiepField;
 
     @FXML
+    TextField noiLamViecField;
+
+    @FXML
     ChoiceBox quanHeVoiChuHoBox;
+
+    @FXML
+    TextField noiThuongTruTruocField;
 
     @FXML
     Button saveButton;
@@ -193,21 +201,22 @@ public class ThemNhanKhauController implements Initializable{
             System.out.println("ma nhan khau" + maNhanKhau);
 
 
-            query = "INSERT INTO dbo.NhanKhau (MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep) VALUES ( '"
-            + maNhanKhau + " ', N'" + hoTenField.getText() +"', '" + cccdField.getText()  + "', '" + ngaySinhDatePicker.getValue().toString() + "', N'"
+            query = "INSERT INTO dbo.NhanKhau (MaNhanKhau,HoTen,BiDanh, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep, NoiLamViec) VALUES ('"
+            + maNhanKhau + " ', N'" + hoTenField.getText() +  " ', N'" + biDanhField.getText()+"', '" + cccdField.getText()  + "', '" + ngaySinhDatePicker.getValue().toString() + "', N'"
             + gioiTinBox.getValue().toString() +  "', N'" + queQuanField.getText() + "', N'" +  thuongTruField.getText() + "',N'"
-            +  danTocBox.getValue().toString() + "', N'" + ngheNghiepField.getText() +   "')";
+            +  danTocBox.getValue().toString() + "', N'" + ngheNghiepField.getText() +  "', N'" + noiLamViecField.getText() +  "')";
             stmt.execute(query);
 
-            query = "INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc, MaTrongHoKhau)VALUES ('"
-            +  maNhanKhau + "', '" + maHoKhauField.getText() + "',  N'" + quanHeVoiChuHoBox.getValue().toString() + "',N'" + "" + "'," + String.valueOf(iDTrongHoKhau) +")";
+            query = "INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc, MaTrongHoKhau) VALUES ('"
+            +  maNhanKhau + "', '" + maHoKhauField.getText() + "',  N'" + quanHeVoiChuHoBox.getValue().toString() + "',N'" + noiThuongTruTruocField.getText()
+            + "'," + String.valueOf(iDTrongHoKhau) +")";
             stmt.execute(query);
 
             
-            newNhanKhau = new NhanKhau(maNhanKhau, hoTenField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(),
-            queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText());
+            newNhanKhau = new NhanKhau(maNhanKhau, hoTenField.getText(), biDanhField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(),
+            queQuanField.getText(), thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), noiLamViecField.getText());
             
-            ThanhVienCuaHo thanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, hoTenField.getText(), maHoKhauField.getText(), quanHeVoiChuHoBox.getValue().toString(), null, iDTrongHoKhau);
+            ThanhVienCuaHo thanhVienCuaHo = new ThanhVienCuaHo(maNhanKhau, hoTenField.getText(), maHoKhauField.getText(), quanHeVoiChuHoBox.getValue().toString(), noiThuongTruTruocField.getText(), iDTrongHoKhau);
             this.addList(thanhVienCuaHo);
             
     

@@ -1,6 +1,6 @@
 package Models;
 
-
+import java.time.LocalDate;
 
 /*
  * @author Vo Hoai Nam 4592
@@ -13,16 +13,34 @@ public class ThanhVienCuaHo {
     private String idHoKhau;
     private String quanHeVoiChuHo;
     private String noithuongtrutruoc;
+    private LocalDate ngayChuyenDi;
+    private String noiChuyenDi;
+    private String ghiChu; 
     private int idTrongHoKhau;
     
 
-    public ThanhVienCuaHo(String idNhanKhau, String hoTen, String idHoKhau, String quanHeVoiChuHo, int idTrongHoKhau) {
+
+    public ThanhVienCuaHo(String hoTen, String quanHeVoiChuHo) {
+        this.hoTen = hoTen;
+        this.quanHeVoiChuHo = quanHeVoiChuHo;
+    }
+
+
+
+    public ThanhVienCuaHo(String idNhanKhau, String hoTen, String idHoKhau, String quanHeVoiChuHo,
+            String noithuongtrutruoc, LocalDate ngayChuyenDi, String noiChuyenDi, String ghiChu, int idTrongHoKhau) {
         this.idNhanKhau = idNhanKhau;
         this.hoTen = hoTen;
         this.idHoKhau = idHoKhau;
         this.quanHeVoiChuHo = quanHeVoiChuHo;
+        this.noithuongtrutruoc = noithuongtrutruoc;
+        this.ngayChuyenDi = ngayChuyenDi;
+        this.noiChuyenDi = noiChuyenDi;
+        this.ghiChu = ghiChu;
         this.idTrongHoKhau = idTrongHoKhau;
     }
+
+
 
     public ThanhVienCuaHo(String idNhanKhau, String hoTen, String idHoKhau, String quanHeVoiChuHo,
             String noithuongtrutruoc, int idTrongHoKhau) {
@@ -34,12 +52,44 @@ public class ThanhVienCuaHo {
         this.idTrongHoKhau = idTrongHoKhau;
     }
 
-    public ThanhVienCuaHo(String hoTen, String quanHeVoiChuHo) {
+
+
+   
+
+    public ThanhVienCuaHo(String hoTen, String quanHeVoiChuHo, String ghiChu) {
         this.hoTen = hoTen;
         this.quanHeVoiChuHo = quanHeVoiChuHo;
+        this.ghiChu = ghiChu;
     }
 
+
+
     public ThanhVienCuaHo() {
+    }
+
+    public LocalDate getNgayChuyenDi() {
+        return ngayChuyenDi;
+    }
+
+    public void setNgayChuyenDi(LocalDate ngayChuyenDi) {
+        this.ngayChuyenDi = ngayChuyenDi;
+    }
+
+    public String getNoiChuyenDi() {
+        return noiChuyenDi;
+    }
+
+    public void setNoiChuyenDi(String noiChuyenDi) {
+        this.noiChuyenDi = noiChuyenDi;
+    }
+
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
     public String getNoithuongtrutruoc() {

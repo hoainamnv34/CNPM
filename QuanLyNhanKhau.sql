@@ -13,6 +13,7 @@ MatKhau VARCHAR(20) NOT NULL
 CREATE TABLE NhanKhau (
 MaNhanKhau VARCHAR(20) NOT NULL PRIMARY KEY,
 HoTen NVARCHAR(50) NOT NULL,
+BiDanh NVARCHAR(50),
 CCCD VARCHAR(20) NOT NULL,
 NgaySinh DATE ,
 GioiTinh NVARCHAR(6),
@@ -20,6 +21,7 @@ QueQuan NVARCHAR(200),
 ThuongTru NVARCHAR(200),
 Dantoc NVARCHAR(20),
 NgheNghiep NVARCHAR(50),
+NoiLamViec NVARCHAR(200)
 )
 
 
@@ -30,12 +32,15 @@ MaNKChuHo VARCHAR(20) NOT NULL,
 Diachi NVARCHAR(200) NOT NULL
 )
 
---tao bang Thanh Vien cuar Ho
+--tao bang Thanh Vien cua Ho
 CREATE TABLE ThanhVienCuaHo(
 MaNhanKhau VARCHAR(20) NOT NULL,
 MaHoKhau VARCHAR(10) NOT NULL,
 QuanHeVoiCH NVARCHAR(10),
 NoiThuongTruTruoc NVARCHAR(200),
+NgayChuyenDi DATE,
+NoiChuyenToi NVARCHAR(200),
+GhiChu NVARCHAR(200),
 MaTrongHoKhau INT NOT NULL,
 PRIMARY KEY(MaNhanKhau, MaHoKhau)
 )
@@ -97,28 +102,28 @@ ADD FOREIGN KEY (MaHoKhau) REFERENCES dbo.HoKhau(MaHoKhau)
 
 
 
-INSERT INTO dbo.NhanKhau (MaNhanKhau,HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep)
+INSERT INTO dbo.NhanKhau (MaNhanKhau,HoTen,BiDanh, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep, NoiLamViec)
 VALUES
-('NK.00001', N'Võ Hoài Nam', '0000000001', '2002-04-20', N'Nam', N'Kỳ Thư - Kỳ Anh - Hà Tĩnh', N'Số 2 Tạ Quang Bửu- Hai Bà Trưng- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00002', N'Trần Thị Minh', '0000000002', '2002-06-01', N'Nữ', N'Xuân Thủy - Thanh Hóa', N'Số 23 Nguyễn Văn Cừ- Long Biên- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00003', N'Nguyễn Văn Tài', '0000000003', '1999-07-10', N'Nam', N'Đông Hồ - Bắc Giang', N'Số 123 Đồng Nhân- Hai Bà Trưng- Hà Nội',N'Kinh', N'Nhân viên văn phòng'),
-('NK.00004', N'Lê Thị Hạnh', '0000000004', '2001-09-01', N'Nữ', N'Bắc Hải - Quảng Ninh', N'Số 11 Lý Thái Tổ- Hoàn Kiếm- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00005', N'Đinh Thị Thanh', '0000000005', '1998-12-20', N'Nữ', N'Tràng An - Ninh Bình', N'Số 3 Trần Hưng Đạo- Hoàn Kiếm- Hà Nội',N'Kinh', N'Nhân viên bán hàng'),
-('NK.00006', N'Phạm Văn Hiếu', '0000000006', '2000-05-01', N'Nam', N'Yên Dũng - Bắc Giang', N'Số 4 Nguyễn Trãi- Hai Bà Trưng- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00007', N'Nguyễn Thị Tý', '0000000007', '1999-06-10', N'Nữ', N'Cẩm Xuyên - Hà Tĩnh', N'Số 5 Đội Cấn- Ba Đình- Hà Nội',N'Kinh', N'Nhân viên văn phòng'),
-('NK.00008', N'Trần Văn Đức', '0000000008', '2002-07-01', N'Nam', N'Yên Thành - Nghệ An', N'Số 6 Ngô Quyền- Hai Bà Trưng- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00009', N'Đặng Thị Linh', '0000000009', '2001-01-05', N'Nữ', N'Hải Hậu - Nam Định', N'Số 7 Trần Hưng Đạo- Hoàn Kiếm- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00010', N'Phan Văn Anh', '0000000010', '1998-08-20', N'Nam', N'Hoàng Su Phì - Hà Giang', N'Số 8 Đội Cấn- Ba Đình- Hà Nội',N'Kinh', N'Nhân viên kỹ thuật'),
-('NK.00011', N'Ngô Thị Hải', '0000000011', '2000-03-05', N'Nữ', N'Vĩnh Lộc - Thanh Hóa', N'Số 9 Trần Hưng Đạo- Hoàn Kiếm- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00012', N'Lê Văn Dũng', '0000000012', '1999-12-10', N'Nam', N'Đồng Hỷ - Thái Bình', N'Số 10 Nguyễn Trãi- Hai Bà Trưng- Hà Nội',N'Kinh', N'Nhân viên bán hàng'),
-('NK.00013', N'Vũ Thị Nga', '0000000013', '2001-11-05', N'Nữ', N'Yên Thành - Nghệ An', N'Số 11 Lý Thái Tổ- Hoàn Kiếm- Hà Nội',N'Kinh', N'Sinh viên'),
-('NK.00014', N'Trần Văn Tài', '0000000014', '1998-07-15', N'Nam', N'Yên Dũng - Bắc Giang', N'Số 12 Nguyễn Văn Cừ- Long Biên- Hà Nội',N'Kinh', N'Nhân viên kỹ thuật'),
-('NK.00015', N'Nguyễn Thị Tuyết', '0000000015', '1999-09-10', N'Nữ', N'Cẩm Xuyên - Hà Tĩnh', N'Số 13 Trần Hưng Đạo- Hoàn Kiếm- Hà Nội', N'Kinh', N'Sinh viên'),
-('NK.00016', N'Phạm Văn Hoàng', '0000000016', '1997-06-20', N'Nam', N'Lục Nam - Bắc Kạn', N'Số 14 Đội Cấn- Ba Đình- Hà Nội', N'Kinh', N'Nhân viên bán hàng'),
-('NK.00017', N'Trần Thị Thanh', '0000000017', '2000-05-15', N'Nữ', N'Nam Trực - Nam Định', N'Số 15 Trần Hưng Đạo- Hoàn Kiếm- Hà Nội', N'Kinh', N'Sinh viên'),
-('NK.00018', N'Lê Văn Long', '0000000018', '1999-02-20', N'Nam', N'Yên Dũng - Bắc Giang', N'Số 16 Nguyễn Văn Cừ- Long Biên- Hà Nội', N'Kinh', N'Nhân viên kỹ thuật'),
-('NK.00019', N'Đặng Thị Tâm', '0000000019', '2000-04-05', N'Nữ', N'Tứ Kỳ - Thái Bình', N'Số 17 Lý Thái Tổ- Hoàn Kiếm- Hà Nội', N'Kinh', N'Sinh viên'),
-('NK.00020', N'Nguyễn Văn Hải', '0000000020', '1997-08-15', N'Nam', N'Hải Hậu - Nam Định', N'Số 18 Đội Cấn- Ba Đình- Hà Nội', N'Kinh', N'Nhân viên bán hàng');
+('NK.00001', N'Võ Hoài Nam',N'VhNam', '0000000001', '2002-04-20', N'Nam', N'Kỳ Thư - Kỳ Anh - Hà Tĩnh', N'Số 2 Tạ Quang Bửu- Hai Bà Trưng- Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Bách Khoa Hà Nội'),
+('NK.00002', N'Nguyễn Thị Hồng',N'Hồng', '0000000002', '1995-08-12', N'Nữ', N'Phú Vang - Thừa Thiên Huế', N'Trần Phú - Hà Đông - Hà Nội',N'Kinh', N'Nhân viên kinh doanh', N'CTY TNHH ABC'),
+('NK.00003', N'Trần Văn Tân',N'Tân', '0000000003', '1980-05-10', N'Nam', N'Thạch Trị - Bố Trạch - Quảng Bình', N'Trung Tự - Đống Đa - Hà Nội',N'Kinh', N'Giáo viên', N'Trường THCS Tự Lập'),
+('NK.00004', N'Đặng Văn Tùng',N'Tùng', '0000000004', '1975-09-01', N'Nam', N'Phú Yên - Sơn Tây - Quảng Bình', N'Phương Liệt - Thanh Xuân - Hà Nội',N'Kinh', N'Tài xế', N'Công ty Vận tải XYZ'),
+('NK.00005', N'Nguyễn Thị Ngọc',N'Ngọc', '0000000005', '1988-02-14', N'Nữ', N'Hương Xuân - Hương Trà - Thừa Thiên Huế', N'Khuất Duy Tiến - Thanh Xuân - Hà Nội',N'Kinh', N'Kế toán', N'Công ty TNHH Kế toán ABC'),
+('NK.00006', N'Trần Văn An',N'An', '0000000006', '2004-11-18', N'Nam', N'Thái Phúc - Đông Hà - Quảng Trị', N'Lê Trọng Tấn - Thanh Xuân - Hà Nội',N'Kinh', N'Học sinh', N'Trường THPT Chuyên Hà Nội'),
+('NK.00007', N'Lê Thị Hoa',N'Hoa', '0000000007', '1999-03-22', N'Nữ', N'Lý Thái Tổ - Hoàn Kiếm - Hà Nội', N'Trần Duy Hưng - Cầu Giấy - Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Ngoại Thương'),
+('NK.00008', N'Nguyễn Văn A',N'A A', '0000000008', '1990-03-15', N'Nam', N'Hải Dương - Việt Nam', N'Thành phố Hà Nội',N'Kinh', N'Nhân viên văn phòng', N'Văn phòng công ty ABC'),
+('NK.00009', N'Nguyễn Thị B',N'B B', '0000000009', '1995-12-10', N'Nữ', N'Quảng Bình - Việt Nam', N'Thành phố Đà Nẵng',N'Kinh', N'Sinh viên', N'Đại học Ngoại Thương - Hà Nội'),
+('NK.00010', N'Hoàng Văn C',N'C C', '0000000010', '1985-02-25', N'Nam', N'Hà Tĩnh - Việt Nam', N'Thành phố Hồ Chí Minh',N'Kinh', N'Giáo viên', N'Trường THPT Nguyễn Trãi - Hà Nội'),
+('NK.00011', N'Phạm Thị D',N'D D', '0000000011', '1998-08-08', N'Nữ', N'Hải Phòng - Việt Nam', N'Thành phố Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Khoa Học Xã Hội và Nhân Văn - ĐHQGHN'),
+('NK.00012', N'Nguyễn Minh Tâm',N'Tâm Tâm', '0000000012', '1992-09-20', N'Nam', N'Thừa Thiên Huế - Việt Nam', N'Thành phố Hà Nội',N'Kinh', N'Kỹ thuật viên', N'Công ty TNHH XYZ'),
+('NK.00013', N'Nguyễn Hoàng Nam',N'Nam Nam', '0000000013', '1995-11-05', N'Nam', N'Vĩnh Long - Việt Nam', N'Thành phố Hồ Chí Minh',N'Kinh', N'Sinh viên', N'Đại học Kinh Tế Quốc Dân - ĐHQGHN'),
+('NK.00014', N'Lê Hoàng Anh',N'Anh', '0000000014', '1997-05-12', N'Nam', N'Thanh Khê - Đà Nẵng', N'Số 45 Điện Biên Phủ - Ba Đình - Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Công nghệ - ĐHQG Hà Nội'),
+('NK.00015', N'Nguyễn Thị Anh',N'Anh', '0000000015', '1995-06-23', N'Nữ', N'Cầu Giấy - Hà Nội', N'Số 1 Tôn Thất Thuyết - Nam Từ Liêm - Hà Nội',N'Kinh', N'Kế toán', N'Công ty TNHH Tư vấn Đầu tư Xây dựng An Viên'),
+('NK.00016', N'Trần Văn An',N'An', '0000000016', '1994-07-11', N'Nam', N'Đức Thọ - Hà Tĩnh', N'Số 8 Hoàng Cầu - Đống Đa - Hà Nội',N'Kinh', N'Kỹ sư', N'Tập đoàn Tân Hiệp Phát'),
+('NK.00017', N'Phạm Văn Bình',N'Bình', '0000000017', '2001-02-14', N'Nam', N'Tân Kỳ - Nghệ An', N'Số 15 Nguyễn Trãi - Thanh Xuân - Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Kinh tế Quốc dân'),
+('NK.00018', N'Nguyễn Thị Thùy Dung',N'Dung', '0000000018', '1998-11-09', N'Nữ', N'Cẩm Xuyên - Hà Tĩnh', N'Số 6 Ngõ Văn Chương - Đống Đa - Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Ngoại thương'),
+('NK.00019', N'Lê Đức Đạt',N'Đạt', '0000000019', '2000-01-06', N'Nam', N'Yên Thành - Nghệ An', N'Số 10 Trần Duy Hưng - Cầu Giấy - Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Thủy lợi'),
+('NK.00020', N'Lê Thanh Tùng',N'Tùng Tùng', '0000000020', '1999-05-16', N'Nam', N'Nghi Xuân - Hà Tĩnh', N'Thành Phố Vinh - Nghệ An',N'Kinh', N'Sinh viên', N'Đại học Khoa Học Tự Nhiên - ĐHQGHN')
 
 INSERT INTO dbo.HoKhau (MaHoKhau, MaNKChuHo,Diachi) VALUES
 ('HK.00001','NK.00001', N'Số 2 Tạ Quang Bửu- Hai Bà Trưng- Hà Nội'),
@@ -193,3 +198,139 @@ VALUES
 ( 1,'Nam','123'),
 ( 2,'1','1'),
 ( 3,'','')
+
+
+
+
+
+
+
+
+SET NOCOUNT ON
+DELETE FROM dbo.NhanKhau
+WHERE CCCD = '0000000000'
+
+SELECT COUNT(*) FROM   dbo.HoKhau WHERE MaNKChuHo = ''
+
+
+DELETE FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = ''
+DELETE FROM dbo.PhanAnhKienNghi WHERE CCCD = '0000000000'
+DELETE FROM dbo.TamTru WHERE CCCD = '0000000000'
+DELETE FROM dbo.TamVang WHERE CCCD = '0000000000'
+DELETE FROM dbo.NhanKhau WHERE CCCD = '0000000000'
+
+SELECT MaNhanKhau, HoTen, BiDanh, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep, NoiLamViec
+FROM dbo.NhanKhau
+
+SELECT MaHoKhau
+FROM dbo.HoKhau WHERE MaNKChuHo= ''
+
+
+SELECT NK.HoTen, TV.QuanHeVoiCH
+FROM dbo.NhanKhau AS  NK
+INNER JOIN dbo.ThanhVienCuaHo AS TV ON   TV.MaNhanKhau = NK.MaNhanKhau
+WHERE TV.MaHoKhau = ''
+
+
+SELECT COUNT(*)
+FROM dbo.ThanhVienCuaHo
+WHERE IDHoKhau = ''
+
+
+
+UPDATE dbo.NhanKhau
+SET HoTen = N'', CCCD = '', NgaySinh = '', GioiTinh = N'', QueQuan = N'', ThuongTru = N'', Dantoc = N'', NgheNghiep = ' '
+WHERE MaNhanKhau = ''
+
+UPDATE dbo.ThanhVienCuaHo SET	 NgayChuyenDi = '', NoiChuyenToi = N'', GhiChu = N' ' WHERE MaHoKhau = ' '
+
+SELECT MaHoKhau
+FROM dbo.ThanhVienCuaHo
+WHERE MaNhanKhau = ''
+
+SELECT NK.HoTen, TV.QuanHeVoiCH, TV.GhiChu FROM dbo.NhanKhau AS  NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = ''
+
+
+
+SELECT TOP 1 MaNhanKhau
+FROM dbo.NhanKhau
+ORDER BY MaNhanKhau DESC
+
+SELECT *
+FROM dbo.ThanhVienCuaHo
+WHERE MaHoKhau = 'HK.00001'
+
+DELETE FROM dbo.ThanhVienCuaHo
+WHERE MaNhanKhau = 'NK.00021'
+
+DELETE FROM dbo.NhanKhau
+WHERE MaNhanKhau = 'NK.00021'
+
+
+SELECT TOP 1 MaHoKhau FROM dbo.HoKhau ORDER BY MaHoKhau DESC
+
+
+DELETE FROM dbo.ThanhVienCuaHo
+WHERE MaHoKhau = 'HK.00007'
+
+DELETE FROM dbo.HoKhau
+WHERE MaHoKhau = 'HK.00007'
+
+
+SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep FROM dbo.NhanKhau AS NK
+INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau
+WHERE TV.MaHoKhau = 'HK.00006' AND TV.QuanHeVoiCH = N'Chủ hộ'
+
+
+UPDATE dbo.HoKhau
+SET	Diachi = N''
+WHERE MaNKChuHo = ' '
+
+SELECT *
+FROM dbo.HoKhau
+
+SELECT *
+FROM dbo.ThanhVienCuaHo
+
+
+SELECT *
+FROM dbo.NhanKhau
+
+
+
+INSERT INTO dbo.TamTru(ID,MaNhanKhau,NoiTamTru,TuNgay,DenNgay,LyDo) VALUES ('', '',N'','','',)
+
+
+SELECT HoTen FROM NhanKhau
+WHERE MaNhanKhau = 'NK.00001'
+
+
+SELECT * FROM dbo.TamTru ORDER BY ID
+
+
+UPDATE dbo.TamTru
+SET NoiTamTru = N'', TuNgay = '', DenNgay = ''
+WHERE ID = ''
+
+
+DELETE dbo.PhanAnhKienNghi
+WHERE MaPA = ''
+
+SELECT TOP 1 MaPA
+FROM dbo.PhanAnhKienNghi
+ORDER BY MaPA DESC
+
+SELECT * FROM dbo.PhanAnhKienNghi
+
+UPDATE dbo.PhanAnhKienNghi
+SET CapPhanHoi = N'', NgayPhanHoi = ' ', PhanHoi = N' ', TrangThai = N''
+WHERE MaPA = ' '
+
+SELECT *
+FROM dbo.ThanhVienCuaHo
+
+
+
+
+
+UPDATE dbo.ThanhVienCuaHo SET MaHoKhau   = 'HK.00001', QuanHeVoiCH = N'Con ??', MaTrongHoKhau = (SELECT COUNT(*) FROM dbo.ThanhVienCuaHo WHERE MaHoKhau = 'HK.00001') + 1 WHERE MaNhanKhau = 'NK.00020'

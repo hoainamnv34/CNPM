@@ -52,6 +52,9 @@ public class SuaNhanKhauController implements Initializable{
     TextField hoTenField;
 
     @FXML
+    TextField biDanhField;
+
+    @FXML
     DatePicker ngaySinhDatePicker;
 
     @FXML
@@ -73,7 +76,13 @@ public class SuaNhanKhauController implements Initializable{
     TextField ngheNghiepField;
 
     @FXML
+    TextField noiLamViecField;
+
+    @FXML
     ChoiceBox quanHeVoiChuHoBox;
+
+    @FXML
+    TextField noiThuongTruTruocField;
 
     @FXML
     Button saveButton;

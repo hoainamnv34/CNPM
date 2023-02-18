@@ -57,9 +57,4 @@ public class HoKhau {
    public void setCCCDChuHo(String cCCDChuHo) {
       this.cCCDChuHo = cCCDChuHo;
    }
-
-
-
-   
-   
 }
