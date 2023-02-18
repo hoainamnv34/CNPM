@@ -36,6 +36,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -93,6 +94,12 @@ public class NhanKhauController implements Initializable {
 
      private List<NhanKhau> NkList = new ArrayList<NhanKhau>();
 
+     @FXML
+     private TextField searchField;
+
+     @FXML
+     private Button searchButton;
+
      @Override
      public void initialize(URL arg0, ResourceBundle arg1) {
           try {
@@ -126,6 +133,44 @@ public class NhanKhauController implements Initializable {
           BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
           delButton.disableProperty().bind(isSelected);
           editButton.disableProperty().bind(isSelected);
+
+     }
+
+     @FXML
+     protected void search(ActionEvent e) {
+         String searchInfo = searchField.getText();
+         if (searchInfo == "") return;
+         //System.out.println(searchInfo);
+         List<NhanKhau> searchResult = new ArrayList<NhanKhau>();
+         try {
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Statement stmt = conn.createStatement();
+            String query = "SELECT MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep FROM dbo.NhanKhau WHERE HoTen = '"
+            + searchInfo + "'";
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()) {
+                 searchResult.add(new NhanKhau(rs.getString(1),rs.getNString(2),rs.getString(3), rs.getDate(4).toLocalDate(), 
+                 rs.getNString(5), rs.getNString(6), rs.getNString(7), rs.getNString(8), rs.getNString(9)));
+            }
+            conn.close();
+
+            } catch (Exception esss) {
+                  esss.printStackTrace();
+            }
+
+            ObservableList<NhanKhau> searchedNhanKhauList;
+            searchedNhanKhauList = FXCollections.observableArrayList(searchResult);
+
+            sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
+            maNhanKhau.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("maNhanKhau"));
+            hoten.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("hoTen"));
+            cccd.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("cccd"));
+            ngaysinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, LocalDate>("ngaySinh"));
+            gioitinh.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("gioiTinh"));
+            quequan.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("queQuan"));
+            dantoc.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("danToc"));
+            nghenghiep.setCellValueFactory(new PropertyValueFactory<NhanKhau, String>("ngheNghiep"));
+            table.setItems(searchedNhanKhauList);
 
      }
 
