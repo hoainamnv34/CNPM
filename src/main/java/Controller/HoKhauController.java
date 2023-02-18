@@ -242,26 +242,11 @@ public class HoKhauController implements Initializable{
       SuaHoKhauController controller = loader.getController();
       controller.setHoKhauController(this);
       controller.setHoKhauEdit(selected);
-
-      Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-      Statement stmt = conn.createStatement();
-      String query = "SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep"
-      + " FROM dbo.NhanKhau AS NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau WHERE TV.MaHoKhau = '"
-      + selected.getIdHoKhau() + "' AND TV.QuanHeVoiCH = N'Chủ hộ'";
-      System.out.println(query);
-      ResultSet rs = stmt.executeQuery(query);
-      while(rs.next()){
-         this.setMaNKChuHo(rs.getString(1));
-         controller.hoTenField.setText(rs.getNString(2));
-         controller.cMNField.setText(rs.getString(3));
-         controller.ngaySinhDatePicker.setValue(rs.getDate(4).toLocalDate());
-         controller.gioiTinBox.setValue(rs.getNString(5));
-         controller.queQuanField.setText(rs.getNString(6));
-         controller.thuongTruField.setText(rs.getNString(7));
-         controller.danTocBox.setValue(rs.getNString(8));
-         controller.ngheNghiepField.setText(rs.getNString(9));
-      }
-      conn.close();
+      controller.maHoKhauLabel.setText(selected.getIdHoKhau());
+      controller.maNhanKhaufField.setText(selected.getMaNKChuHo());
+      controller.hoTenLabel.setText(selected.getHoTen());
+      controller.diaChiField.setText(selected.getDiaChiHo());
+      
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
@@ -282,25 +267,25 @@ public class HoKhauController implements Initializable{
       controller.setHoKhauController(this);
       controller.setHoKhauEdit(selected);
 
-      Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-      Statement stmt = conn.createStatement();
-      String query = "SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep"
-      + " FROM dbo.NhanKhau AS NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau WHERE TV.MaHoKhau = '"
-      + selected.getIdHoKhau() + "' AND TV.QuanHeVoiCH = N'Chủ hộ'";
-      System.out.println(query);
-      ResultSet rs = stmt.executeQuery(query);
-      while(rs.next()){
-         this.setMaNKChuHo(rs.getString(1));
-         controller.hoTenField.setText(rs.getNString(2));
-         controller.cMNField.setText(rs.getString(3));
-         controller.ngaySinhDatePicker.setValue(rs.getDate(4).toLocalDate());
-         controller.gioiTinBox.setValue(rs.getNString(5));
-         controller.queQuanField.setText(rs.getNString(6));
-         controller.thuongTruField.setText(rs.getNString(7));
-         controller.danTocBox.setValue(rs.getNString(8));
-         controller.ngheNghiepField.setText(rs.getNString(9));
-      }
-      conn.close();
+      // Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+      // Statement stmt = conn.createStatement();
+      // String query = "SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep"
+      // + " FROM dbo.NhanKhau AS NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau WHERE TV.MaHoKhau = '"
+      // + selected.getIdHoKhau() + "' AND TV.QuanHeVoiCH = N'Chủ hộ'";
+      // System.out.println(query);
+      // ResultSet rs = stmt.executeQuery(query);
+      // while(rs.next()){
+      //    this.setMaNKChuHo(rs.getString(1));
+      //    controller.hoTenField.setText(rs.getNString(2));
+      //    controller.cMNField.setText(rs.getString(3));
+      //    controller.ngaySinhDatePicker.setValue(rs.getDate(4).toLocalDate());
+      //    controller.gioiTinBox.setValue(rs.getNString(5));
+      //    controller.queQuanField.setText(rs.getNString(6));
+      //    controller.thuongTruField.setText(rs.getNString(7));
+      //    controller.danTocBox.setValue(rs.getNString(8));
+      //    controller.ngheNghiepField.setText(rs.getNString(9));
+      // }
+      // conn.close();
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
