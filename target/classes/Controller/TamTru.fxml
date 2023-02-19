@@ -42,6 +42,7 @@
                   </Button>
                   <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
                   <Button fx:id="addButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
+                  <Button fx:id="statisticalButton" graphicTextGap="6.0" mnemonicParsing="false" onAction="#statisticalevent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thống kê" />
                </children>
             </HBox>
          </children>

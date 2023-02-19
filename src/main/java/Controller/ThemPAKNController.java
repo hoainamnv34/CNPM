@@ -1,6 +1,5 @@
 package Controller;
 
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -25,13 +24,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-
 /*
  * @author Vo Hoai Nam 4592
  * @version 1.0 11/2/2023
  * Class 136813, Teacher's name Trung.TT
  */
-public class ThemPAKNController implements Initializable{
+public class ThemPAKNController implements Initializable {
     @FXML
     TextField maNKField;
 
@@ -41,18 +39,16 @@ public class ThemPAKNController implements Initializable{
     @FXML
     Label hoTenLabel;
 
-    @FXML 
+    @FXML
     TextArea noidungArea;
 
     @FXML
     DatePicker ngayPADatePicker;
 
-
     @FXML
     Button saveButton;
 
     private PhanAnhKienNghiController pAKNController;
-    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -62,21 +58,21 @@ public class ThemPAKNController implements Initializable{
         BooleanBinding areTextFieldEmpty = ismaNKFieldEmpty.or(isnoidungAreaEmpty);
         saveButton.disableProperty().bind(areTextFieldEmpty);
 
+        maNKField.textProperty().addListener((observable, oldValue, newValue) -> {
 
-        maNKField.textProperty().addListener((observable, oldValue, newValue)-> {
-            
-            if(newValue.length() == 8){
+            if (newValue.length() == 8) {
                 try {
-                    Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+                    Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                            SQLController.PASSWORD);
                     Statement stmt = conn.createStatement();
                     String query = "SELECT HoTen FROM NhanKhau WHERE MaNhanKhau = '" + newValue + "'";
                     // System.out.println(query);
                     ResultSet rs = stmt.executeQuery(query);
-                   
-                    if(!rs.next()) {
+
+                    if (!rs.next()) {
                         alertLabel.setText("Mã Nhân khẩu sai");
 
-                    }else{
+                    } else {
                         alertLabel.setText("Mã Nhân khẩu đúng");
                         hoTenLabel.setText(rs.getNString(1));
                     }
@@ -84,17 +80,17 @@ public class ThemPAKNController implements Initializable{
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-            }else {
+            } else {
                 alertLabel.setText("Mã Nhân khẩu có dạng: NK.xxxxx");
             }
         });
-        
+
     }
 
     public PhanAnhKienNghiController getpAKNController() {
         return pAKNController;
     }
-   
+
     public void setpAKNController(PhanAnhKienNghiController pAKNController) {
         this.pAKNController = pAKNController;
     }
@@ -103,7 +99,8 @@ public class ThemPAKNController implements Initializable{
     protected void submit(ActionEvent e) {
         PhanAnhKienNghi pAKN;
         try {
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                    SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
             String query = "SELECT TOP 1 MaPA FROM dbo.PhanAnhKienNghi ORDER BY MaPA DESC";
             ResultSet rs = stmt.executeQuery(query);
@@ -114,11 +111,13 @@ public class ThemPAKNController implements Initializable{
             String prefix = input.substring(0, dotIndex + 1);
             int number = Integer.parseInt(input.substring(dotIndex + 1).trim()) + 1;
             String maPA = (prefix + String.format("%05d", number)).trim();
-            
-            pAKN = new PhanAnhKienNghi(maPA, new NhanKhau(hoTenLabel.getText()) , noidungArea.getText(), ngayPADatePicker.getValue(), "Chưa xử lý", null, null, null);
+
+            pAKN = new PhanAnhKienNghi(maPA, new NhanKhau(hoTenLabel.getText()), noidungArea.getText(),
+                    ngayPADatePicker.getValue(), "Chưa xử lý", null, null, null);
 
             query = "INSERT INTO dbo.PhanAnhKienNghi (MaPA,MaNhanKhau,NoiDung,NgayPA,TrangThai, CapPhanHoi, PhanHoi,NgayPhanHoi) VALUES ('"
-            + maPA + "','" + maNKField.getText() + "',N'" + noidungArea.getText() + "','" + ngayPADatePicker.getValue().toString() + "',N'Chưa phản hồi',NULL,NULL, NULL)";
+                    + maPA + "','" + maNKField.getText() + "',N'" + noidungArea.getText() + "','"
+                    + ngayPADatePicker.getValue().toString() + "',N'Chưa phản hồi',NULL,NULL, NULL)";
             System.out.println(query);
             stmt.execute(query);
             conn.close();
@@ -132,10 +131,9 @@ public class ThemPAKNController implements Initializable{
         infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
         // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
         infoAlert.showAndWait();
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.close();
 
     }
-    
-}
 
+}

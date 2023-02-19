@@ -6,10 +6,10 @@ public class TamVang {
    private String maTamVang;
    private NhanKhau nguoiTamVang;
    private String noiTamTru;
-   private LocalDate tuNgay; 
+   private LocalDate tuNgay;
    private LocalDate denNgay;
    private String lyDo;
-   
+
    public TamVang(String maTamVang, NhanKhau nguoiTamVang, String noiTamTru, LocalDate tuNgay,
          LocalDate denNgay, String lyDo) {
       this.maTamVang = maTamVang;
@@ -27,7 +27,6 @@ public class TamVang {
    public void setMaTamVang(String maTamVang) {
       this.maTamVang = maTamVang;
    }
-
 
    public NhanKhau getNguoiTamVang() {
       return nguoiTamVang;
@@ -72,7 +71,5 @@ public class TamVang {
    public String getHoTen() {
       return nguoiTamVang.getHoTen();
    }
- 
-   
-   
+
 }

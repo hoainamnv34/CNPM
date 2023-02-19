@@ -9,7 +9,7 @@ public class TamTru {
    private LocalDate tuNgay;
    private LocalDate denNgay;
    private String lyDo;
-   
+
    public TamTru(String maTamTru, NhanKhau nguoitamtru, String noiTamTru, LocalDate tuNgay, LocalDate denNgay,
          String lyDo) {
       this.maTamTru = maTamTru;
@@ -68,9 +68,8 @@ public class TamTru {
       this.lyDo = lyDo;
    }
 
-   public String getHoten(){
+   public String getHoten() {
       return nguoitamtru.getHoTen();
    }
 
-   
 }

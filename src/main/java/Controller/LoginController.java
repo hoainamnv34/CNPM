@@ -20,8 +20,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
-
 /*
  * @author Vo Hoai Nam 4592
  * @version 1.0 11/2/2023
@@ -34,29 +32,26 @@ public class LoginController implements Initializable {
     @FXML
     PasswordField passwordField;
 
-
     @FXML
-    private Button loginButton ;
+    private Button loginButton;
 
     boolean ck = true;
 
     UserMoldel userMoldel1 = new UserMoldel(1, "1", "1");
 
-
-
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         loginButton.setDisable(true);
 
-        userField.textProperty().addListener((observable, oldValue, newValue)-> {
+        userField.textProperty().addListener((observable, oldValue, newValue) -> {
             loginButton.setDisable(newValue.trim().isEmpty());
 
         });
     }
 
     @FXML
-    protected void Submit (ActionEvent event) {
-        
+    protected void Submit(ActionEvent event) {
+
         if (checkValidAccount(userField.getText(), passwordField.getText())) {
             System.out.println("true");
             try {
@@ -65,7 +60,7 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
 
-        }else {
+        } else {
             String message = "Tên Đăng Nhập hoặc Mật Khẩu của bạn không chính xác";
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(message);
@@ -75,16 +70,17 @@ public class LoginController implements Initializable {
     }
 
     private boolean checkValidAccount(String user, String password) {
-        try{
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+        try {
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                    SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT TaiKhoan, MatKhau FROM dbo.TaiKhoan");
             if (rs == null) {
                 conn.close();
                 return false;
             }
-            while(rs.next()) {
-                if(rs.getString(1).equals(user) && rs.getString(2).equals(password)){
+            while (rs.next()) {
+                if (rs.getString(1).equals(user) && rs.getString(2).equals(password)) {
                     conn.close();
                     return true;
                 }
@@ -97,9 +93,8 @@ public class LoginController implements Initializable {
         return false;
     }
 
-
-    private void changeSceneHome(ActionEvent e) throws Exception{
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+    private void changeSceneHome(ActionEvent e) throws Exception {
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("HomeScene.fxml"));
         Parent root = loader.load();
@@ -112,5 +107,4 @@ public class LoginController implements Initializable {
 
     }
 
-    
 }

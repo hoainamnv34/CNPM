@@ -193,7 +193,9 @@
                       <FXCollections fx:factory="observableArrayList">
                           <String fx:value="Vợ" />
                           <String fx:value="Chồng" />
-                          <String fx:value="Con đẻ" />
+                          <String fx:value="Con ruột" />
+                          <String fx:value="Con nuôi" />
+                          <String fx:value="ở thuê" />
                       </FXCollections>
                   </items>
             </ChoiceBox>

@@ -1,6 +1,5 @@
 package Controller;
 
-import Models.HoKhau;
 import Models.PhanAnhKienNghi;
 import Models.NhanKhau;
 
@@ -12,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -37,7 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class PhanAnhKienNghiController implements Initializable{
+public class PhanAnhKienNghiController implements Initializable {
 
    @FXML
    private TableView<PhanAnhKienNghi> table;
@@ -71,25 +69,23 @@ public class PhanAnhKienNghiController implements Initializable{
    @FXML
    private TextField searchField;
 
-   @FXML 
+   @FXML
    private Button editButton;
 
-   @FXML 
+   @FXML
    private Button delButton;
 
-   @FXML 
+   @FXML
    private Button addButton;
 
    @FXML
    private Button updButton;
-
 
    @FXML
    private Button tKButton;
 
    private PhanAnhKienNghi selectPAKN;
 
-   
    public PhanAnhKienNghi getSelectPAKN() {
       return selectPAKN;
    }
@@ -105,26 +101,27 @@ public class PhanAnhKienNghiController implements Initializable{
    public void initialize(URL arg0, ResourceBundle arg1) {
 
       try {
-         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+               SQLController.PASSWORD);
          Statement stmt = conn.createStatement();
          String query = "SELECT MaPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = PhanAnhKienNghi.MaNhanKhau";
          ResultSet rs = stmt.executeQuery(query);
 
-         while(rs.next()) {
+         while (rs.next()) {
             LocalDate ngayPhanHoi = rs.getDate(8) == null ? null : rs.getDate(8).toLocalDate();
-            pAList.add(new PhanAnhKienNghi(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getNString(5), rs.getNString(6), rs.getNString(7),ngayPhanHoi ));
-           
+            pAList.add(new PhanAnhKienNghi(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3),
+                  rs.getDate(4).toLocalDate(), rs.getNString(5), rs.getNString(6), rs.getNString(7), ngayPhanHoi));
+
          }
       } catch (Exception e) {
-            e.printStackTrace();
+         e.printStackTrace();
       }
 
-
       paknList = FXCollections.observableArrayList(
-         pAList
-   
+            pAList
+
       );
-      sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
+      sTT.setCellValueFactory(column -> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
       maPA.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("maPA"));
       nguoiPhanAnh.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("ten"));
       noiDung.setCellValueFactory(new PropertyValueFactory<PhanAnhKienNghi, String>("noiDung"));
@@ -140,35 +137,38 @@ public class PhanAnhKienNghiController implements Initializable{
       editButton.disableProperty().bind(isSelected);
       updButton.disableProperty().bind(isSelected);
 
-      searchField.textProperty().addListener((observable, oldValue, newValue)-> {
-         if(searchField.getText().isEmpty()) {
-              table.setItems(paknList);
-         }else {
-              String searchInfo = searchField.getText();
-              List<PhanAnhKienNghi> searchResult = new ArrayList<PhanAnhKienNghi>();
-              try {
-                  Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-                  Statement stmt = conn.createStatement();
-                  String query = "SELECT MaPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = PhanAnhKienNghi.MaNhanKhau"
-                  + " WHERE MaPA LIKE '%" + searchInfo + "%' OR HoTen LIKE N'%" + searchInfo + "%'";
-                  System.out.println(query);
-                  ResultSet rs = stmt.executeQuery(query);
-                  while(rs.next()) {
-                     LocalDate ngayPhanHoi = rs.getDate(8) == null ? null : rs.getDate(8).toLocalDate();
-                     searchResult.add(new PhanAnhKienNghi(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getNString(5), rs.getNString(6), rs.getNString(7),ngayPhanHoi ));
-                  }
-                  System.out.println("wtf");
-                  conn.close();
+      searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+         if (searchField.getText().isEmpty()) {
+            table.setItems(paknList);
+         } else {
+            String searchInfo = searchField.getText();
+            List<PhanAnhKienNghi> searchResult = new ArrayList<PhanAnhKienNghi>();
+            try {
+               Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                     SQLController.PASSWORD);
+               Statement stmt = conn.createStatement();
+               String query = "SELECT MaPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = PhanAnhKienNghi.MaNhanKhau"
+                     + " WHERE MaPA LIKE '%" + searchInfo + "%' OR HoTen LIKE N'%" + searchInfo + "%'";
+               System.out.println(query);
+               ResultSet rs = stmt.executeQuery(query);
+               while (rs.next()) {
+                  LocalDate ngayPhanHoi = rs.getDate(8) == null ? null : rs.getDate(8).toLocalDate();
+                  searchResult.add(new PhanAnhKienNghi(rs.getString(1), new NhanKhau(rs.getNString(2)),
+                        rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getNString(5), rs.getNString(6),
+                        rs.getNString(7), ngayPhanHoi));
+               }
+               System.out.println("wtf");
+               conn.close();
 
-                  } catch (Exception esss) {
-                     esss.printStackTrace();
-                  }
+            } catch (Exception esss) {
+               esss.printStackTrace();
+            }
 
-                  ObservableList<PhanAnhKienNghi> searchedPAKNList;
-                  searchedPAKNList = FXCollections.observableArrayList(searchResult);
-                  table.setItems(searchedPAKNList);
-              }
-    });
+            ObservableList<PhanAnhKienNghi> searchedPAKNList;
+            searchedPAKNList = FXCollections.observableArrayList(searchResult);
+            table.setItems(searchedPAKNList);
+         }
+      });
 
    }
 
@@ -186,39 +186,41 @@ public class PhanAnhKienNghiController implements Initializable{
    }
 
    @FXML
-   protected void deleteEvent(ActionEvent e) throws IOException, SQLException{
-         PhanAnhKienNghi selected = table.getSelectionModel().getSelectedItem();
-         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-         alert.setTitle("Cofirmation");
-         alert.setHeaderText("Bạn muốn xóa phán ánh kiến nghị " + selected.getMaPA());
-         //   alert.setContentText("choose your option");
+   protected void deleteEvent(ActionEvent e) throws IOException, SQLException {
+      PhanAnhKienNghi selected = table.getSelectionModel().getSelectedItem();
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Cofirmation");
+      alert.setHeaderText("Bạn muốn xóa phán ánh kiến nghị " + selected.getMaPA());
+      // alert.setContentText("choose your option");
 
-         ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-         ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
-         // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+      ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+      // ButtonType buttonTypeCancel = new ButtonType("Cancel",
+      // ButtonBar.ButtonData.CANCEL_CLOSE);
 
-         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+      alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
-         Optional<ButtonType> result = alert.showAndWait();
+      Optional<ButtonType> result = alert.showAndWait();
 
-         if (result.get()== buttonTypeYes){
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-            Statement stmt = conn.createStatement();
-            String query = "DELETE dbo.PhanAnhKienNghi WHERE MaPA = '" + selected.getMaPA() + "'";
-            stmt.execute(query);
-            conn.close();
-            String message = "Xóa phán ánh kiến nghị " + selected.getMaPA() + " thành công"; 
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-            alert1.setTitle("Information");
-            alert1.setHeaderText("Notification");
-            alert1.setContentText(message);
-            alert1.show();
-            paknList.remove(selected);
-         }      
+      if (result.get() == buttonTypeYes) {
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+               SQLController.PASSWORD);
+         Statement stmt = conn.createStatement();
+         String query = "DELETE dbo.PhanAnhKienNghi WHERE MaPA = '" + selected.getMaPA() + "'";
+         stmt.execute(query);
+         conn.close();
+         String message = "Xóa phán ánh kiến nghị " + selected.getMaPA() + " thành công";
+         Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+         alert1.setTitle("Information");
+         alert1.setHeaderText("Notification");
+         alert1.setContentText(message);
+         alert1.show();
+         paknList.remove(selected);
+      }
    }
 
    @FXML
-   protected void editEvent(ActionEvent e) throws IOException{
+   protected void editEvent(ActionEvent e) throws IOException {
       PhanAnhKienNghi selected = table.getSelectionModel().getSelectedItem();
       this.setSelectPAKN(selected);
       Stage addStage = new Stage();
@@ -231,13 +233,12 @@ public class PhanAnhKienNghiController implements Initializable{
       controller.maPALabel.setText(selected.getMaPA());
       controller.hoTenLabel.setText(selected.getNguoiPA().getHoTen());
       controller.noidungArea.setText(selected.getNoiDung());
-   
+
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
-      addStage.show();      
+      addStage.show();
    }
-
 
    @FXML
    protected void updateEvent(ActionEvent e) throws IOException {
@@ -253,11 +254,11 @@ public class PhanAnhKienNghiController implements Initializable{
       controller.maPALabel.setText(selected.getMaPA());
       controller.hoTenLabel.setText(selected.getNguoiPA().getHoTen());
       controller.ngayPALabel.setText(selected.getNgayPA().toString());
-   
+
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
-      addStage.show();   
+      addStage.show();
    }
 
    @FXML
@@ -269,9 +270,8 @@ public class PhanAnhKienNghiController implements Initializable{
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       stage.setScene(scene);
-      stage.show();   
+      stage.show();
    }
-
 
    public void addList(PhanAnhKienNghi phanAnhKienNghi) {
       paknList.add(phanAnhKienNghi);
@@ -282,10 +282,8 @@ public class PhanAnhKienNghiController implements Initializable{
       paknList.set(index, moi);
    }
 
-public PhanAnhKienNghi getpAKNEdit(CapNhatPhanHoiController capNhatPhanHoiController) {
-    return capNhatPhanHoiController.pAKNEdit;
-}
- 
-
+   public PhanAnhKienNghi getpAKNEdit(CapNhatPhanHoiController capNhatPhanHoiController) {
+      return capNhatPhanHoiController.pAKNEdit;
+   }
 
 }

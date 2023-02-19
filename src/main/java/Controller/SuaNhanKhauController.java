@@ -31,7 +31,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class SuaNhanKhauController implements Initializable{
+public class SuaNhanKhauController implements Initializable {
 
     @FXML
     Label alertLabel;
@@ -44,7 +44,7 @@ public class SuaNhanKhauController implements Initializable{
 
     @FXML
     private TableColumn<ThanhVienCuaHo, String> qHeChuHo;
-    
+
     @FXML
     TextField maHoKhauField;
 
@@ -67,10 +67,10 @@ public class SuaNhanKhauController implements Initializable{
     TextField thuongTruField;
 
     @FXML
-    ChoiceBox gioiTinBox;
+    ChoiceBox<String> gioiTinBox;
 
     @FXML
-    ChoiceBox danTocBox; 
+    ChoiceBox<String> danTocBox;
 
     @FXML
     TextField ngheNghiepField;
@@ -79,7 +79,7 @@ public class SuaNhanKhauController implements Initializable{
     TextField noiLamViecField;
 
     @FXML
-    ChoiceBox quanHeVoiChuHoBox;
+    ChoiceBox<String> quanHeVoiChuHoBox;
 
     @FXML
     TextField noiThuongTruTruocField;
@@ -88,56 +88,52 @@ public class SuaNhanKhauController implements Initializable{
     Button saveButton;
 
     private NhanKhau newNhanKhau;
-    private ThanhVienCuaHo newtThanhVienCuaHo;
     private NhanKhauController nhanKhauController;
     private NhanKhau nhanKhauEdit;
 
-
-
     public SuaNhanKhauController() {
-    
-       }
 
-   public NhanKhau getNhanKhauEdit() {
-  return nhanKhauEdit;
-   }
+    }
 
-   public void setNhanKhauEdit(NhanKhau nhanKhauEdit) {
-      this.nhanKhauEdit = nhanKhauEdit;
-   }
+    public NhanKhau getNhanKhauEdit() {
+        return nhanKhauEdit;
+    }
 
+    public void setNhanKhauEdit(NhanKhau nhanKhauEdit) {
+        this.nhanKhauEdit = nhanKhauEdit;
+    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ngaySinhDatePicker.setValue(LocalDate.now());
 
-
-        BooleanBinding ismaHoKhauFieldEmpty =maHoKhauField.textProperty().isEmpty();
-        BooleanBinding ishohoTenFieldEmpty =hoTenField.textProperty().isEmpty();
+        BooleanBinding ismaHoKhauFieldEmpty = maHoKhauField.textProperty().isEmpty();
+        BooleanBinding ishohoTenFieldEmpty = hoTenField.textProperty().isEmpty();
         BooleanBinding iscccdFieldEmpty = cccdField.textProperty().isEmpty();
         BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscccdFieldEmpty);
         saveButton.disableProperty().bind(areTextFieldsEmpty);
-        
-        maHoKhauField.textProperty().addListener((observable, oldValue, newValue)-> {
+
+        maHoKhauField.textProperty().addListener((observable, oldValue, newValue) -> {
             List<ThanhVienCuaHo> tV = new ArrayList<ThanhVienCuaHo>();
             ObservableList<ThanhVienCuaHo> tVList;
-           
-            if(newValue.length() == 8){
+
+            if (newValue.length() == 8) {
                 try {
-                    Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+                    Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                            SQLController.PASSWORD);
                     Statement stmt = conn.createStatement();
                     String query = "SELECT NK.HoTen, TV.QuanHeVoiCH FROM dbo.NhanKhau AS  NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau WHERE TV.MaHoKhau = '"
-                    + newValue + "'";
+                            + newValue + "'";
                     // System.out.println(query);
                     ResultSet rs = stmt.executeQuery(query);
-                    if(!rs.next()) {
+                    if (!rs.next()) {
                         alertLabel.setText("Mã Hộ khẩu sai");
 
-                    }else{
+                    } else {
                         alertLabel.setText("Mã Hộ khẩu đúng");
                         do {
                             tV.add(new ThanhVienCuaHo(rs.getNString(1), rs.getNString(2)));
-                        }while(rs.next());
+                        } while (rs.next());
                     }
                     tVList = FXCollections.observableArrayList(tV);
                     hoTen.setCellValueFactory(new PropertyValueFactory<ThanhVienCuaHo, String>("hoTen"));
@@ -147,7 +143,7 @@ public class SuaNhanKhauController implements Initializable{
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }else {
+            } else {
                 alertLabel.setText("Mã Hộ khẩu có dạng: HK.xxxxx");
             }
         });
@@ -157,48 +153,54 @@ public class SuaNhanKhauController implements Initializable{
         return nhanKhauController;
     }
 
-
-
     public void setNhanKhauController(NhanKhauController nhanKhauController) {
         this.nhanKhauController = nhanKhauController;
     }
 
     @FXML
     protected void Submit(ActionEvent e) throws SQLException {
-        //System.out.println(danTocBox.getValue());
+        // System.out.println(danTocBox.getValue());
         NhanKhau selectNhanKhau = nhanKhauController.getSelectNhanKhau();
 
-        newNhanKhau = new NhanKhau(selectNhanKhau.getMaNhanKhau(), hoTenField.getText(),biDanhField.getText(), cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(), queQuanField.getText(),
-        thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(), noiLamViecField.getText());
-        
-        Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+        newNhanKhau = new NhanKhau(selectNhanKhau.getMaNhanKhau(), hoTenField.getText(), biDanhField.getText(),
+                cccdField.getText(), ngaySinhDatePicker.getValue(), gioiTinBox.getValue().toString(),
+                queQuanField.getText(),
+                thuongTruField.getText(), danTocBox.getValue().toString(), ngheNghiepField.getText(),
+                noiLamViecField.getText());
+
+        Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                SQLController.PASSWORD);
         Statement stmt = conn.createStatement();
 
-
-        String query = "UPDATE dbo.NhanKhau SET	HoTen = N'" + hoTenField.getText() + "', BiDanh = N'" + biDanhField.getText() + "', CCCD = '" + cccdField.getText()
-        + "', NgaySinh = '" + ngaySinhDatePicker.getValue().toString() + "', GioiTinh = N'" + gioiTinBox.getValue().toString() + "', QueQuan = N'" + queQuanField.getText() 
-        + "', ThuongTru = N'" + thuongTruField.getText() + "', Dantoc = N'" + danTocBox.getValue().toString() + "', NgheNghiep = N'" + ngheNghiepField.getText()
-        + "', NoiLamViec = N'" + noiLamViecField.getText() + "' WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau()+ "'";
+        String query = "UPDATE dbo.NhanKhau SET	HoTen = N'" + hoTenField.getText() + "', BiDanh = N'"
+                + biDanhField.getText() + "', CCCD = '" + cccdField.getText()
+                + "', NgaySinh = '" + ngaySinhDatePicker.getValue().toString() + "', GioiTinh = N'"
+                + gioiTinBox.getValue().toString() + "', QueQuan = N'" + queQuanField.getText()
+                + "', ThuongTru = N'" + thuongTruField.getText() + "', Dantoc = N'" + danTocBox.getValue().toString()
+                + "', NgheNghiep = N'" + ngheNghiepField.getText()
+                + "', NoiLamViec = N'" + noiLamViecField.getText() + "' WHERE MaNhanKhau = '"
+                + selectNhanKhau.getMaNhanKhau() + "'";
         System.out.println(query);
         stmt.execute(query);
 
-        query = "UPDATE dbo.ThanhVienCuaHo SET	MaHoKhau = '" + maHoKhauField.getText() + "', QuanHeVoiCH = N'" + quanHeVoiChuHoBox.getValue().toString() 
-        + "', NoiThuongTruTruoc = N'" + noiThuongTruTruocField.getText() + "' WHERE MaNhanKhau = '" + selectNhanKhau.getMaNhanKhau() + "'";
+        query = "UPDATE dbo.ThanhVienCuaHo SET	MaHoKhau = '" + maHoKhauField.getText() + "', QuanHeVoiCH = N'"
+                + quanHeVoiChuHoBox.getValue().toString()
+                + "', NoiThuongTruTruoc = N'" + noiThuongTruTruocField.getText() + "' WHERE MaNhanKhau = '"
+                + selectNhanKhau.getMaNhanKhau() + "'";
         // System.out.println(query);
         stmt.execute(query);
         conn.close();
-        
-        //System.out.println(selectNhanKhau.getHoTen());
+
+        // System.out.println(selectNhanKhau.getHoTen());
         nhanKhauController.editList(selectNhanKhau, newNhanKhau);
         Alert infoAlert = new Alert(AlertType.INFORMATION);
         // NhanKhau nk = this.getNhanKhauEdit();
 
-
         infoAlert.setHeaderText("Sửa Nhân Khẩu Thành Công");
-        
+
         infoAlert.showAndWait();
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.close();
     }
-    
+
 }

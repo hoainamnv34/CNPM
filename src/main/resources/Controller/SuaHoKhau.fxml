@@ -41,10 +41,6 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="maNhanKhaufField" prefHeight="31.0" prefWidth="242.0" promptText="NK.xxxxx" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font></TextField>
             <Label text="Mã Hộ khẩu">
                <font>
                   <Font size="18.0" />
@@ -71,6 +67,11 @@
                </font>
             </Label>
             <Label fx:id="hoTenLabel" prefHeight="28.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="maNhanKhaufField" prefHeight="28.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="14.0" />
                </font>

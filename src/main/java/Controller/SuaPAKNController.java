@@ -1,6 +1,5 @@
 package Controller;
 
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -22,7 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class SuaPAKNController implements Initializable{
+public class SuaPAKNController implements Initializable {
     @FXML
     Label maPALabel;
 
@@ -32,19 +31,17 @@ public class SuaPAKNController implements Initializable{
     @FXML
     Label hoTenLabel;
 
-    @FXML 
+    @FXML
     TextArea noidungArea;
 
     @FXML
     DatePicker ngayPADatePicker;
-
 
     @FXML
     Button saveButton;
 
     private PhanAnhKienNghiController pAKNController;
     private PhanAnhKienNghi pAKNEdit;
-    
 
     public PhanAnhKienNghi getpAKNEdit() {
         return pAKNEdit;
@@ -64,7 +61,7 @@ public class SuaPAKNController implements Initializable{
     public PhanAnhKienNghiController getpAKNController() {
         return pAKNController;
     }
-   
+
     public void setpAKNController(PhanAnhKienNghiController pAKNController) {
         this.pAKNController = pAKNController;
     }
@@ -73,14 +70,17 @@ public class SuaPAKNController implements Initializable{
     protected void submit(ActionEvent e) {
         PhanAnhKienNghi pAKN;
         try {
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                    SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
             String query = "UPDATE dbo.PhanAnhKienNghi SET NoiDung = N'" + noidungArea.getText()
-            + "', NgayPA = '" + ngayPADatePicker.getValue().toString()  + "' WHERE MaPA = '" + maPALabel.getText() + " '";
+                    + "', NgayPA = '" + ngayPADatePicker.getValue().toString() + "' WHERE MaPA = '"
+                    + maPALabel.getText() + " '";
             System.out.println(query);
             stmt.execute(query);
             conn.close();
-            pAKN = new PhanAnhKienNghi(maPALabel.getText(), new NhanKhau(hoTenLabel.getText()) , noidungArea.getText(), ngayPADatePicker.getValue(), "Chưa xử lý", null, null, null);
+            pAKN = new PhanAnhKienNghi(maPALabel.getText(), new NhanKhau(hoTenLabel.getText()), noidungArea.getText(),
+                    ngayPADatePicker.getValue(), "Chưa xử lý", null, null, null);
             pAKNController.editList(pAKNEdit, pAKN);
 
         } catch (Exception ex) {
@@ -90,10 +90,9 @@ public class SuaPAKNController implements Initializable{
         infoAlert.setHeaderText("Sửa Phản Ánh Kiến Nghị Thành Công");
         // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
         infoAlert.showAndWait();
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.close();
 
     }
-    
-}
 
+}

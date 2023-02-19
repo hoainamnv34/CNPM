@@ -139,8 +139,8 @@ public class ThayDoiNhanKhauController implements Initializable {
         Statement stmt = conn.createStatement();
         String query = "UPDATE dbo.ThanhVienCuaHo SET	 NgayChuyenDi = '" + ngayChuyenDiPicker.getValue().toString()
                 + "', NoiChuyenToi = N'"
-                + noiChuyenDenField.getText() + "', GhiChu = N'" + ghiChuField.getText() + "' WHERE MaHoKhau = '"
-                + maHoKhauLabel.getText() + "'";
+                + noiChuyenDenField.getText() + "', GhiChu = N'" + ghiChuField.getText() + "' WHERE maNhanKhau = '"
+                + nhanKhauEdit.getMaNhanKhau() + "'";
         System.out.println(query);
         stmt.execute(query);
         conn.close();

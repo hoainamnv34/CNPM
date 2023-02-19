@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.XemThanhVienController">
-   <bottom>
-      <StackPane maxHeight="-Infinity" prefHeight="130.0" styleClass="footer" BorderPane.alignment="CENTER">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="1077.0" styleClass="subStage" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.XemThanhVienController">
+   <children>
+      <TableView fx:id="table" layoutY="113.0" prefHeight="460.0" prefWidth="1077.0">
+        <columns>
+          <TableColumn fx:id="sTT" prefWidth="44.0" text="STT" />
+            <TableColumn fx:id="maNhanKhau" prefWidth="90.0" text="Mã Nhân khẩu" />
+            <TableColumn fx:id="hoTen" prefWidth="145.0" text="Họ và tên" />
+            <TableColumn fx:id="cCCD" prefWidth="87.0" text="Số CCCD" />
+            <TableColumn fx:id="ngaySinh" text="Ngày sinh" />
+            <TableColumn fx:id="queQuan" prefWidth="138.0" text="Quê quán" />
+          <TableColumn fx:id="quanHeVoiCH" minWidth="0.0" prefWidth="118.0" text="Quan hệ với chủ hộ" />
+            <TableColumn fx:id="thuongTruTruoc" prefWidth="126.0" text="Nơi thường trú trước" />
+            <TableColumn fx:id="ngayChuyenDi" prefWidth="112.0" text="Ngày chuyển đi" />
+            <TableColumn fx:id="noiChuyenToi" prefWidth="116.0" text="Nơi chuyển tới" />
+            <TableColumn fx:id="ghiChu" prefWidth="102.0" text="Ghi chú" />
+        </columns>
+      </TableView>
+      <Label layoutX="38.0" layoutY="57.0" styleClass="title1" text="Hộ khẩu">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <HBox prefHeight="45.0" prefWidth="1077.0" styleClass="header-subStage">
          <children>
-            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="130.0" />
-         </children>
-      </StackPane>
-   </bottom>
-   <center>
-      <VBox style="-fx-background-color: blue;" BorderPane.alignment="CENTER">
-         <children>
-            <TableView fx:id="table" maxHeight="1.7976931348623157E308" prefHeight="370.0" prefWidth="1066.0" VBox.vgrow="ALWAYS">
-              <columns>
-                <TableColumn fx:id="sTT" prefWidth="25.0" text="STT" />
-                  <TableColumn fx:id="maNhanKhau" prefWidth="90.0" text="Mã Nhân Khẩu" />
-                <TableColumn fx:id="hoten" prefWidth="140.0" text="Họ và tên" />
-                  <TableColumn fx:id="bidanh" prefWidth="120.0" text="Bí danh" />
-                  <TableColumn fx:id="cccd" prefWidth="100.0" text="Số CCCD" />
-                  <TableColumn fx:id="ngaysinh" prefWidth="90.0" text="Ngày sinh" />
-                  <TableColumn fx:id="gioitinh" prefWidth="60.0" text="Giới tính" />
-                  <TableColumn fx:id="quequan" prefWidth="130.0" text="Quê quán" />
-                  <TableColumn fx:id="thuongtru" maxWidth="1000.0" minWidth="0.0" prefWidth="130.0" text="Thường trú" />
-                  <TableColumn fx:id="dantoc" maxWidth="1000.0" minWidth="0.0" prefWidth="60.0" text="Dân tộc" />
-                  <TableColumn fx:id="nghenghiep" text="Nghề nghiệp" />
-                  <TableColumn fx:id="noilamviec" prefWidth="110.0" text="Nơi làm việc" />
-              </columns>
-            </TableView>
-         </children>
-      </VBox>
-   </center>
-   <top>
-      <HBox prefHeight="32.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="searchField" prefHeight="38.0" prefWidth="300.0" promptText="Nhập Họ tên, mã Nhân khẩu hoặc số CCCD" />
+            <Label styleClass="title_header" text="Thành Viên Hộ">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
-   </top>
-</BorderPane>
+      <Label fx:id="maHoKhauLabel" layoutX="171.0" layoutY="64.0" prefHeight="32.0" prefWidth="197.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="436.0" layoutY="57.0" styleClass="title1" text="Địa chỉ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="diaChiLabel" layoutX="558.0" layoutY="64.0" prefHeight="32.0" prefWidth="454.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

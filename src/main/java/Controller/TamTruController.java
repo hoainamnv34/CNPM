@@ -63,7 +63,6 @@ public class TamTruController implements Initializable {
    @FXML
    private TextField searchField;
 
-
    @FXML
    private Button editButton;
 
@@ -72,6 +71,9 @@ public class TamTruController implements Initializable {
 
    @FXML
    private Button addButton;
+
+   @FXML
+   private Button statisticalButton;
 
    private ObservableList<TamTru> tamTruList;
    private List<TamTru> tTList = new ArrayList<TamTru>();
@@ -110,35 +112,36 @@ public class TamTruController implements Initializable {
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
 
-      searchField.textProperty().addListener((observable, oldValue, newValue)-> {
-         if(searchField.getText().isEmpty()) {
-              table.setItems(tamTruList);
-         }else {
-              String searchInfo = searchField.getText();
-              List<TamTru> searchResult = new ArrayList<TamTru>();
-              try {
-                  Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-                  Statement stmt = conn.createStatement();
-                  String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = TamTru.MaNhanKhau"
-                  + " WHERE ID LIKE '%" + searchInfo + "%' OR HoTen LIKE N'%" + searchInfo + "%'";
-                  System.out.println(query);
-                  ResultSet rs = stmt.executeQuery(query);
-                  while(rs.next()) {
-                     searchResult.add(new TamTru(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3),
-                     rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(), rs.getNString(6)));
-                  } 
-                  System.out.println("wtf");
-                  conn.close();
+      searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+         if (searchField.getText().isEmpty()) {
+            table.setItems(tamTruList);
+         } else {
+            String searchInfo = searchField.getText();
+            List<TamTru> searchResult = new ArrayList<TamTru>();
+            try {
+               Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                     SQLController.PASSWORD);
+               Statement stmt = conn.createStatement();
+               String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = TamTru.MaNhanKhau"
+                     + " WHERE ID LIKE '%" + searchInfo + "%' OR HoTen LIKE N'%" + searchInfo + "%'";
+               System.out.println(query);
+               ResultSet rs = stmt.executeQuery(query);
+               while (rs.next()) {
+                  searchResult.add(new TamTru(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3),
+                        rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(), rs.getNString(6)));
+               }
+               System.out.println("wtf");
+               conn.close();
 
-                  } catch (Exception esss) {
-                     esss.printStackTrace();
-                  }
+            } catch (Exception esss) {
+               esss.printStackTrace();
+            }
 
-                  ObservableList<TamTru> searchedTamTruList;
-                  searchedTamTruList = FXCollections.observableArrayList(searchResult);
-                  table.setItems(searchedTamTruList);
-              }
-    });
+            ObservableList<TamTru> searchedTamTruList;
+            searchedTamTruList = FXCollections.observableArrayList(searchResult);
+            table.setItems(searchedTamTruList);
+         }
+      });
    }
 
    public void addList(TamTru tamTru) {
@@ -251,6 +254,24 @@ public class TamTruController implements Initializable {
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
       addStage.show();
+   }
+
+   @FXML
+   protected void statisticalevent(ActionEvent e) {
+      Stage addStage = new Stage();
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getResource("ThongKeTamTru.fxml"));
+      Parent root;
+      try {
+         root = loader.load();
+         Scene scene = new Scene(root);
+         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
+         addStage.setScene(scene);
+         addStage.show();
+      } catch (IOException e1) {
+         System.out.println(e1.getMessage());
+      }
+
    }
 
 }

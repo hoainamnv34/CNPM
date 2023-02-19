@@ -21,15 +21,14 @@ import javafx.scene.control.Alert.AlertType;
 
 import javafx.stage.Stage;
 
-public class SuaTamTruController implements Initializable{
+public class SuaTamTruController implements Initializable {
     @FXML
     Label maNKField;
-
 
     @FXML
     Label hoTenLabel;
 
-    @FXML 
+    @FXML
     TextField noiTamTruField;
 
     @FXML
@@ -41,13 +40,12 @@ public class SuaTamTruController implements Initializable{
     @FXML
     TextField lydoField;
 
-
     @FXML
     Button saveButton;
 
     private TamTruController tamTruController;
     private TamTru tamTruEdit;
-    
+
     public TamTru getTamTruEdit() {
         return tamTruEdit;
     }
@@ -69,23 +67,26 @@ public class SuaTamTruController implements Initializable{
         BooleanBinding isnoiTamTruFieldEmpty = noiTamTruField.textProperty().isEmpty();
         BooleanBinding islydoFieldEmpty = lydoField.textProperty().isEmpty();
         BooleanBinding areTextFieldEmpty = isnoiTamTruFieldEmpty.or(islydoFieldEmpty);
-        saveButton.disableProperty().bind(areTextFieldEmpty);  
+        saveButton.disableProperty().bind(areTextFieldEmpty);
     }
 
     @FXML
     protected void submit(ActionEvent e) {
         try {
             System.out.println("xxxxxx");
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                    SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
             String query = "UPDATE dbo.TamTru SET NoiTamTru = N'" + noiTamTruField.getText() + "', TuNgay = '"
-            + tuNgayDatePicker.getValue().toString() + "', DenNgay = '" + denNgayDatePicker.getValue().toString() 
-            + "' WHERE ID = '" + tamTruEdit.getMaTamTru() + "'";
+                    + tuNgayDatePicker.getValue().toString() + "', DenNgay = '"
+                    + denNgayDatePicker.getValue().toString()
+                    + "' WHERE ID = '" + tamTruEdit.getMaTamTru() + "'";
             System.out.println(query);
             stmt.execute(query);
             conn.close();
 
-            TamTru tamTru = new TamTru(tamTruEdit.getMaTamTru(), tamTruEdit.getNguoitamtru() , noiTamTruField.getText(), tuNgayDatePicker.getValue(), denNgayDatePicker.getValue(), lydoField.getText());
+            TamTru tamTru = new TamTru(tamTruEdit.getMaTamTru(), tamTruEdit.getNguoitamtru(), noiTamTruField.getText(),
+                    tuNgayDatePicker.getValue(), denNgayDatePicker.getValue(), lydoField.getText());
             tamTruController.removeList(tamTruEdit, tamTru);
 
         } catch (Exception ex) {
@@ -95,10 +96,9 @@ public class SuaTamTruController implements Initializable{
         infoAlert.setHeaderText("Sửa Tạm Trú Thành Công");
         // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
         infoAlert.showAndWait();
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.close();
 
     }
-    
-}
 
+}

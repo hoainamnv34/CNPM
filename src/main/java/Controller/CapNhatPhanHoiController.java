@@ -1,12 +1,10 @@
 package Controller;
 
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 
 import Models.PhanAnhKienNghi;
 import javafx.beans.binding.BooleanBinding;
@@ -23,14 +21,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-
 /*
  * @author Vo Hoai Nam 4592
  * @version 1.0 11/2/2023
  * Class 136813, Teacher's name Trung.TT
  */
 
-public class CapNhatPhanHoiController implements Initializable{
+public class CapNhatPhanHoiController implements Initializable {
     @FXML
     Label maPALabel;
 
@@ -46,7 +43,7 @@ public class CapNhatPhanHoiController implements Initializable{
     @FXML
     DatePicker ngayPHDatePicker;
 
-    @FXML 
+    @FXML
     TextArea phanHoiTextArea;
 
     @FXML
@@ -54,7 +51,6 @@ public class CapNhatPhanHoiController implements Initializable{
 
     private PhanAnhKienNghiController pAKNController;
     public PhanAnhKienNghi pAKNEdit;
-    
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -66,7 +62,7 @@ public class CapNhatPhanHoiController implements Initializable{
     public PhanAnhKienNghiController getpAKNController() {
         return pAKNController;
     }
-   
+
     public void setpAKNController(PhanAnhKienNghiController pAKNController) {
         this.pAKNController = pAKNController;
     }
@@ -75,7 +71,6 @@ public class CapNhatPhanHoiController implements Initializable{
         return pAKNEdit;
     }
 
-    
     public void setpAKNEdit(PhanAnhKienNghi pAKNEdit) {
         this.pAKNEdit = pAKNEdit;
     }
@@ -84,11 +79,13 @@ public class CapNhatPhanHoiController implements Initializable{
     protected void submit(ActionEvent e) {
         PhanAnhKienNghi pAKN;
         try {
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                    SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
-            String query = "UPDATE dbo.PhanAnhKienNghi SET CapPhanHoi = N'" + capPhanHoiField.getText() + "', NgayPhanHoi = '"
-            + ngayPHDatePicker.getValue().toString() + " ', PhanHoi = N'" + phanHoiTextArea.getText() 
-            + "', TrangThai = N'Đã phản hồi' WHERE MaPA = '" + maPALabel.getText() + "'";
+            String query = "UPDATE dbo.PhanAnhKienNghi SET CapPhanHoi = N'" + capPhanHoiField.getText()
+                    + "', NgayPhanHoi = '"
+                    + ngayPHDatePicker.getValue().toString() + " ', PhanHoi = N'" + phanHoiTextArea.getText()
+                    + "', TrangThai = N'Đã phản hồi' WHERE MaPA = '" + maPALabel.getText() + "'";
             System.out.println(query);
             stmt.execute(query);
             conn.close();
@@ -106,10 +103,8 @@ public class CapNhatPhanHoiController implements Initializable{
         infoAlert.setHeaderText("Cập Nhật Phản Hồi Thành Công");
         // infoAlert.setContentText("Tạo Nhân Khẩu Thành Công")
         infoAlert.showAndWait();
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.close();
     }
-    
+
 }
-
-

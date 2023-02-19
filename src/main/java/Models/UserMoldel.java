@@ -1,12 +1,9 @@
 package Models;
 
-
 public class UserMoldel {
     private int ID;
     private String userName;
     private String password;
-
-    
 
     public UserMoldel(int iD, String i, String j) {
         ID = iD;

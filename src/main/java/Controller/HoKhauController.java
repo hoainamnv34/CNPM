@@ -33,13 +33,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-
 /*
  * @author Vo Hoai Nam 4592
  * @version 1.0 11/2/2023
  * Class 136813, Teacher's name Trung.TT
  */
-public class HoKhauController implements Initializable{
+public class HoKhauController implements Initializable {
 
    @FXML
    private TableView<HoKhau> table;
@@ -62,23 +61,21 @@ public class HoKhauController implements Initializable{
    @FXML
    private TextField searchField;
 
-
    @FXML
    private Button showTVButton;
 
-
-   @FXML 
+   @FXML
    private Button editButton;
 
-   @FXML 
+   @FXML
    private Button delButton;
 
-   @FXML 
+   @FXML
    private Button addButton;
 
    private HoKhau selectHoKhau;
    private String maNKChuHo;
-   
+
    private ObservableList<HoKhau> hokhauList;
 
    private List<HoKhau> hKList = new ArrayList<HoKhau>();
@@ -91,7 +88,6 @@ public class HoKhauController implements Initializable{
       this.maNKChuHo = maNKChuHo;
    }
 
-   
    public HoKhau getSelectHoKhau() {
       return selectHoKhau;
    }
@@ -99,26 +95,28 @@ public class HoKhauController implements Initializable{
    public void setSelectHoKhau(HoKhau selectHoKhau) {
       this.selectHoKhau = selectHoKhau;
    }
+
    @Override
    public void initialize(URL arg0, ResourceBundle arg1) {
 
       try {
-         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+         Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+               SQLController.PASSWORD);
          Statement stmt = conn.createStatement();
          String query = "SELECT HK.maHoKhau, HoTen, NK.maNhanKhau, NK.CCCD, HK.Diachi FROM dbo.HoKhau AS HK INNER JOIN dbo.NhanKhau AS NK ON HK.maNKChuHo = NK.maNhanKhau";
          ResultSet rs = stmt.executeQuery(query);
-         while(rs.next()) {
-            hKList.add(new HoKhau(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5)));
+         while (rs.next()) {
+            hKList.add(
+                  new HoKhau(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5)));
          }
          conn.close();
 
       } catch (Exception e) {
-            e.printStackTrace();
+         e.printStackTrace();
       }
 
-      
       hokhauList = FXCollections.observableArrayList(hKList);
-      sTT.setCellValueFactory(column-> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
+      sTT.setCellValueFactory(column -> new ReadOnlyObjectWrapper(table.getItems().indexOf(column.getValue()) + 1));
       idHoKhau.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("idHoKhau"));
       hoTenChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("hoTen"));
       cCCDChuHo.setCellValueFactory(new PropertyValueFactory<HoKhau, String>("cCCDChuHo"));
@@ -130,60 +128,61 @@ public class HoKhauController implements Initializable{
       editButton.disableProperty().bind(isSelected);
       showTVButton.disableProperty().bind(isSelected);
 
+      searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+         if (searchField.getText().isEmpty()) {
+            table.setItems(hokhauList);
+         } else {
+            String searchInfo = searchField.getText();
+            List<HoKhau> searchResult = new ArrayList<HoKhau>();
+            try {
+               Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                     SQLController.PASSWORD);
+               Statement stmt = conn.createStatement();
+               String query = "SELECT HK.maHoKhau, HoTen, NK.maNhanKhau, NK.CCCD, HK.Diachi FROM dbo.HoKhau AS HK INNER JOIN dbo.NhanKhau AS NK ON HK.maNKChuHo = NK.maNhanKhau"
+                     + " WHERE NK.HoTen LIKE N'%" + searchInfo + "%' OR HK.MaHoKhau LIKE '%" + searchInfo
+                     + "%' OR NK.CCCD LIKE '%" + searchInfo + "%'";
+               System.out.println(query);
+               ResultSet rs = stmt.executeQuery(query);
+               while (rs.next()) {
+                  searchResult.add(new HoKhau(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4),
+                        rs.getNString(5)));
+               }
+               System.out.println("wtf");
+               conn.close();
 
-      searchField.textProperty().addListener((observable, oldValue, newValue)-> {
-         if(searchField.getText().isEmpty()) {
-              table.setItems(hokhauList);
-         }else {
-              String searchInfo = searchField.getText();
-              List<HoKhau> searchResult = new ArrayList<HoKhau>();
-              try {
-                  Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-                  Statement stmt = conn.createStatement();
-                  String query = "SELECT HK.maHoKhau, HoTen, NK.maNhanKhau, NK.CCCD, HK.Diachi FROM dbo.HoKhau AS HK INNER JOIN dbo.NhanKhau AS NK ON HK.maNKChuHo = NK.maNhanKhau"
-                  + " WHERE NK.HoTen LIKE N'%" + searchInfo + "%' OR HK.MaHoKhau LIKE '%" + searchInfo + "%' OR NK.CCCD LIKE '%" + searchInfo + "%'";
-                  System.out.println(query);
-                  ResultSet rs = stmt.executeQuery(query);
-                  while(rs.next()) {
-                     searchResult.add(new HoKhau(rs.getString(1), rs.getNString(2), rs.getString(3), rs.getString(4), rs.getNString(5)));
-                  } 
-                  System.out.println("wtf");
-                  conn.close();
+            } catch (Exception esss) {
+               esss.printStackTrace();
+            }
 
-                  } catch (Exception esss) {
-                     esss.printStackTrace();
-                  }
-
-                  ObservableList<HoKhau> searchedNhanKhauList;
-                  searchedNhanKhauList = FXCollections.observableArrayList(searchResult);
-                  table.setItems(searchedNhanKhauList);
-              }
-    });
+            ObservableList<HoKhau> searchedNhanKhauList;
+            searchedNhanKhauList = FXCollections.observableArrayList(searchResult);
+            table.setItems(searchedNhanKhauList);
+         }
+      });
    }
 
    public void addList(HoKhau hoKhau) {
       hokhauList.add(hoKhau);
    }
 
-
    public void editList(HoKhau cu, HoKhau moi) {
-      //System.out.println(cu.getHoTen());
-      //System.out.println(moi.getHoTen());
+      // System.out.println(cu.getHoTen());
+      // System.out.println(moi.getHoTen());
       int sz = hokhauList.size();
       for (int i = 0; i < sz; i++) {
          if (hokhauList.get(i).equals(cu)) {
-            //System.out.println("day ne!!");
+            // System.out.println("day ne!!");
             hokhauList.set(i, moi);
             break;
          }
       }
-  }
+   }
 
    @FXML
    protected void addEvent(ActionEvent e) throws IOException {
       Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
       alert.setTitle("Cofirmation");
-      alert.setHeaderText("Alert Information");
+      alert.setHeaderText("Thêm Hộ khẩu mới");
       alert.setContentText("choose your option");
 
       ButtonType buttonTypeYes = new ButtonType("Tạo Hộ khẩu mới", ButtonBar.ButtonData.YES);
@@ -193,7 +192,7 @@ public class HoKhauController implements Initializable{
 
       Optional<ButtonType> result = alert.showAndWait();
 
-      if (result.get()== buttonTypeYes){
+      if (result.get() == buttonTypeYes) {
          Stage addStage = new Stage();
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(getClass().getResource("ThemHoKhau.fxml"));
@@ -205,7 +204,7 @@ public class HoKhauController implements Initializable{
          addStage.setScene(scene);
          addStage.show();
 
-      }else if (result.get().getButtonData() == ButtonBar.ButtonData.NO){
+      } else if (result.get().getButtonData() == ButtonBar.ButtonData.NO) {
          Stage addStage = new Stage();
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(getClass().getResource("TachHoKhau.fxml"));
@@ -220,52 +219,51 @@ public class HoKhauController implements Initializable{
    }
 
    @FXML
-   protected void deleteEvent(ActionEvent e) throws IOException{
-         HoKhau selected = table.getSelectionModel().getSelectedItem();
-         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-         alert.setTitle("Cofirmation");
-         alert.setHeaderText("Bạn muốn xóa hộ khẩu có chủ hộ tên " + selected.getHoTenChuHo());
-         //   alert.setContentText("choose your option");
+   protected void deleteEvent(ActionEvent e) throws IOException {
+      HoKhau selected = table.getSelectionModel().getSelectedItem();
+      Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+      alert.setTitle("Cofirmation");
+      alert.setHeaderText("Bạn muốn xóa hộ khẩu có chủ hộ tên " + selected.getHoTenChuHo());
+      // alert.setContentText("choose your option");
 
-         ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
-         ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
-         // ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+      ButtonType buttonTypeYes = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+      ButtonType buttonTypeNo = new ButtonType("No", ButtonBar.ButtonData.NO);
+      // ButtonType buttonTypeCancel = new ButtonType("Cancel",
+      // ButtonBar.ButtonData.CANCEL_CLOSE);
 
-         alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+      alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
 
-         Optional<ButtonType> result = alert.showAndWait();
+      Optional<ButtonType> result = alert.showAndWait();
 
-         if (result.get()== buttonTypeYes){
-            try {
-               hokhauList.remove(selected);
-               Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-               Statement stmt = conn.createStatement();
-               String query = "DELETE FROM dbo.ThanhVienCuaHo WHERE MaHoKhau = '" + selected.getIdHoKhau() + "'\n"
-               + "DELETE FROM HoKhau WHERE MaHoKhau = '" + selected.getIdHoKhau() + "'\n"
-               + "DELETE FROM dbo.NhanKhau WHERE MaNhanKhau = '" + selected.getMaNKChuHo() + "'";
-               stmt.executeQuery(query);
-               System.out.println(query);
-               conn.close();
-               String message = "Xóa Hộ khẩu " + selected.getHoTenChuHo() + " thành công"; 
-               Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-               alert1.setTitle("Information");
-               alert1.setHeaderText("Notification");
-               alert1.setContentText(message);
-               alert1.show();
-   
-      
-            } catch (Exception ex) {
-              ex.getStackTrace();
-            }
+      if (result.get() == buttonTypeYes) {
+         try {
+            hokhauList.remove(selected);
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                  SQLController.PASSWORD);
+            Statement stmt = conn.createStatement();
+            String query = "DELETE FROM dbo.ThanhVienCuaHo WHERE MaHoKhau = '" + selected.getIdHoKhau() + "'\n"
+                  + "DELETE FROM HoKhau WHERE MaHoKhau = '" + selected.getIdHoKhau() + "'\n"
+                  + "DELETE FROM dbo.NhanKhau WHERE MaNhanKhau = '" + selected.getMaNKChuHo() + "'";
+            stmt.executeQuery(query);
+            System.out.println(query);
+            conn.close();
+            String message = "Xóa Hộ khẩu " + selected.getHoTenChuHo() + " thành công";
+            Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1.setTitle("Information");
+            alert1.setHeaderText("Notification");
+            alert1.setContentText(message);
+            alert1.show();
 
-            
-         }      
-         else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
-            System.out.println("Code for no");
+         } catch (Exception ex) {
+            ex.getStackTrace();
+         }
+
+      } else if (result.get().getButtonData() == ButtonBar.ButtonData.NO)
+         System.out.println("Code for no");
    }
 
    @FXML
-   protected void editEvent(ActionEvent e) throws IOException, SQLException{
+   protected void editEvent(ActionEvent e) throws IOException, SQLException {
       HoKhau selected = table.getSelectionModel().getSelectedItem();
       setSelectHoKhau(selected);
       Stage addStage = new Stage();
@@ -280,18 +278,16 @@ public class HoKhauController implements Initializable{
       controller.maNhanKhaufField.setText(selected.getMaNKChuHo());
       controller.hoTenLabel.setText(selected.getHoTen());
       controller.diaChiField.setText(selected.getDiaChiHo());
-      
+
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
-      addStage.show();  
+      addStage.show();
    }
 
-
    @FXML
-   protected void showEvent(ActionEvent e) throws IOException, SQLException{
+   protected void showEvent(ActionEvent e) throws IOException, SQLException {
       HoKhau selected = table.getSelectionModel().getSelectedItem();
-      setSelectHoKhau(selected);
       Stage addStage = new Stage();
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getResource("XemThanhVien.fxml"));
@@ -299,37 +295,12 @@ public class HoKhauController implements Initializable{
 
       System.out.println(selected.getIdHoKhau());
       XemThanhVienController controller = loader.getController();
-      controller.setMaHoKhau(selected.getIdHoKhau());
-      controller.show();
-
-      //SuaHoKhauController controller = loader.getController();
-      //controller.setHoKhauController(this);
-      //controller.setHoKhauEdit(selected);
-
-      // Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
-      // Statement stmt = conn.createStatement();
-      // String query = "SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep"
-      // + " FROM dbo.NhanKhau AS NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau WHERE TV.MaHoKhau = '"
-      // + selected.getIdHoKhau() + "' AND TV.QuanHeVoiCH = N'Chủ hộ'";
-      // System.out.println(query);
-      // ResultSet rs = stmt.executeQuery(query);
-      // while(rs.next()){
-      //    this.setMaNKChuHo(rs.getString(1));
-      //    controller.hoTenField.setText(rs.getNString(2));
-      //    controller.cMNField.setText(rs.getString(3));
-      //    controller.ngaySinhDatePicker.setValue(rs.getDate(4).toLocalDate());
-      //    controller.gioiTinBox.setValue(rs.getNString(5));
-      //    controller.queQuanField.setText(rs.getNString(6));
-      //    controller.thuongTruField.setText(rs.getNString(7));
-      //    controller.danTocBox.setValue(rs.getNString(8));
-      //    controller.ngheNghiepField.setText(rs.getNString(9));
-      // }
-      // conn.close();
+      controller.maHoKhauLabel.setText(selected.getIdHoKhau());
+      controller.diaChiLabel.setText(selected.getDiaChiHo());
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
       addStage.setScene(scene);
-      addStage.show();  
+      addStage.show();
    }
-
 
 }

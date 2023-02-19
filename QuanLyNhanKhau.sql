@@ -1,4 +1,5 @@
-
+CREATE DATABASE QLDC
+GO
 
 --tạo các bảng
 
@@ -107,7 +108,7 @@ VALUES
 ('NK.00001', N'Võ Hoài Nam',N'VhNam', '0000000001', '2002-04-20', N'Nam', N'Kỳ Thư - Kỳ Anh - Hà Tĩnh', N'Số 2 Tạ Quang Bửu- Hai Bà Trưng- Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Bách Khoa Hà Nội'),
 ('NK.00002', N'Nguyễn Thị Hồng',N'Hồng', '0000000002', '1995-08-12', N'Nữ', N'Phú Vang - Thừa Thiên Huế', N'Trần Phú - Hà Đông - Hà Nội',N'Kinh', N'Nhân viên kinh doanh', N'CTY TNHH ABC'),
 ('NK.00003', N'Trần Văn Tân',N'Tân', '0000000003', '1980-05-10', N'Nam', N'Thạch Trị - Bố Trạch - Quảng Bình', N'Trung Tự - Đống Đa - Hà Nội',N'Kinh', N'Giáo viên', N'Trường THCS Tự Lập'),
-('NK.00004', N'Đặng Văn Tùng',N'Tùng', '0000000004', '1975-09-01', N'Nam', N'Phú Yên - Sơn Tây - Quảng Bình', N'Phương Liệt - Thanh Xuân - Hà Nội',N'Kinh', N'Tài xế', N'Công ty Vận tải XYZ'),
+('NK.00004', N'Đặng Văn Tùng',N'Tùng', '0000000004', '1945-09-01', N'Nam', N'Phú Yên - Sơn Tây - Quảng Bình', N'Phương Liệt - Thanh Xuân - Hà Nội',N'Kinh', N'Tài xế', N'Công ty Vận tải XYZ'),
 ('NK.00005', N'Nguyễn Thị Ngọc',N'Ngọc', '0000000005', '1988-02-14', N'Nữ', N'Hương Xuân - Hương Trà - Thừa Thiên Huế', N'Khuất Duy Tiến - Thanh Xuân - Hà Nội',N'Kinh', N'Kế toán', N'Công ty TNHH Kế toán ABC'),
 ('NK.00006', N'Trần Văn An',N'An', '0000000006', '2004-11-18', N'Nam', N'Thái Phúc - Đông Hà - Quảng Trị', N'Lê Trọng Tấn - Thanh Xuân - Hà Nội',N'Kinh', N'Học sinh', N'Trường THPT Chuyên Hà Nội'),
 ('NK.00007', N'Lê Thị Hoa',N'Hoa', '0000000007', '1999-03-22', N'Nữ', N'Lý Thái Tổ - Hoàn Kiếm - Hà Nội', N'Trần Duy Hưng - Cầu Giấy - Hà Nội',N'Kinh', N'Sinh viên', N'Đại học Ngoại Thương'),
@@ -160,16 +161,16 @@ INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc
 
 INSERT INTO dbo.TamTru(ID,MaNhanKhau,NoiTamTru,TuNgay,DenNgay,LyDo)
 VALUES
-('TT.00001', 'NK.00001',N'Số 2 Tạ Quang Bửu- Hai Bà Trưng- Hà Nội','2020-10-8','2021-10-8', NULL),
-('TT.00002', 'NK.00002',N'Số 3 Định Công- Tây Hồ- Hà Nội','2021-1-10','2022-1-10', N'Đi du học'),
-('TT.00003', 'NK.00003',N'Số 4 Hàng Bạc- Hoàn Kiếm- Hà Nội','2021-5-15','2022-5-15', N'Công tác'),
-('TT.00004', 'NK.00004',N'Số 5 Lê Văn Hưu- Cầu Giấy- Hà Nội','2021-3-20','2021-9-20', N'Khám chữa bệnh'),
+('TT.00001', 'NK.00001',N'Số 2 Tạ Quang Bửu- Hai Bà Trưng- Hà Nội','2022-10-8','2022-11-8', NULL),
+('TT.00002', 'NK.00002',N'Số 3 Định Công- Tây Hồ- Hà Nội','2022-1-10','2023-1-10', N'Đi du học'),
+('TT.00003', 'NK.00003',N'Số 4 Hàng Bạc- Hoàn Kiếm- Hà Nội','2022-5-15','2022-9-15', N'Công tác'),
+('TT.00004', 'NK.00004',N'Số 5 Lê Văn Hưu- Cầu Giấy- Hà Nội','2021-3-20','2022-9-20', N'Khám chữa bệnh'),
 ('TT.00005', 'NK.00005',N'Số 6 Trần Đại Nghĩa- Hoàng Mai- Hà Nội','2021-7-25','2022-7-25', N'Học tập');
 
 
 INSERT INTO dbo.TamVang(ID,MaNhanKhau,NoiTamTru,TuNgay,DenNgay,LyDo)
 VALUES
-('TV.00001', 'NK.00001',N'Kỳ Thư - Kỳ Anh - Hà Tĩnh','2020-10-8','2021-10-8', NULL),
+('TV.00001', 'NK.00001',N'Kỳ Thư - Kỳ Anh - Hà Tĩnh','2021-10-8','2022-10-8', NULL),
 ('TV.00002', 'NK.00002',N'Nguyễn Trãi- Hai Bà Trưng- Hà Nội','2021-12-5','2022-2-8', N'Công tác'),
 ('TV.00003', 'NK.00002',N'Nguyễn Trãi- Hai Bà Trưng- Hà Nội','2022-5-20','2022-10-30', N'Du lịch'),
 ('TV.00004', 'NK.00003',N'Kỳ Thư - Kỳ Anh - Hà Tĩnh','2021-8-15','2021-10-10', N'Học tập'),
@@ -186,10 +187,10 @@ VALUES
 ('PA.00001','NK.00001',N'Phản ánh về an toàn giao thông ở đường TQB',GETDATE(),N'Chưa phản hồi',NULL,NULL, NULL),
 ('PA.00002','NK.00002',N'Kiến nghị về việc xây dựng công viên',GETDATE(),N'Đã phản hồi',NULL, NULL, NULL),
 ('PA.00003','NK.00003',N'Phản ánh về chất lượng dịch vụ của công ty điện nước',GETDATE(),N'Chưa phản hồi',NULL,NULL, NULL),
-('PA.00004','NK.00004',N'Kiến nghị về việc xây dựng sân chơi cho trẻ em',GETDATE(),N'Đang xử lý',NULL,NULL,NULL),
+('PA.00004','NK.00004',N'Kiến nghị về việc xây dựng sân chơi cho trẻ em',GETDATE(),N'Chưa phản hồi',NULL,NULL,NULL),
 ('PA.00005','NK.00005',N'Phản ánh về tình trạng bẩn chất lộ rộng',GETDATE(),N'Đã phản hồi',NULL,NULL,NULL),
 ('PA.00006','NK.00006',N'Kiến nghị về việc tổ chức sự kiện văn hóa',GETDATE(),N'Chưa phản hồi',NULL,NULL,NULL),
-('PA.00007','NK.00007',N'Phản ánh về tình trạng môi trường',GETDATE(),N'Đang xử lý',NULL,NULL,NULL);
+('PA.00007','NK.00007',N'Phản ánh về tình trạng môi trường',GETDATE(),N'Chưa phản hồi',NULL,NULL,NULL);
 
 
 INSERT INTO dbo.TaiKhoan
@@ -201,136 +202,3 @@ VALUES
 
 
 
-
-
-
-
-
-SET NOCOUNT ON
-DELETE FROM dbo.NhanKhau
-WHERE CCCD = '0000000000'
-
-SELECT COUNT(*) FROM   dbo.HoKhau WHERE MaNKChuHo = ''
-
-
-DELETE FROM dbo.ThanhVienCuaHo WHERE MaNhanKhau = ''
-DELETE FROM dbo.PhanAnhKienNghi WHERE CCCD = '0000000000'
-DELETE FROM dbo.TamTru WHERE CCCD = '0000000000'
-DELETE FROM dbo.TamVang WHERE CCCD = '0000000000'
-DELETE FROM dbo.NhanKhau WHERE CCCD = '0000000000'
-
-SELECT MaNhanKhau, HoTen, BiDanh, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep, NoiLamViec
-FROM dbo.NhanKhau
-
-SELECT MaHoKhau
-FROM dbo.HoKhau WHERE MaNKChuHo= ''
-
-
-SELECT NK.HoTen, TV.QuanHeVoiCH
-FROM dbo.NhanKhau AS  NK
-INNER JOIN dbo.ThanhVienCuaHo AS TV ON   TV.MaNhanKhau = NK.MaNhanKhau
-WHERE TV.MaHoKhau = ''
-
-
-SELECT COUNT(*)
-FROM dbo.ThanhVienCuaHo
-WHERE IDHoKhau = ''
-
-
-
-UPDATE dbo.NhanKhau
-SET HoTen = N'', CCCD = '', NgaySinh = '', GioiTinh = N'', QueQuan = N'', ThuongTru = N'', Dantoc = N'', NgheNghiep = ' '
-WHERE MaNhanKhau = ''
-
-UPDATE dbo.ThanhVienCuaHo SET	 NgayChuyenDi = '', NoiChuyenToi = N'', GhiChu = N' ' WHERE MaHoKhau = ' '
-
-SELECT MaHoKhau
-FROM dbo.ThanhVienCuaHo
-WHERE MaNhanKhau = ''
-
-SELECT NK.HoTen, TV.QuanHeVoiCH, TV.GhiChu FROM dbo.NhanKhau AS  NK INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = ''
-
-
-
-SELECT TOP 1 MaNhanKhau
-FROM dbo.NhanKhau
-ORDER BY MaNhanKhau DESC
-
-SELECT *
-FROM dbo.ThanhVienCuaHo
-WHERE MaHoKhau = 'HK.00001'
-
-DELETE FROM dbo.ThanhVienCuaHo
-WHERE MaNhanKhau = 'NK.00021'
-
-DELETE FROM dbo.NhanKhau
-WHERE MaNhanKhau = 'NK.00021'
-
-
-SELECT TOP 1 MaHoKhau FROM dbo.HoKhau ORDER BY MaHoKhau DESC
-
-
-DELETE FROM dbo.ThanhVienCuaHo
-WHERE MaHoKhau = 'HK.00007'
-
-DELETE FROM dbo.HoKhau
-WHERE MaHoKhau = 'HK.00007'
-
-
-SELECT NK.MaNhanKhau, NK.HoTen, NK.CCCD, NK.NgaySinh, NK.GioiTinh, NK.QueQuan, NK.ThuongTru, NK.Dantoc, NK.NgheNghiep FROM dbo.NhanKhau AS NK
-INNER JOIN dbo.ThanhVienCuaHo AS TV ON TV.MaNhanKhau = NK.MaNhanKhau
-WHERE TV.MaHoKhau = 'HK.00006' AND TV.QuanHeVoiCH = N'Chủ hộ'
-
-
-UPDATE dbo.HoKhau
-SET	Diachi = N''
-WHERE MaNKChuHo = ' '
-
-SELECT *
-FROM dbo.HoKhau
-
-SELECT *
-FROM dbo.ThanhVienCuaHo
-
-
-SELECT *
-FROM dbo.NhanKhau
-
-
-
-INSERT INTO dbo.TamTru(ID,MaNhanKhau,NoiTamTru,TuNgay,DenNgay,LyDo) VALUES ('', '',N'','','',)
-
-
-SELECT HoTen FROM NhanKhau
-WHERE MaNhanKhau = 'NK.00001'
-
-
-SELECT * FROM dbo.TamTru ORDER BY ID
-
-
-UPDATE dbo.TamTru
-SET NoiTamTru = N'', TuNgay = '', DenNgay = ''
-WHERE ID = ''
-
-
-DELETE dbo.PhanAnhKienNghi
-WHERE MaPA = ''
-
-SELECT TOP 1 MaPA
-FROM dbo.PhanAnhKienNghi
-ORDER BY MaPA DESC
-
-SELECT * FROM dbo.PhanAnhKienNghi
-
-UPDATE dbo.PhanAnhKienNghi
-SET CapPhanHoi = N'', NgayPhanHoi = ' ', PhanHoi = N' ', TrangThai = N''
-WHERE MaPA = ' '
-
-SELECT *
-FROM dbo.ThanhVienCuaHo
-
-
-
-
-
-UPDATE dbo.ThanhVienCuaHo SET MaHoKhau   = 'HK.00001', QuanHeVoiCH = N'Con ??', MaTrongHoKhau = (SELECT COUNT(*) FROM dbo.ThanhVienCuaHo WHERE MaHoKhau = 'HK.00001') + 1 WHERE MaNhanKhau = 'NK.00020'

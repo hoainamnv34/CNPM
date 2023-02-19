@@ -36,6 +36,7 @@
                   <Button fx:id="editButton" contentDisplay="CENTER" mnemonicParsing="false" onAction="#editEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Sửa" textAlignment="CENTER" textFill="#454029" />
                   <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" textAlignment="CENTER" />
                   <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefWidth="150.0" styleClass="btn2" text="Thêm" textAlignment="CENTER" />
+                  <Button fx:id="statisticalButton" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#statisticalevent" prefWidth="150.0" styleClass="btn2" text="Thống kê" textAlignment="CENTER" />
                </children>
             </HBox>
          </children>

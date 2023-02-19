@@ -1,6 +1,5 @@
 package Controller;
 
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,14 +22,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-
-
 /*
  * @author Vo Hoai Nam 4592
  * @version 1.0 11/2/2023
  * Class 136813, Teacher's name Trung.TT
  */
-public class ThemHoKhauController implements Initializable  {
+public class ThemHoKhauController implements Initializable {
 
     @FXML
     TextField hoTenField;
@@ -51,7 +48,7 @@ public class ThemHoKhauController implements Initializable  {
     ChoiceBox gioiTinBox;
 
     @FXML
-    ChoiceBox danTocBox; 
+    ChoiceBox danTocBox;
 
     @FXML
     TextField ngheNghiepField;
@@ -62,36 +59,34 @@ public class ThemHoKhauController implements Initializable  {
     @FXML
     Button saveButton;
 
-
     private HoKhau newHoKhau;
     private HoKhauController hoKhauController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ngaySinhDatePicker.setValue(LocalDate.now());
 
-        BooleanBinding ismaHoKhauFieldEmpty =thuongTruField.textProperty().isEmpty();
-        BooleanBinding ishohoTenFieldEmpty =hoTenField.textProperty().isEmpty();
+        BooleanBinding ismaHoKhauFieldEmpty = thuongTruField.textProperty().isEmpty();
+        BooleanBinding ishohoTenFieldEmpty = hoTenField.textProperty().isEmpty();
         BooleanBinding iscMNFieldEmpty = cMNField.textProperty().isEmpty();
         BooleanBinding areTextFieldsEmpty = ismaHoKhauFieldEmpty.or(ishohoTenFieldEmpty).or(iscMNFieldEmpty);
 
         saveButton.disableProperty().bind(areTextFieldsEmpty);
     }
 
-
     public HoKhauController getHoKhauController() {
         return hoKhauController;
     }
-
 
     public void setHoKhauController(HoKhauController hoKhauController) {
         this.hoKhauController = hoKhauController;
     }
 
-
     @FXML
     protected void Submit(ActionEvent e) {
         try {
-            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+            Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME,
+                    SQLController.PASSWORD);
             Statement stmt = conn.createStatement();
             String query = "SELECT TOP 1 MaHoKhau FROM dbo.HoKhau ORDER BY MaHoKhau DESC";
             ResultSet rs = stmt.executeQuery(query);
@@ -103,7 +98,6 @@ public class ThemHoKhauController implements Initializable  {
             int number = Integer.parseInt(input.substring(dotIndex + 1).trim()) + 1;
             String maHoKhau = (prefix + String.format("%05d", number)).trim();
             System.out.println("ma nhan khau" + maHoKhau);
-
 
             stmt = conn.createStatement();
             query = "SELECT TOP 1 MaNhanKhau FROM dbo.NhanKhau ORDER BY MaNhanKhau DESC";
@@ -117,21 +111,22 @@ public class ThemHoKhauController implements Initializable  {
             String maNhanKhau = (prefix + String.format("%05d", number)).trim();
             System.out.println("ma nhan khau" + maNhanKhau);
 
-
             query = "INSERT INTO dbo.NhanKhau (MaNhanKhau, HoTen, CCCD, NgaySinh, GioiTinh, QueQuan, ThuongTru, Dantoc, NgheNghiep) VALUES ( '"
-            + maNhanKhau + "', N'" + hoTenField.getText() +"', '" + cMNField.getText()  + "', '" + ngaySinhDatePicker.getValue().toString() + "', N'"
-            + gioiTinBox.getValue().toString() +  "', N'" + queQuanField.getText() + "', N'" +  thuongTruField.getText() + "',N'"
-            +  danTocBox.getValue().toString() + "', N'" + ngheNghiepField.getText() +   "')";
+                    + maNhanKhau + "', N'" + hoTenField.getText() + "', '" + cMNField.getText() + "', '"
+                    + ngaySinhDatePicker.getValue().toString() + "', N'"
+                    + gioiTinBox.getValue().toString() + "', N'" + queQuanField.getText() + "', N'"
+                    + thuongTruField.getText() + "',N'"
+                    + danTocBox.getValue().toString() + "', N'" + ngheNghiepField.getText() + "')";
             stmt.execute(query);
-
 
             query = "INSERT INTO dbo.HoKhau (MaHoKhau, MaNKChuHo,Diachi) VALUES('"
-            + maHoKhau + "','" + maNhanKhau + "', N'" + diaChiHoField.getText() + "')";
+                    + maHoKhau + "','" + maNhanKhau + "', N'" + diaChiHoField.getText() + "')";
             stmt.execute(query);
-            newHoKhau = new HoKhau(maHoKhau, hoTenField.getText(), maNhanKhau, cMNField.getText(), thuongTruField.getText());
-        
+            newHoKhau = new HoKhau(maHoKhau, hoTenField.getText(), maNhanKhau, cMNField.getText(),
+                    thuongTruField.getText());
+
             query = "INSERT INTO dbo.ThanhVienCuaHo(MaNhanKhau,MaHoKhau,QuanHeVoiCH,NoiThuongTruTruoc, MaTrongHoKhau)VALUES ('"
-            +  maNhanKhau + "', '" + maHoKhau + "',  N'Chủ hộ',N'" + "" + "'," + String.valueOf(1) + ")";
+                    + maNhanKhau + "', '" + maHoKhau + "',  N'Chủ hộ',N'" + "" + "'," + String.valueOf(1) + ")";
             stmt.execute(query);
 
             hoKhauController.addList(newHoKhau);
@@ -139,17 +134,15 @@ public class ThemHoKhauController implements Initializable  {
             Alert infoAlert = new Alert(AlertType.INFORMATION);
             infoAlert.setHeaderText("Tạo Nhân Khẩu Thành Công");
             infoAlert.setContentText("Bạn đã tạo thành công một Hộ Khẩu có mã " + maHoKhau);
-        
+
             infoAlert.showAndWait();
-          
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        
-        Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    
-    
 }
