@@ -7,7 +7,7 @@ import java.time.LocalDate;
  * @version 1.0 11/2/2023
  * Class 136813, Teacher's name Trung.TT
  */
-public class ThanhVienCuaHo {
+public class ThanhVienCuaHo extends NhanKhau {
     private String idNhanKhau;
     private String hoTen;
     private String idHoKhau;

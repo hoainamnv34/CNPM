@@ -22,7 +22,10 @@ public class NhanKhau {
    private String noiLamViec;
  
 
-   
+   public NhanKhau(){
+      
+   }
+
    public NhanKhau(String maNhanKhau, String hoTen, String biDanh, String cccd, LocalDate ngaySinh, String gioiTinh,
          String queQuan, String thuongTru, String danToc, String ngheNghiep, String noiLamViec) {
       this.maNhanKhau = maNhanKhau;
