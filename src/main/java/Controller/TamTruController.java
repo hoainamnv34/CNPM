@@ -30,6 +30,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -58,6 +59,10 @@ public class TamTruController implements Initializable {
 
    @FXML
    private TableColumn<TamTru, String> lyDo;
+
+   @FXML
+   private TextField searchField;
+
 
    @FXML
    private Button editButton;
@@ -104,6 +109,36 @@ public class TamTruController implements Initializable {
       BooleanBinding isSelected = table.getSelectionModel().selectedItemProperty().isNull();
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
+
+      searchField.textProperty().addListener((observable, oldValue, newValue)-> {
+         if(searchField.getText().isEmpty()) {
+              table.setItems(tamTruList);
+         }else {
+              String searchInfo = searchField.getText();
+              List<TamTru> searchResult = new ArrayList<TamTru>();
+              try {
+                  Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+                  Statement stmt = conn.createStatement();
+                  String query = "SELECT ID, HoTen, NoiTamTru, TuNgay, DenNgay, LyDo FROM dbo.TamTru INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = TamTru.MaNhanKhau"
+                  + " WHERE ID LIKE '%" + searchInfo + "%' OR HoTen LIKE N'%" + searchInfo + "%'";
+                  System.out.println(query);
+                  ResultSet rs = stmt.executeQuery(query);
+                  while(rs.next()) {
+                     searchResult.add(new TamTru(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3),
+                     rs.getDate(4).toLocalDate(), rs.getDate(5).toLocalDate(), rs.getNString(6)));
+                  } 
+                  System.out.println("wtf");
+                  conn.close();
+
+                  } catch (Exception esss) {
+                     esss.printStackTrace();
+                  }
+
+                  ObservableList<TamTru> searchedTamTruList;
+                  searchedTamTruList = FXCollections.observableArrayList(searchResult);
+                  table.setItems(searchedTamTruList);
+              }
+    });
    }
 
    public void addList(TamTru tamTru) {

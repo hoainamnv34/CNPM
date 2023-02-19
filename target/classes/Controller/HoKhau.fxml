@@ -33,8 +33,8 @@
                <children>
                   <Button fx:id="editButton" alignment="CENTER" mnemonicParsing="false" onAction="#editEvent" prefWidth="150.0" styleClass="btn2" text="Sửa" textAlignment="CENTER" textFill="#454029" />
                   <Button fx:id="delButton" alignment="CENTER" mnemonicParsing="false" onAction="#deleteEvent" prefHeight="43.0" prefWidth="150.0" styleClass="btn2" text="Xóa" />
-                  <Button fx:id="addButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
                   <Button fx:id="showTVButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#showEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Xem Thành viên" />
+                  <Button fx:id="addButton" alignment="CENTER" graphicTextGap="6.0" mnemonicParsing="false" onAction="#addEvent" prefHeight="42.0" prefWidth="150.0" styleClass="btn2" text="Thêm" />
                </children>
             </HBox>
          </children>

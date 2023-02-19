@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -46,4 +47,11 @@
          </children>
       </StackPane>
    </bottom>
+   <top>
+      <HBox prefHeight="35.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="searchField" prefHeight="35.0" prefWidth="300.0" promptText="Nhập Họ tên hoặc mã Tạm trú" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

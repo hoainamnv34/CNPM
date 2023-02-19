@@ -33,6 +33,7 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -67,6 +68,8 @@ public class PhanAnhKienNghiController implements Initializable{
    @FXML
    private TableColumn<PhanAnhKienNghi, LocalDate> ngayPhanHoi;
 
+   @FXML
+   private TextField searchField;
 
    @FXML 
    private Button editButton;
@@ -136,6 +139,36 @@ public class PhanAnhKienNghiController implements Initializable{
       delButton.disableProperty().bind(isSelected);
       editButton.disableProperty().bind(isSelected);
       updButton.disableProperty().bind(isSelected);
+
+      searchField.textProperty().addListener((observable, oldValue, newValue)-> {
+         if(searchField.getText().isEmpty()) {
+              table.setItems(paknList);
+         }else {
+              String searchInfo = searchField.getText();
+              List<PhanAnhKienNghi> searchResult = new ArrayList<PhanAnhKienNghi>();
+              try {
+                  Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
+                  Statement stmt = conn.createStatement();
+                  String query = "SELECT MaPA, HoTen, NoiDung, NgayPA, TrangThai, CapPhanHoi, PhanHoi, NgayPhanHoi FROM dbo.PhanAnhKienNghi INNER JOIN dbo.NhanKhau ON NhanKhau.MaNhanKhau = PhanAnhKienNghi.MaNhanKhau"
+                  + " WHERE MaPA LIKE '%" + searchInfo + "%' OR HoTen LIKE N'%" + searchInfo + "%'";
+                  System.out.println(query);
+                  ResultSet rs = stmt.executeQuery(query);
+                  while(rs.next()) {
+                     LocalDate ngayPhanHoi = rs.getDate(8) == null ? null : rs.getDate(8).toLocalDate();
+                     searchResult.add(new PhanAnhKienNghi(rs.getString(1), new NhanKhau(rs.getNString(2)), rs.getNString(3), rs.getDate(4).toLocalDate(), rs.getNString(5), rs.getNString(6), rs.getNString(7),ngayPhanHoi ));
+                  }
+                  System.out.println("wtf");
+                  conn.close();
+
+                  } catch (Exception esss) {
+                     esss.printStackTrace();
+                  }
+
+                  ObservableList<PhanAnhKienNghi> searchedPAKNList;
+                  searchedPAKNList = FXCollections.observableArrayList(searchResult);
+                  table.setItems(searchedPAKNList);
+              }
+    });
 
    }
 
