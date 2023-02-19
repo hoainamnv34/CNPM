@@ -294,12 +294,17 @@ public class HoKhauController implements Initializable{
       setSelectHoKhau(selected);
       Stage addStage = new Stage();
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getResource("SuaHoKhau.fxml"));
+      loader.setLocation(getClass().getResource("XemThanhVien.fxml"));
       Parent root = loader.load();
 
-      SuaHoKhauController controller = loader.getController();
-      controller.setHoKhauController(this);
-      controller.setHoKhauEdit(selected);
+      System.out.println(selected.getIdHoKhau());
+      XemThanhVienController controller = loader.getController();
+      controller.setMaHoKhau(selected.getIdHoKhau());
+      controller.show();
+
+      //SuaHoKhauController controller = loader.getController();
+      //controller.setHoKhauController(this);
+      //controller.setHoKhauEdit(selected);
 
       // Connection conn = SQLController.getConnection(SQLController.DB_URL, SQLController.USER_NAME, SQLController.PASSWORD);
       // Statement stmt = conn.createStatement();
